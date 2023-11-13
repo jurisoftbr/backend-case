@@ -4,6 +4,9 @@
 
 Neste teste, vamos avaliar seus conhecimentos gerais e a rapidez no desenvolvimento. Abaixo, explicamos tudo o que você precisa saber para prosseguir. Não se preocupe se parecer desafiador à primeira vista! Não esperamos que todos completem todas as tarefas. Este teste é aplicado a candidatos de todos os níveis de experiência, então faça o melhor que puder sem pressão. O foco é criar uma API RESTful eficiente e segura para um sistema de gerenciamento de documentos jurídicos, demonstrando sua habilidade em organizar e desenvolver um software moderno e robusto.
 
+<br>
+<br>
+
 ## Instruções para Uso do GitHub
 
 ### Fork do Repositório
@@ -14,11 +17,21 @@ Neste teste, vamos avaliar seus conhecimentos gerais e a rapidez no desenvolvime
 - Após completar o desafio, certifique-se de que todo o seu código está devidamente commitado no seu fork.
 - Envie o link do seu repositório forkado para a equipe de recrutamento da Jurisoft.
 
+<br>
+<br>
+
 ## Declaração de Uso do Código
 **Importante:** O código desenvolvido para este case não será utilizado em produção pela Jurisoft. Este desafio é exclusivamente para fins de avaliação das habilidades do candidato.
 
+
+<br>
+<br>
+
 ## Objetivo
 Desenvolver uma API RESTful usando Node.js e Express.js para gerenciar documentos jurídicos, incluindo funcionalidades como criação, atualização, recuperação e exclusão de documentos, e integrar com serviços externos.
+
+<br>
+<br>
 
 ## Requisitos Específicos
 
@@ -43,6 +56,9 @@ Desenvolver uma API RESTful usando Node.js e Express.js para gerenciar documento
 
 ### Atualização de Sistemas Legados
 - Desenvolver estratégia para migração de dados de sistemas antigos.
+
+<br>
+<br>
 
 ## Funcionalidades Essenciais
 
@@ -91,6 +107,9 @@ Desenvolver uma API RESTful usando Node.js e Express.js para gerenciar documento
 - Implementação de testes automatizados para validar a funcionalidade e confiabilidade do sistema.
 - Cobertura de testes para todos os aspectos críticos da aplicação.
 
+<br>
+<br>
+
 ## Desafios de Organização e Código
 
 ### Estrutura de Código e Handlers
@@ -106,11 +125,14 @@ Desenvolver uma API RESTful usando Node.js e Express.js para gerenciar documento
 - Sugerimos abordagens como um sistema baseado em palavras-chave, exploração de PLN, ou classificação assistida. Incentivamos a criatividade na escolha da sua abordagem de classificação.
 - Documente claramente o método escolhido para classificação, incluindo as razões por trás das suas escolhas e como você vê a evolução futura do sistema.
 
-# Fluxo de Desenvolvimento
+<br>
+<br>
+
+## Fluxo de Desenvolvimento
 
 Este projeto segue um fluxo de desenvolvimento específico para garantir a eficiência e a qualidade na criação da API de Gerenciamento de Documentos Jurídicos. Abaixo está um diagrama de sequência que ilustra todas as etapas envolvidas neste processo.
 
-## Diagrama de Sequência do Processo de Desenvolvimento
+### Diagrama de Sequência do Processo de Desenvolvimento
 
 Para uma visão detalhada do fluxo de desenvolvimento, clique no link abaixo para acessar o diagrama de sequência:
 
