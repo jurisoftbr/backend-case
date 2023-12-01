@@ -129,7 +129,7 @@ Este projeto segue um fluxo de desenvolvimento específico para garantir a efici
 
 Para uma visão detalhada do fluxo de desenvolvimento, clique no link abaixo para acessar o diagrama de sequência:
 
-[Visualizar Diagrama de Sequência](https://www.mermaidchart.com/raw/1f553a6a-a5f4-45cc-af8e-c30b2a7b8895?theme=light&version=v0.1&format=svg)
+[Visualizar Diagrama de Sequência](https://i.imgur.com/Rg95aWa.png)
 
 Este diagrama inclui as etapas desde o fork do repositório no GitHub até a submissão final do projeto, abrangendo o desenvolvimento de endpoints CRUD, conexão com MongoDB, implementação de autenticação e autorização, integração com APIs externas, e mais.
 
