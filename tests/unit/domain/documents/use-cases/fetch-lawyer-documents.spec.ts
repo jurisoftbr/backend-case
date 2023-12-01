@@ -1,5 +1,5 @@
 import { Document } from '@/domain/documents/entities/document';
-import { LawyerNotFound } from '@/domain/documents/errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
 import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-lawyer-documents';
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
@@ -44,7 +44,7 @@ describe('FetchLawyerDocumentsUseCase', () => {
 
       expect(
         async () => await sut.execute({ lawyerId: lawyerIdMock })
-      ).rejects.toThrowError(LawyerNotFound);
+      ).rejects.toThrowError(LawyerNotFoundError);
     });
   });
 });
