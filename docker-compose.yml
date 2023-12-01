@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  mongo:
+    build: .
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: jurisoft
+      MONGO_INITDB_ROOT_PASSWORD: jurisoft
+      MONGO_INIT_DB_DATABASE: jurisoft
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: 27017
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data/mongo:/data/mongodb
