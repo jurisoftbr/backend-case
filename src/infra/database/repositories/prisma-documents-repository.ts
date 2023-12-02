@@ -29,4 +29,16 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
 
     return prismaDocument ? DocumentsMapper.toDomain(prismaDocument) : null;
   }
+
+  async create(document: Document): Promise<void> {
+    await this.prisma.document.create({
+      data: {
+        id: document.id.value,
+        title: document.title,
+        description: document.description,
+        fileUrl: document.fileUrl,
+        lawyerId: document.lawyerId.value,
+      },
+    });
+  }
 }

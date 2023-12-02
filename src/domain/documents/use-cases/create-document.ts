@@ -3,6 +3,7 @@ import { Document } from '../entities/document';
 import { DocumentsRepository } from '../repositories/documents';
 import { LawyersRepository } from '../repositories/lawyers';
 import { LawyerNotFoundError } from '../errors/lawyer-not-found';
+import { inject, injectable } from 'tsyringe';
 
 interface CreateDocumentUseCaseRequest {
   title: string;
@@ -15,9 +16,12 @@ interface CreateDocumentUseCaseResponse {
   document: Document;
 }
 
+@injectable()
 export class CreateDocumentUseCase {
   constructor(
+    @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
+    @inject('LawyersRepository')
     private lawyersRepository: LawyersRepository
   ) {}
 
