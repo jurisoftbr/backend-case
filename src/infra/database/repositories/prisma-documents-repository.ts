@@ -41,4 +41,18 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
       },
     });
   }
+
+  async update(document: Document): Promise<void> {
+    await this.prisma.document.update({
+      where: {
+        id: document.id.value,
+      },
+      data: {
+        title: document.title,
+        description: document.description,
+        fileUrl: document.fileUrl,
+        lawyerId: document.lawyerId.value,
+      },
+    });
+  }
 }
