@@ -12,6 +12,10 @@ datasource db {
 
 model Lawyer {
   id String @id @map("_id") @db.ObjectId
+  name String
+  email String @unique
+  password String
+  role LawyerRole @default(normal)
 
   documents Document[]
 
@@ -30,4 +34,9 @@ model Document {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum LawyerRole {
+  admin
+  normal
 }
