@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { defineConfig } from 'vitest/config';
 import viteConfig from './vite.config';
 
@@ -6,5 +7,6 @@ export default defineConfig({
   test: {
     include: ['./tests/unit/**/*.spec.ts'],
     globals: true,
+    setupFiles: ['./tests/setup-unit.ts'],
   },
 });
