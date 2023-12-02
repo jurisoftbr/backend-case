@@ -21,6 +21,8 @@ describe('FetchDocumentByIdUseCase', () => {
       documentsRepositoryMock,
       lawyersRepositoryMock
     );
+
+    vi.resetAllMocks();
   });
 
   describe('execute', () => {

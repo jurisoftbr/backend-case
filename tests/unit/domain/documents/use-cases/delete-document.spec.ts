@@ -21,6 +21,8 @@ describe('DeleteDocumentUseCase', () => {
       documentsRepositoryMock,
       lawyersRepositoryMock
     );
+
+    vi.resetAllMocks();
   });
 
   describe('execute', () => {

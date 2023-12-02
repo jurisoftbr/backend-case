@@ -18,6 +18,8 @@ describe('FetchLawyerDocumentsUseCase', () => {
       documentsRepositoryMock,
       lawyersRepositoryMock
     );
+
+    vi.resetAllMocks();
   });
 
   describe('execute', () => {

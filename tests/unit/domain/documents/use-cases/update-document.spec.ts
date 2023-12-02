@@ -20,6 +20,8 @@ describe('UpdateDocumentUseCase', () => {
       documentsRepositoryMock,
       lawyersRepositoryMock
     );
+
+    vi.resetAllMocks();
   });
 
   describe('execute', () => {

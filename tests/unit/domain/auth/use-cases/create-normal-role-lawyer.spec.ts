@@ -25,6 +25,8 @@ describe('CreateNormalRoleLawyerUseCase', () => {
       passwordHasherProviderMock,
       tokenGeneratorProviderMock
     );
+
+    vi.resetAllMocks();
   });
 
   describe('execute', () => {
