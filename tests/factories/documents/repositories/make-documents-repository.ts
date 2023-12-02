@@ -6,6 +6,7 @@ export function makeDocumentsRepository() {
     findById: vi.fn(),
     create: vi.fn(),
     update: vi.fn(),
+    delete: vi.fn(),
   } as DocumentsRepository;
 
   return documentsRepositoryMock;
