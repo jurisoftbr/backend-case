@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { LawyerAlreadyExistsError } from '@/domain/auth/errors/lawyer-already-exists';
+import { LawyersMapper } from '@/core/mappers/lawyers';
 
 const createNormalRoleLawyerBodySchema = z.object({
   name: z.string(),
@@ -29,11 +30,7 @@ export class CreateNormalRoleLawyerController {
         password,
       });
 
-      const parsedLawyer = {
-        id: lawyer.id.value,
-        name: lawyer.name,
-        email: lawyer.email,
-      };
+      const parsedLawyer = LawyersMapper.toObject(lawyer);
 
       return response.status(201).json(parsedLawyer);
     } catch (error) {

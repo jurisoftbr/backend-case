@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 import { LawyersRepository } from '@/domain/auth/repositories/lawyers';
 import { PrismaService } from '../prisma-service';
-import { UniqueId } from '@/core/entities/unique-id';
 import { injectable, inject } from 'tsyringe';
 import { Lawyer } from '@/domain/auth/entities/lawyer';
+import { LawyersMapper } from '@/core/mappers/lawyers';
 
 @injectable()
 export class PrismaLawyersRepository implements LawyersRepository {
@@ -30,16 +30,6 @@ export class PrismaLawyersRepository implements LawyersRepository {
 
     if (!prismaLawyer) return null;
 
-    return Lawyer.create(
-      {
-        name: prismaLawyer.name,
-        email: prismaLawyer.email,
-        password: prismaLawyer.password,
-        role: prismaLawyer.role,
-        createdAt: prismaLawyer.createdAt,
-        updatedAt: prismaLawyer.updatedAt,
-      },
-      new UniqueId(prismaLawyer.id)
-    );
+    return LawyersMapper.toDomain(prismaLawyer);
   }
 }
