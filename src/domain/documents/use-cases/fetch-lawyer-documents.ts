@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { Document } from '../entities/document';
 import { LawyerNotFoundError } from '../errors/lawyer-not-found';
 import { DocumentsRepository } from '../repositories/documents';
-import { LawyersRepository } from '../repositories/lawyers';
+import { DocumentLawyersRepository } from '../repositories/document-lawyers';
 
 interface FetchLawyerDocumentsUseCaseRequest {
   lawyerId: string;
@@ -18,7 +18,7 @@ export class FetchLawyerDocumentsUseCase {
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
-    private lawyersRepository: LawyersRepository
+    private lawyersRepository: DocumentLawyersRepository
   ) {}
 
   async execute({

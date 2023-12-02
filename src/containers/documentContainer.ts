@@ -1,12 +1,12 @@
 import { DocumentsRepository } from '@/domain/documents/repositories/documents';
-import { LawyersRepository } from '@/domain/documents/repositories/lawyers';
+import { DocumentLawyersRepository } from '@/domain/documents/repositories/document-lawyers';
 import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-document';
 import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-document';
 import { FetchDocumentByIdUseCase } from '@/domain/documents/use-cases/fetch-document-by-id';
 import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-lawyer-documents';
 import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-document';
 import { PrismaDocumentsRepository } from '@/infra/database/repositories/prisma-documents-repository';
-import { PrismaLawyersRepository } from '@/infra/database/repositories/prisma-lawyers-repository';
+import { PrismaDocumentLawyersRepository } from '@/infra/database/repositories/prisma-document-lawyers-repository';
 import { CreateDocumentController } from '@/infra/http/controllers/create-document';
 import { DeleteDocumentController } from '@/infra/http/controllers/delete-document';
 import { FetchDocumentByIdController } from '@/infra/http/controllers/fetch-document-by-id';
@@ -19,9 +19,9 @@ container.registerSingleton<DocumentsRepository>(
   'DocumentsRepository',
   PrismaDocumentsRepository
 );
-container.registerSingleton<LawyersRepository>(
+container.registerSingleton<DocumentLawyersRepository>(
   'DocumentLawyersRepository',
-  PrismaLawyersRepository
+  PrismaDocumentLawyersRepository
 );
 
 // Use cases

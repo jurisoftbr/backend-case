@@ -5,7 +5,7 @@ import { DocumentNotFoundError } from '../errors/document-not-found';
 import { DocumentOwnerError } from '../errors/document-owner';
 import { LawyerNotFoundError } from '../errors/lawyer-not-found';
 import { DocumentsRepository } from '../repositories/documents';
-import { LawyersRepository } from '../repositories/lawyers';
+import { DocumentLawyersRepository } from '../repositories/document-lawyers';
 
 interface FetchDocumentByIdUseCaseRequest {
   lawyerId: string;
@@ -22,7 +22,7 @@ export class FetchDocumentByIdUseCase {
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
-    private lawyersRepository: LawyersRepository
+    private lawyersRepository: DocumentLawyersRepository
   ) {}
 
   async execute({
