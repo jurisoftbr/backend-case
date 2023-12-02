@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import { FetchDocumentByIdController } from './http/controllers/fetch-document-by-id';
 import { CreateDocumentController } from './http/controllers/create-document';
 import { UpdateDocumentController } from './http/controllers/update-document';
+import { DeleteDocumentController } from './http/controllers/delete-document';
 
 export const routes = express.Router();
 
@@ -15,6 +16,7 @@ const fetchDocumentByIdController = container.resolve(
 );
 const createDocumentController = container.resolve(CreateDocumentController);
 const updateDocumentController = container.resolve(UpdateDocumentController);
+const deleteDocumentController = container.resolve(DeleteDocumentController);
 
 routes.get('/lawyers/:lawyerId/documents', (request, response) =>
   fetchLawyerDocumentsController.handle(request, response)
@@ -27,4 +29,7 @@ routes.post('/lawyers/:lawyerId/documents', (request, response) =>
 );
 routes.put('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
   updateDocumentController.handle(request, response)
+);
+routes.delete('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
+  deleteDocumentController.handle(request, response)
 );

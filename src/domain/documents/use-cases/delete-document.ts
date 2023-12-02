@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { Document } from '../entities/document';
 import { Lawyer } from '../entities/lawyer';
 import { DocumentNotFoundError } from '../errors/document-not-found';
@@ -11,9 +12,12 @@ interface DeleteDocumentUseCaseRequest {
   documentId: string;
 }
 
+@injectable()
 export class DeleteDocumentUseCase {
   constructor(
+    @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
+    @inject('LawyersRepository')
     private lawyersRepository: LawyersRepository
   ) {}
 
