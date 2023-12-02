@@ -1,5 +1,5 @@
-import './documentContainer';
-import './authContainer';
+import './documents';
+import './auth';
 import { PrismaService } from '@/infra/database/prisma-service';
 import { container } from 'tsyringe';
 import { EnvService } from '@/infra/env/env-service';
