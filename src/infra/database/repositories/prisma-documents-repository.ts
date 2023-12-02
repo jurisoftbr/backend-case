@@ -2,9 +2,11 @@ import { PrismaService } from '@/infra/database/prisma-service';
 import { DocumentsRepository } from '../../../domain/documents/repositories/documents';
 import { Document } from '../../../domain/documents/entities/document';
 import { DocumentsMapper } from '../../../core/mappers/documents';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class PrismaDocumentsRepository implements DocumentsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(@inject('PrismaService') private prisma: PrismaService) {}
 
   async findByLawyerId(lawyerId: string): Promise<Document[]> {
     const prismaDocuments = await this.prisma.document.findMany({

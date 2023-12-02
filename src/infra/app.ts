@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+import '../containers';
 import express from 'express';
 import { AddressInfo } from 'net';
 import { envSchema } from './env/schema';

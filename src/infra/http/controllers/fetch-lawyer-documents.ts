@@ -2,14 +2,17 @@ import { DocumentsMapper } from '@/core/mappers/documents';
 import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
 import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-lawyer-documents';
 import { Request, Response } from 'express';
+import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
 
 const fetchLawyerDocumentsParamsSchema = z.object({
   lawyerId: z.string(),
 });
 
+@injectable()
 export class FetchLawyerDocumentsController {
   constructor(
+    @inject('FetchLawyerDocumentsUseCase')
     private fetchLawyerDocumentsUseCase: FetchLawyerDocumentsUseCase
   ) {}
 
