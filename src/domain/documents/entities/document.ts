@@ -6,7 +6,7 @@ export interface DocumentProps {
   description: string;
   fileUrl: string;
   lawyerId: UniqueId;
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
 }
 
