@@ -1,7 +1,7 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueId } from '@/core/entities/unique-id';
 
-type LawyerRole = 'admin' | 'normal';
+export type LawyerRole = 'admin' | 'normal';
 
 export interface LawyerProps {
   name: string;

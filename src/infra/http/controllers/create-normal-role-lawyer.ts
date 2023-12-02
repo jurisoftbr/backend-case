@@ -24,20 +24,22 @@ export class CreateNormalRoleLawyerController {
     );
 
     try {
-      const { lawyer } = await this.createNormalRoleLawyerUseCase.execute({
-        name,
-        email,
-        password,
-      });
+      const { lawyer, token } =
+        await this.createNormalRoleLawyerUseCase.execute({
+          name,
+          email,
+          password,
+        });
 
       const parsedLawyer = LawyersMapper.toObject(lawyer);
 
-      return response.status(201).json(parsedLawyer);
+      return response.status(201).json({ lawyer: parsedLawyer, token });
     } catch (error) {
       if (error instanceof LawyerAlreadyExistsError) {
         return response.status(401).json({ message: error.message });
       }
 
+      console.error(error);
       return response.status(500).json({ message: 'Internal error' });
     }
   }

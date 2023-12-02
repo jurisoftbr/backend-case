@@ -1,6 +1,7 @@
 import { Lawyer } from '@/domain/auth/entities/lawyer';
 import { LawyerAlreadyExistsError } from '@/domain/auth/errors/lawyer-already-exists';
 import { PasswordHasherProvider } from '@/domain/auth/providers/password-hasher';
+import { TokenGeneratorProvider } from '@/domain/auth/providers/token-generator';
 import { CreateNormalRoleLawyerUseCase } from '@/domain/auth/use-cases/create-normal-role-lawyer';
 import { makeLawyer } from 'tests/factories/auth/entities/make-lawyer';
 import { makeLawyersRepository } from 'tests/factories/auth/repositories/make-lawyers-repository';
@@ -14,11 +15,15 @@ describe('CreateNormalRoleLawyerUseCase', () => {
   const passwordHasherProviderMock = {
     execute: vi.fn(),
   } as PasswordHasherProvider;
+  const tokenGeneratorProviderMock = {
+    execute: vi.fn(),
+  } as TokenGeneratorProvider;
 
   beforeEach(() => {
     sut = new CreateNormalRoleLawyerUseCase(
       lawyersRepositoryMock,
-      passwordHasherProviderMock
+      passwordHasherProviderMock,
+      tokenGeneratorProviderMock
     );
   });
 
@@ -68,6 +73,20 @@ describe('CreateNormalRoleLawyerUseCase', () => {
       expect(result.lawyer.password).toBe('password hash');
     });
 
-    // it('should return the token');
+    it('should return the token', async () => {
+      (tokenGeneratorProviderMock.execute as Mock).mockReturnValueOnce('token');
+
+      const result = await sut.execute({
+        name: lawyerMock.name,
+        email: lawyerMock.name,
+        password: lawyerMock.password,
+      });
+
+      expect(tokenGeneratorProviderMock.execute).toHaveBeenCalledWith(
+        result.lawyer.id.value,
+        result.lawyer.role
+      );
+      expect(result.token).toBe('token');
+    });
   });
 });

@@ -3,6 +3,7 @@ import { Lawyer } from '../entities/lawyer';
 import { LawyerAlreadyExistsError } from '../errors/lawyer-already-exists';
 import { inject, injectable } from 'tsyringe';
 import { PasswordHasherProvider } from '../providers/password-hasher';
+import { TokenGeneratorProvider } from '../providers/token-generator';
 
 interface CreateNormalRoleLawyerUseCaseRequest {
   name: string;
@@ -12,6 +13,7 @@ interface CreateNormalRoleLawyerUseCaseRequest {
 
 interface CreateNormalRoleLawyerUseCaseResponse {
   lawyer: Lawyer;
+  token;
 }
 
 @injectable()
@@ -19,7 +21,9 @@ export class CreateNormalRoleLawyerUseCase {
   constructor(
     @inject('LawyersRepository') private lawyersRepository: LawyersRepository,
     @inject('PasswordHasherProvider')
-    private passwordHasherProvider: PasswordHasherProvider
+    private passwordHasherProvider: PasswordHasherProvider,
+    @inject('TokenGeneratorProvider')
+    private tokenGeneratorProvider: TokenGeneratorProvider
   ) {}
 
   async execute({
@@ -42,6 +46,11 @@ export class CreateNormalRoleLawyerUseCase {
 
     await this.lawyersRepository.create(lawyer);
 
-    return { lawyer };
+    const token = await this.tokenGeneratorProvider.execute(
+      lawyer.id.value,
+      lawyer.role
+    );
+
+    return { lawyer, token };
   }
 }
