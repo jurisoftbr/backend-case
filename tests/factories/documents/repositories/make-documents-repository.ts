@@ -5,6 +5,7 @@ export function makeDocumentsRepository() {
     findByLawyerId: vi.fn(),
     findById: vi.fn(),
     create: vi.fn(),
+    update: vi.fn(),
   } as DocumentsRepository;
 
   return documentsRepositoryMock;
