@@ -1,4 +1,4 @@
-import { LawyersRepository } from '../repositories/lawyers';
+import { AuthLawyersRepository } from '../repositories/auth-lawyers';
 import { Lawyer } from '../entities/lawyer';
 import { LawyerAlreadyExistsError } from '../errors/lawyer-already-exists';
 import { inject, injectable } from 'tsyringe';
@@ -19,7 +19,8 @@ interface CreateNormalRoleLawyerUseCaseResponse {
 @injectable()
 export class CreateNormalRoleLawyerUseCase {
   constructor(
-    @inject('LawyersRepository') private lawyersRepository: LawyersRepository,
+    @inject('AuthLawyersRepository')
+    private lawyersRepository: AuthLawyersRepository,
     @inject('PasswordHasherProvider')
     private passwordHasherProvider: PasswordHasherProvider,
     @inject('TokenGeneratorProvider')

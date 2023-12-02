@@ -1,10 +1,10 @@
-import { LawyersRepository } from '@/domain/auth/repositories/lawyers';
+import { AuthLawyersRepository } from '@/domain/auth/repositories/auth-lawyers';
 
 export function makeLawyersRepository() {
   const LawyersRepositoryMock = {
     create: vi.fn(),
     findByEmail: vi.fn(),
-  } as LawyersRepository;
+  } as AuthLawyersRepository;
 
   return LawyersRepositoryMock;
 }

@@ -2,7 +2,7 @@ import { Lawyer } from '../entities/lawyer';
 import { BadCredentialsError } from '../errors/bad-credentials';
 import { PasswordComparatorProvider } from '../providers/password-comparator';
 import { TokenGeneratorProvider } from '../providers/token-generator';
-import { LawyersRepository } from '../repositories/lawyers';
+import { AuthLawyersRepository } from '../repositories/auth-lawyers';
 import { injectable, inject } from 'tsyringe';
 
 interface LoginLawyerUseCaseRequest {
@@ -18,8 +18,8 @@ interface LoginLawyerUseCaseResponse {
 @injectable()
 export class LoginLawyerUseCase {
   constructor(
-    @inject('LawyersRepository')
-    private lawyersRepository: LawyersRepository,
+    @inject('AuthLawyersRepository')
+    private lawyersRepository: AuthLawyersRepository,
     @inject('PasswordComparatorProvider')
     private passwordComparatorProvider: PasswordComparatorProvider,
     @inject('TokenGeneratorProvider')

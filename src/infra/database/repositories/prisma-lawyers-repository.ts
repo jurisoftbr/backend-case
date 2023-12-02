@@ -1,12 +1,12 @@
 /* eslint-disable indent */
-import { LawyersRepository } from '@/domain/auth/repositories/lawyers';
+import { AuthLawyersRepository } from '@/domain/auth/repositories/auth-lawyers';
 import { PrismaService } from '../prisma-service';
 import { injectable, inject } from 'tsyringe';
 import { Lawyer } from '@/domain/auth/entities/lawyer';
 import { LawyersMapper } from '@/core/mappers/lawyers';
 
 @injectable()
-export class PrismaLawyersRepository implements LawyersRepository {
+export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
   constructor(@inject('PrismaService') private prisma: PrismaService) {}
 
   async create(lawyer: Lawyer): Promise<void> {
