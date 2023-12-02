@@ -1,7 +1,7 @@
 import { DocumentsMapper } from '@/core/mappers/documents';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
 import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-lawyer-documents';
 import { Request, Response } from 'express';
+import { NextFunction } from 'express-serve-static-core';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
 
@@ -16,10 +16,12 @@ export class FetchLawyerDocumentsController {
     private fetchLawyerDocumentsUseCase: FetchLawyerDocumentsUseCase
   ) {}
 
-  async handle(request: Request, response: Response) {
-    const { lawyerId } = fetchLawyerDocumentsParamsSchema.parse(request.params);
-
+  async handle(request: Request, response: Response, next: NextFunction) {
     try {
+      const { lawyerId } = fetchLawyerDocumentsParamsSchema.parse(
+        request.params
+      );
+
       const { documents } = await this.fetchLawyerDocumentsUseCase.execute({
         lawyerId,
       });
@@ -30,11 +32,7 @@ export class FetchLawyerDocumentsController {
 
       return response.json(parsedDocuments);
     } catch (error) {
-      if (error instanceof LawyerNotFoundError) {
-        return response.status(404).json({ message: error.message });
-      }
-
-      return response.status(500).json({ message: 'Internal error' });
+      next(error);
     }
   }
 }

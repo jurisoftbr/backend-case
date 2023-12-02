@@ -1,8 +1,6 @@
-import { DocumentNotFoundError } from '@/domain/documents/errors/document-not-found';
-import { DocumentOwnerError } from '@/domain/documents/errors/document-owner';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
+import { HTTP_STATUS } from '@/core/utils/http-status';
 import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-document';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
 
@@ -18,31 +16,20 @@ export class DeleteDocumentController {
     private deleteDocumentUseCase: DeleteDocumentUseCase
   ) {}
 
-  async handle(request: Request, response: Response) {
-    const { documentId, lawyerId } = deleteDocumentParamsSchema.parse(
-      request.params
-    );
-
+  async handle(request: Request, response: Response, next: NextFunction) {
     try {
+      const { documentId, lawyerId } = deleteDocumentParamsSchema.parse(
+        request.params
+      );
+
       await this.deleteDocumentUseCase.execute({
         documentId,
         lawyerId,
       });
 
-      return response.status(202).end();
+      return response.status(HTTP_STATUS.ACCEPTED).end();
     } catch (error) {
-      if (
-        error instanceof LawyerNotFoundError ||
-        error instanceof DocumentNotFoundError
-      ) {
-        return response.status(404).json({ message: error.message });
-      }
-
-      if (error instanceof DocumentOwnerError) {
-        return response.status(400).json({ message: error.message });
-      }
-
-      return response.status(500).json({ message: 'Internal error' });
+      next(error);
     }
   }
 }

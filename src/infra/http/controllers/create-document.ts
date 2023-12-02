@@ -1,7 +1,7 @@
 import { DocumentsMapper } from '@/core/mappers/documents';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
+import { HTTP_STATUS } from '@/core/utils/http-status';
 import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-document';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
 
@@ -22,13 +22,13 @@ export class CreateDocumentController {
     private createDocumentUseCase: CreateDocumentUseCase
   ) {}
 
-  async handle(request: Request, response: Response) {
-    const { lawyerId } = createDocumentsParamsSchema.parse(request.params);
-    const { title, description, fileUrl } = createDocumentsBodySchema.parse(
-      request.body
-    );
-
+  async handle(request: Request, response: Response, next: NextFunction) {
     try {
+      const { lawyerId } = createDocumentsParamsSchema.parse(request.params);
+      const { title, description, fileUrl } = createDocumentsBodySchema.parse(
+        request.body
+      );
+
       const { document } = await this.createDocumentUseCase.execute({
         title,
         description,
@@ -38,13 +38,9 @@ export class CreateDocumentController {
 
       const parsedDocument = DocumentsMapper.toObject(document);
 
-      return response.status(201).json(parsedDocument);
+      return response.status(HTTP_STATUS.CREATED).json(parsedDocument);
     } catch (error) {
-      if (error instanceof LawyerNotFoundError) {
-        return response.status(404).json({ message: error.message });
-      }
-
-      return response.status(500).json({ message: 'Internal error' });
+      next(error);
     }
   }
 }

@@ -25,26 +25,32 @@ const createNormalRoleLawyerController = container.resolve(
 );
 const loginLawyerController = container.resolve(LoginLawyerController);
 
-routes.get('/lawyers/:lawyerId/documents', (request, response) =>
-  fetchLawyerDocumentsController.handle(request, response)
+routes.get('/lawyers/:lawyerId/documents', (request, response, next) =>
+  fetchLawyerDocumentsController.handle(request, response, next)
 );
-routes.get('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
-  fetchDocumentByIdController.handle(request, response)
+routes.get(
+  '/lawyers/:lawyerId/documents/:documentId',
+  (request, response, next) =>
+    fetchDocumentByIdController.handle(request, response, next)
 );
-routes.post('/lawyers/:lawyerId/documents', (request, response) =>
-  createDocumentController.handle(request, response)
+routes.post('/lawyers/:lawyerId/documents', (request, response, next) =>
+  createDocumentController.handle(request, response, next)
 );
-routes.put('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
-  updateDocumentController.handle(request, response)
+routes.put(
+  '/lawyers/:lawyerId/documents/:documentId',
+  (request, response, next) =>
+    updateDocumentController.handle(request, response, next)
 );
-routes.delete('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
-  deleteDocumentController.handle(request, response)
+routes.delete(
+  '/lawyers/:lawyerId/documents/:documentId',
+  (request, response, next) =>
+    deleteDocumentController.handle(request, response, next)
 );
 
-routes.post('/lawyers', (request, response) =>
-  createNormalRoleLawyerController.handle(request, response)
+routes.post('/lawyers', (request, response, next) =>
+  createNormalRoleLawyerController.handle(request, response, next)
 );
 
-routes.post('/login', (request, response) =>
-  loginLawyerController.handle(request, response)
+routes.post('/login', (request, response, next) =>
+  loginLawyerController.handle(request, response, next)
 );

@@ -1,7 +1,6 @@
 import { DocumentsMapper } from '@/core/mappers/documents';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
 import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-document';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
 
@@ -23,15 +22,15 @@ export class UpdateDocumentController {
     private updateDocumentUseCase: UpdateDocumentUseCase
   ) {}
 
-  async handle(request: Request, response: Response) {
-    const { documentId, lawyerId } = updateDocumentsParamsSchema.parse(
-      request.params
-    );
-    const { title, description, fileUrl } = updateDocumentsBodySchema.parse(
-      request.body
-    );
-
+  async handle(request: Request, response: Response, next: NextFunction) {
     try {
+      const { documentId, lawyerId } = updateDocumentsParamsSchema.parse(
+        request.params
+      );
+      const { title, description, fileUrl } = updateDocumentsBodySchema.parse(
+        request.body
+      );
+
       const { document } = await this.updateDocumentUseCase.execute({
         id: documentId,
         title,
@@ -44,11 +43,7 @@ export class UpdateDocumentController {
 
       return response.json(parsedDocument);
     } catch (error) {
-      if (error instanceof LawyerNotFoundError) {
-        return response.status(404).json({ message: error.message });
-      }
-
-      return response.status(500).json({ message: 'Internal error' });
+      next(error);
     }
   }
 }

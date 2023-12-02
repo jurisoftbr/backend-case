@@ -1,9 +1,9 @@
 import { CreateNormalRoleLawyerUseCase } from '@/domain/auth/use-cases/create-normal-role-lawyer';
 import { inject, injectable } from 'tsyringe';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
-import { LawyerAlreadyExistsError } from '@/domain/auth/errors/lawyer-already-exists';
 import { LawyersMapper } from '@/core/mappers/lawyers';
+import { HTTP_STATUS } from '@/core/utils/http-status';
 
 const createNormalRoleLawyerBodySchema = z.object({
   name: z.string(),
@@ -18,12 +18,12 @@ export class CreateNormalRoleLawyerController {
     private createNormalRoleLawyerUseCase: CreateNormalRoleLawyerUseCase
   ) {}
 
-  async handle(request: Request, response: Response) {
-    const { name, email, password } = createNormalRoleLawyerBodySchema.parse(
-      request.body
-    );
-
+  async handle(request: Request, response: Response, next: NextFunction) {
     try {
+      const { name, email, password } = createNormalRoleLawyerBodySchema.parse(
+        request.body
+      );
+
       const { lawyer, token } =
         await this.createNormalRoleLawyerUseCase.execute({
           name,
@@ -33,14 +33,11 @@ export class CreateNormalRoleLawyerController {
 
       const parsedLawyer = LawyersMapper.toObject(lawyer);
 
-      return response.status(201).json({ lawyer: parsedLawyer, token });
+      return response
+        .status(HTTP_STATUS.CREATED)
+        .json({ lawyer: parsedLawyer, token });
     } catch (error) {
-      if (error instanceof LawyerAlreadyExistsError) {
-        return response.status(401).json({ message: error.message });
-      }
-
-      console.error(error);
-      return response.status(500).json({ message: 'Internal error' });
+      next(error);
     }
   }
 }
