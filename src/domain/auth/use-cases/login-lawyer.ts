@@ -34,10 +34,11 @@ export class LoginLawyerUseCase {
 
     if (!lawyer) throw new BadCredentialsError();
 
-    const isCorrectPassword = this.passwordComparatorProvider.execute(
+    const isCorrectPassword = await this.passwordComparatorProvider.execute(
       lawyer.password,
       password
     );
+    console.log(`isCorrectPassword: ${isCorrectPassword}`);
 
     if (!isCorrectPassword) throw new BadCredentialsError();
 
