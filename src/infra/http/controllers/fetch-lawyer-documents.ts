@@ -1,3 +1,4 @@
+import { DocumentsMapper } from '@/core/mappers/documents';
 import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
 import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-lawyer-documents';
 import { Request, Response } from 'express';
@@ -20,13 +21,9 @@ export class FetchLawyerDocumentsController {
         lawyerId,
       });
 
-      const parsedDocuments = documents.map((document) => ({
-        id: document.id,
-        title: document.title,
-        description: document.description,
-        fileUrl: document.fileUrl,
-        createdAt: document.createdAt,
-      }));
+      const parsedDocuments = documents.map((document) =>
+        DocumentsMapper.toObject(document)
+      );
 
       return response.json(parsedDocuments);
     } catch (error) {

@@ -1,7 +1,7 @@
 import { PrismaService } from '@/infra/database/prisma-service';
 import { DocumentsRepository } from '../../../domain/documents/repositories/documents';
 import { Document } from '../../../domain/documents/entities/document';
-import { UniqueId } from '@/core/entities/unique-id';
+import { DocumentsMapper } from '../../../core/mappers/documents';
 
 export class PrismaDocumentsRepository implements DocumentsRepository {
   constructor(private prisma: PrismaService) {}
@@ -14,14 +14,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
     });
 
     return prismaDocuments.map((prismaDocument) =>
-      Document.create({
-        title: prismaDocument.title,
-        description: prismaDocument.description,
-        fileUrl: prismaDocument.fileUrl,
-        lawyerId: new UniqueId(prismaDocument.lawyerId),
-        createdAt: prismaDocument.createdAt,
-        updatedAt: prismaDocument.updatedAt,
-      })
+      DocumentsMapper.toDomain(prismaDocument)
     );
   }
 }
