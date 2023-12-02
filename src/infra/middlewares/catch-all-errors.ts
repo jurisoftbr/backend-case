@@ -14,7 +14,6 @@ export function catchAllErrors(
   response: Response,
   next: NextFunction
 ) {
-  console.log(`error in middleware: ${error}`);
   if (error instanceof DocumentOwnerError) {
     return response
       .status(HTTP_STATUS.BAD_REQUEST)

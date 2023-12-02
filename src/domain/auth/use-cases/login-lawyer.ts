@@ -38,7 +38,6 @@ export class LoginLawyerUseCase {
       lawyer.password,
       password
     );
-    console.log(`isCorrectPassword: ${isCorrectPassword}`);
 
     if (!isCorrectPassword) throw new BadCredentialsError();
 
