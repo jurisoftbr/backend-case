@@ -17,7 +17,8 @@ export class FetchLawyerDocumentsUseCase {
   constructor(
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
-    @inject('LawyersRepository') private lawyersRepository: LawyersRepository
+    @inject('DocumentLawyersRepository')
+    private lawyersRepository: LawyersRepository
   ) {}
 
   async execute({

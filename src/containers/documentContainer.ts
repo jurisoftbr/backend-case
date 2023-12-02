@@ -20,7 +20,7 @@ container.registerSingleton<DocumentsRepository>(
   PrismaDocumentsRepository
 );
 container.registerSingleton<LawyersRepository>(
-  'LawyersRepository',
+  'DocumentLawyersRepository',
   PrismaLawyersRepository
 );
 

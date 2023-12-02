@@ -21,7 +21,8 @@ export class FetchDocumentByIdUseCase {
   constructor(
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
-    @inject('LawyersRepository') private lawyersRepository: LawyersRepository
+    @inject('DocumentLawyersRepository')
+    private lawyersRepository: LawyersRepository
   ) {}
 
   async execute({

@@ -21,7 +21,7 @@ export class CreateDocumentUseCase {
   constructor(
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
-    @inject('LawyersRepository')
+    @inject('DocumentLawyersRepository')
     private lawyersRepository: LawyersRepository
   ) {}
 
