@@ -5,6 +5,7 @@ import { FetchDocumentByIdController } from './http/controllers/fetch-document-b
 import { CreateDocumentController } from './http/controllers/create-document';
 import { UpdateDocumentController } from './http/controllers/update-document';
 import { DeleteDocumentController } from './http/controllers/delete-document';
+import { CreateNormalRoleLawyerController } from './http/controllers/create-normal-role-lawyer';
 
 export const routes = express.Router();
 
@@ -17,6 +18,10 @@ const fetchDocumentByIdController = container.resolve(
 const createDocumentController = container.resolve(CreateDocumentController);
 const updateDocumentController = container.resolve(UpdateDocumentController);
 const deleteDocumentController = container.resolve(DeleteDocumentController);
+
+const createNormalRoleLawyerController = container.resolve(
+  CreateNormalRoleLawyerController
+);
 
 routes.get('/lawyers/:lawyerId/documents', (request, response) =>
   fetchLawyerDocumentsController.handle(request, response)
@@ -32,4 +37,8 @@ routes.put('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
 );
 routes.delete('/lawyers/:lawyerId/documents/:documentId', (request, response) =>
   deleteDocumentController.handle(request, response)
+);
+
+routes.post('/lawyers', (request, response) =>
+  createNormalRoleLawyerController.handle(request, response)
 );

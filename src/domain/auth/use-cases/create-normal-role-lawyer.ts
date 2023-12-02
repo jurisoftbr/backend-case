@@ -1,6 +1,7 @@
 import { LawyersRepository } from '../repositories/lawyers';
 import { Lawyer } from '../entities/lawyer';
 import { LawyerAlreadyExistsError } from '../errors/lawyer-already-exists';
+import { inject, injectable } from 'tsyringe';
 
 interface CreateNormalRoleLawyerUseCaseRequest {
   name: string;
@@ -12,8 +13,11 @@ interface CreateNormalRoleLawyerUseCaseResponse {
   lawyer: Lawyer;
 }
 
+@injectable()
 export class CreateNormalRoleLawyerUseCase {
-  constructor(private lawyersRepository: LawyersRepository) {}
+  constructor(
+    @inject('LawyersRepository') private lawyersRepository: LawyersRepository
+  ) {}
 
   async execute({
     name,
