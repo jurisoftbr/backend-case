@@ -5,10 +5,12 @@ import { AddressInfo } from 'net';
 import { envSchema } from './env/schema';
 import { routes } from './routes';
 import { catchAllErrors } from './middlewares/catch-all-errors';
+import { authorization } from './middlewares/authorization';
 
 export const app = express();
 
 app.use(express.json());
+app.use(authorization);
 app.use(routes);
 app.use(catchAllErrors);
 
