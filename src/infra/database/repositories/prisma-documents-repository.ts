@@ -19,4 +19,14 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
       DocumentsMapper.toDomain(prismaDocument)
     );
   }
+
+  async findById(id: string): Promise<Document | null> {
+    const prismaDocument = await this.prisma.document.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return prismaDocument ? DocumentsMapper.toDomain(prismaDocument) : null;
+  }
 }

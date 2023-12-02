@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { Document } from '../entities/document';
 import { Lawyer } from '../entities/lawyer';
 import { DocumentNotFoundError } from '../errors/document-not-found';
@@ -15,10 +16,12 @@ interface FetchDocumentByIdUseCaseResponse {
   document: Document;
 }
 
+@injectable()
 export class FetchDocumentByIdUseCase {
   constructor(
+    @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
-    private lawyersRepository: LawyersRepository
+    @inject('LawyersRepository') private lawyersRepository: LawyersRepository
   ) {}
 
   async execute({
