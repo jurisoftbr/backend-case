@@ -34,8 +34,7 @@ export class FetchLawyerDocumentsController {
         return response.status(404).json({ message: error.message });
       }
 
-      console.error(error);
-      return response.status(400).json({ message: 'Bad request' });
+      return response.status(500).json({ message: 'Internal error' });
     }
   }
 }
