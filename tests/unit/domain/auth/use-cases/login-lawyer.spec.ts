@@ -1,6 +1,6 @@
 import { Lawyer } from '@/domain/auth/entities/lawyer';
 import { BadCredentialsError } from '@/domain/auth/errors/bad-credentials';
-import { PasswordComparatorProvider } from '@/domain/auth/providers/password-compator';
+import { PasswordComparatorProvider } from '@/domain/auth/providers/password-comparator';
 import { TokenGeneratorProvider } from '@/domain/auth/providers/token-generator';
 import { LoginLawyerUseCase } from '@/domain/auth/use-cases/login-lawyer';
 import { makeLawyer } from 'tests/factories/auth/entities/make-lawyer';

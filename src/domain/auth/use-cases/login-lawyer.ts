@@ -1,8 +1,9 @@
 import { Lawyer } from '../entities/lawyer';
 import { BadCredentialsError } from '../errors/bad-credentials';
-import { PasswordComparatorProvider } from '../providers/password-compator';
+import { PasswordComparatorProvider } from '../providers/password-comparator';
 import { TokenGeneratorProvider } from '../providers/token-generator';
 import { LawyersRepository } from '../repositories/lawyers';
+import { injectable, inject } from 'tsyringe';
 
 interface LoginLawyerUseCaseRequest {
   email: string;
@@ -14,10 +15,14 @@ interface LoginLawyerUseCaseResponse {
   token: string;
 }
 
+@injectable()
 export class LoginLawyerUseCase {
   constructor(
+    @inject('LawyersRepository')
     private lawyersRepository: LawyersRepository,
+    @inject('PasswordComparatorProvider')
     private passwordComparatorProvider: PasswordComparatorProvider,
+    @inject('TokenGeneratorProvider')
     private tokenGeneratorProvider: TokenGeneratorProvider
   ) {}
 
@@ -27,7 +32,7 @@ export class LoginLawyerUseCase {
   }: LoginLawyerUseCaseRequest): Promise<LoginLawyerUseCaseResponse> {
     const lawyer = await this.lawyersRepository.findByEmail(email);
 
-    if (lawyer === null) throw new BadCredentialsError();
+    if (!lawyer) throw new BadCredentialsError();
 
     const isCorrectPassword = this.passwordComparatorProvider.execute(
       lawyer.password,
