@@ -30,7 +30,7 @@ describe('CreateNormalRoleLawyerUseCase', () => {
   describe('execute', () => {
     (lawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(null);
 
-    it('should create a lawyer', async () => {
+    it('should create a lawyer with normal role', async () => {
       const result = await sut.execute({
         name: lawyerMock.name,
         email: lawyerMock.name,
@@ -39,6 +39,7 @@ describe('CreateNormalRoleLawyerUseCase', () => {
 
       expect(lawyersRepositoryMock.create).toHaveBeenCalledOnce();
       expect(result.lawyer).toBeInstanceOf(Lawyer);
+      expect(result.lawyer.role).toBe('normal');
     });
 
     it('should throws error when a lawyer with same email already exists', async () => {
