@@ -6,6 +6,7 @@ import { LawyerNotFoundError } from '../errors/lawyer-not-found';
 import { inject, injectable } from 'tsyringe';
 
 interface UpdateDocumentUseCaseRequest {
+  id: string;
   title: string;
   description: string;
   fileUrl: string;
@@ -26,6 +27,7 @@ export class UpdateDocumentUseCase {
   ) {}
 
   async execute({
+    id,
     title,
     description,
     fileUrl,
@@ -35,12 +37,15 @@ export class UpdateDocumentUseCase {
 
     if (!lawyer) throw new LawyerNotFoundError(lawyerId);
 
-    const document = Document.create({
-      title,
-      description,
-      fileUrl,
-      lawyerId: new UniqueId(lawyerId),
-    });
+    const document = Document.create(
+      {
+        title,
+        description,
+        fileUrl,
+        lawyerId: new UniqueId(lawyerId),
+      },
+      new UniqueId(id)
+    );
 
     await this.documentsRepository.update(document);
 

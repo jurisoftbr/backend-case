@@ -29,6 +29,7 @@ describe('UpdateDocumentUseCase', () => {
       );
 
       const result = await sut.execute({
+        id: documentMock.id.value,
         title: documentMock.title,
         description: documentMock.description,
         fileUrl: documentMock.fileUrl,
@@ -40,6 +41,7 @@ describe('UpdateDocumentUseCase', () => {
       );
       expect(documentsRepositoryMock.update).toHaveBeenCalledOnce();
       expect(result.document).toBeInstanceOf(Document);
+      expect(result.document.id).toStrictEqual(documentMock.id);
     });
 
     it('should throws error when the lawyer does not exists', () => {
@@ -48,6 +50,7 @@ describe('UpdateDocumentUseCase', () => {
       expect(
         async () =>
           await sut.execute({
+            id: documentMock.id.value,
             title: documentMock.title,
             description: documentMock.description,
             fileUrl: documentMock.fileUrl,
