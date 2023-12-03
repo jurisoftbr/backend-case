@@ -4,10 +4,7 @@ import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-docum
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
-
-const createDocumentsParamsSchema = z.object({
-  lawyerId: z.string(),
-});
+import { userRequestSchema } from '../utils/user-request-schema';
 
 const createDocumentsBodySchema = z.object({
   title: z.string(),
@@ -24,7 +21,7 @@ export class CreateDocumentController {
 
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
-      const { lawyerId } = createDocumentsParamsSchema.parse(request.params);
+      const { id: lawyerId } = userRequestSchema.parse(request.user);
       const { title, description, fileUrl } = createDocumentsBodySchema.parse(
         request.body
       );

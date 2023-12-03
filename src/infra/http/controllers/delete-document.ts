@@ -3,10 +3,10 @@ import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-docum
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
+import { userRequestSchema } from '../utils/user-request-schema';
 
 const deleteDocumentParamsSchema = z.object({
   documentId: z.string(),
-  lawyerId: z.string(),
 });
 
 @injectable()
@@ -18,9 +18,8 @@ export class DeleteDocumentController {
 
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
-      const { documentId, lawyerId } = deleteDocumentParamsSchema.parse(
-        request.params
-      );
+      const { documentId } = deleteDocumentParamsSchema.parse(request.params);
+      const { id: lawyerId } = userRequestSchema.parse(request.user);
 
       await this.deleteDocumentUseCase.execute({
         documentId,

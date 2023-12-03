@@ -3,10 +3,10 @@ import { FetchDocumentByIdUseCase } from '@/domain/documents/use-cases/fetch-doc
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
+import { userRequestSchema } from '../utils/user-request-schema';
 
 const fetchDocumentByIdParamsSchema = z.object({
   documentId: z.string(),
-  lawyerId: z.string(),
 });
 
 @injectable()
@@ -18,9 +18,10 @@ export class FetchDocumentByIdController {
 
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
-      const { documentId, lawyerId } = fetchDocumentByIdParamsSchema.parse(
+      const { documentId } = fetchDocumentByIdParamsSchema.parse(
         request.params
       );
+      const { id: lawyerId } = userRequestSchema.parse(request.user);
 
       const { document } = await this.fetchDocumentByIdUseCase.execute({
         documentId,
