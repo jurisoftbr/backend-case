@@ -31,9 +31,7 @@ export class CreateDocumentUseCase {
     fileUrl,
     lawyerId,
   }: CreateDocumentUseCaseRequest): Promise<CreateDocumentUseCaseResponse> {
-    const lawyer = await this.lawyersRepository.findById(lawyerId);
-
-    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+    await this.checkLawyerExistence(lawyerId);
 
     const document = Document.create({
       title,
@@ -45,5 +43,11 @@ export class CreateDocumentUseCase {
     await this.documentsRepository.create(document);
 
     return { document };
+  }
+
+  private async checkLawyerExistence(lawyerId: string): Promise<void> {
+    const lawyer = await this.lawyersRepository.findById(lawyerId);
+
+    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
   }
 }

@@ -30,25 +30,39 @@ export class LoginLawyerUseCase {
     email,
     password,
   }: LoginLawyerUseCaseRequest): Promise<LoginLawyerUseCaseResponse> {
-    const lawyer = await this.authLawyersRepository.findByEmail(email);
+    const lawyer = await this.findLawyer(email);
 
-    if (!lawyer) throw new BadCredentialsError();
+    await this.comparePassword(lawyer.password, password);
 
-    const isCorrectPassword = await this.passwordComparatorProvider.execute(
-      lawyer.password,
-      password
-    );
-
-    if (!isCorrectPassword) throw new BadCredentialsError();
-
-    const token = this.tokenGeneratorProvider.execute(
-      lawyer.id.value,
-      lawyer.role
-    );
+    const token = this.generateToken(lawyer.id.value, lawyer.role);
 
     return {
       lawyer,
       token,
     };
+  }
+
+  private async findLawyer(email: string): Promise<AuthLawyer> {
+    const lawyer = await this.authLawyersRepository.findByEmail(email);
+
+    if (!lawyer) throw new BadCredentialsError();
+
+    return lawyer;
+  }
+
+  private async comparePassword(
+    passwordHash: string,
+    passwordProvided: string
+  ): Promise<void> {
+    const isCorrectPassword = await this.passwordComparatorProvider.execute(
+      passwordHash,
+      passwordProvided
+    );
+
+    if (!isCorrectPassword) throw new BadCredentialsError();
+  }
+
+  private generateToken(id: string, role: string): string {
+    return this.tokenGeneratorProvider.execute(id, role);
   }
 }

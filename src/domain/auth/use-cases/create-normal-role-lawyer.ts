@@ -32,12 +32,9 @@ export class CreateNormalRoleLawyerUseCase {
     email,
     password,
   }: CreateNormalRoleLawyerUseCaseRequest): Promise<CreateNormalRoleLawyerUseCaseResponse> {
-    const lawyerWithSameEmail =
-      await this.authLawyersRepository.findByEmail(email);
+    await this.checkLawyerWithSameEmailExistence(email);
 
-    if (lawyerWithSameEmail) throw new LawyerAlreadyExistsError(email);
-
-    const passwordHash = await this.passwordHasherProvider.execute(password);
+    const passwordHash = await this.createHash(password);
 
     const lawyer = AuthLawyer.create({
       name,
@@ -48,11 +45,25 @@ export class CreateNormalRoleLawyerUseCase {
 
     await this.authLawyersRepository.create(lawyer);
 
-    const token = await this.tokenGeneratorProvider.execute(
-      lawyer.id.value,
-      lawyer.role
-    );
+    const token = this.generateToken(lawyer.id.value, lawyer.role);
 
     return { lawyer, token };
+  }
+
+  private async checkLawyerWithSameEmailExistence(
+    email: string
+  ): Promise<void> {
+    const lawyerWithSameEmail =
+      await this.authLawyersRepository.findByEmail(email);
+
+    if (lawyerWithSameEmail) throw new LawyerAlreadyExistsError(email);
+  }
+
+  private async createHash(password: string): Promise<string> {
+    return this.passwordHasherProvider.execute(password);
+  }
+
+  private generateToken(id: string, role: string): string {
+    return this.tokenGeneratorProvider.execute(id, role);
   }
 }

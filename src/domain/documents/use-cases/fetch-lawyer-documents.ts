@@ -24,12 +24,16 @@ export class FetchLawyerDocumentsUseCase {
   async execute({
     lawyerId,
   }: FetchLawyerDocumentsUseCaseRequest): Promise<FetchLawyerDocumentsUseCaseResponse> {
-    const lawyer = await this.lawyersRepository.findById(lawyerId);
-
-    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+    await this.checkLawyerExistence(lawyerId);
 
     const documents = await this.documentsRepository.findByLawyerId(lawyerId);
 
     return { documents };
+  }
+
+  private async checkLawyerExistence(lawyerId): Promise<void> {
+    const lawyer = await this.lawyersRepository.findById(lawyerId);
+
+    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
   }
 }

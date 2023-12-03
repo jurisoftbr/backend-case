@@ -33,9 +33,7 @@ export class UpdateDocumentUseCase {
     fileUrl,
     lawyerId,
   }: UpdateDocumentUseCaseRequest): Promise<UpdateDocumentUseCaseResponse> {
-    const lawyer = await this.lawyersRepository.findById(lawyerId);
-
-    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+    await this.checkLawyerExistence(lawyerId);
 
     const document = Document.create(
       {
@@ -50,5 +48,11 @@ export class UpdateDocumentUseCase {
     await this.documentsRepository.update(document);
 
     return { document };
+  }
+
+  private async checkLawyerExistence(lawyerId): Promise<void> {
+    const lawyer = await this.lawyersRepository.findById(lawyerId);
+
+    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
   }
 }

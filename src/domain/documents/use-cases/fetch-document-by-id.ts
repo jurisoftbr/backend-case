@@ -29,11 +29,9 @@ export class FetchDocumentByIdUseCase {
     lawyerId,
     documentId,
   }: FetchDocumentByIdUseCaseRequest): Promise<FetchDocumentByIdUseCaseResponse> {
-    const lawyer = await this.lawyersRepository.findById(lawyerId);
-    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+    const lawyer = await this.findLawyer(lawyerId);
 
-    const document = await this.documentsRepository.findById(documentId);
-    if (!document) throw new DocumentNotFoundError(documentId);
+    const document = await this.findDocument(documentId);
 
     this.validateDocumentOwner(document, lawyer);
 
@@ -43,5 +41,21 @@ export class FetchDocumentByIdUseCase {
   private validateDocumentOwner(document: Document, lawyer: Lawyer) {
     if (document.lawyerId.value !== lawyer.id.value)
       throw new DocumentOwnerError(document.id.value, lawyer.id.value);
+  }
+
+  private async findLawyer(lawyerId): Promise<Lawyer> {
+    const lawyer = await this.lawyersRepository.findById(lawyerId);
+
+    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+
+    return lawyer;
+  }
+
+  private async findDocument(documentId): Promise<Document> {
+    const document = await this.documentsRepository.findById(documentId);
+
+    if (!document) throw new DocumentNotFoundError(documentId);
+
+    return document;
   }
 }

@@ -25,15 +25,29 @@ export class DeleteDocumentUseCase {
     documentId,
     lawyerId,
   }: DeleteDocumentUseCaseRequest): Promise<void> {
-    const lawyer = await this.lawyersRepository.findById(lawyerId);
-    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+    const lawyer = await this.findLawyer(lawyerId);
 
-    const document = await this.documentsRepository.findById(documentId);
-    if (!document) throw new DocumentNotFoundError(documentId);
+    const document = await this.findDocument(documentId);
 
     this.validateDocumentOwner(document, lawyer);
 
     await this.documentsRepository.delete(document.id.value);
+  }
+
+  private async findLawyer(lawyerId): Promise<Lawyer> {
+    const lawyer = await this.lawyersRepository.findById(lawyerId);
+
+    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+
+    return lawyer;
+  }
+
+  private async findDocument(documentId): Promise<Document> {
+    const document = await this.documentsRepository.findById(documentId);
+
+    if (!document) throw new DocumentNotFoundError(documentId);
+
+    return document;
   }
 
   private validateDocumentOwner(document: Document, lawyer: Lawyer) {
