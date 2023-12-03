@@ -5,7 +5,7 @@ import { BadCredentialsError } from '@/domain/auth/errors/bad-credentials';
 import { LawyerAlreadyExistsError } from '@/domain/auth/errors/lawyer-already-exists';
 import { DocumentNotFoundError } from '@/domain/documents/errors/document-not-found';
 import { DocumentOwnerError } from '@/domain/documents/errors/document-owner';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { NextFunction, Request, Response } from 'express';
 
 export function catchAllErrors(
