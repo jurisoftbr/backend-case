@@ -13,7 +13,7 @@ export function authorization(
 ) {
   if (
     request.path === '/auth/login' ||
-    (request.path === '/lawyers' && request.method === 'POST')
+    request.path === '/auth/create-lawyer'
   ) {
     next();
     return;

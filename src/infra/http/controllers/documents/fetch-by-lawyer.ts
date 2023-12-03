@@ -3,7 +3,7 @@ import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-
 import { Request, Response } from 'express';
 import { NextFunction } from 'express-serve-static-core';
 import { inject, injectable } from 'tsyringe';
-import { userRequestSchema } from '../utils/user-request-schema';
+import { userRequestSchema } from '../../utils/user-request-schema';
 
 @injectable()
 export class FetchLawyerDocumentsController {

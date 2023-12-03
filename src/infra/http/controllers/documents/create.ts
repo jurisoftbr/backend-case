@@ -4,7 +4,7 @@ import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-docum
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
-import { userRequestSchema } from '../utils/user-request-schema';
+import { userRequestSchema } from '../../utils/user-request-schema';
 
 const createDocumentsBodySchema = z.object({
   title: z.string(),

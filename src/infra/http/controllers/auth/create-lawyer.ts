@@ -12,7 +12,7 @@ const createNormalRoleLawyerBodySchema = z.object({
 });
 
 @injectable()
-export class CreateNormalRoleLawyerController {
+export class CreateLawyerController {
   constructor(
     @inject('CreateNormalRoleLawyerUseCase')
     private createNormalRoleLawyerUseCase: CreateNormalRoleLawyerUseCase

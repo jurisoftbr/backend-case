@@ -3,7 +3,7 @@ import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-docum
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
-import { userRequestSchema } from '../utils/user-request-schema';
+import { userRequestSchema } from '../../utils/user-request-schema';
 
 const updateDocumentsParamsSchema = z.object({
   documentId: z.string(),

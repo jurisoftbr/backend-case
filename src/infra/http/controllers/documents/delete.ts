@@ -3,7 +3,7 @@ import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-docum
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
-import { userRequestSchema } from '../utils/user-request-schema';
+import { userRequestSchema } from '../../utils/user-request-schema';
 
 const deleteDocumentParamsSchema = z.object({
   documentId: z.string(),

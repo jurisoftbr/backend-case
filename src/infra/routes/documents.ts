@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { container } from 'tsyringe';
-import { CreateDocumentController } from '../http/controllers/create-document';
-import { DeleteDocumentController } from '../http/controllers/delete-document';
-import { FetchDocumentByIdController } from '../http/controllers/fetch-document-by-id';
-import { FetchLawyerDocumentsController } from '../http/controllers/fetch-lawyer-documents';
-import { UpdateDocumentController } from '../http/controllers/update-document';
+import { CreateDocumentController } from '../http/controllers/documents/create';
+import { DeleteDocumentController } from '../http/controllers/documents/delete';
+import { FetchDocumentByIdController } from '../http/controllers/documents/fetch-by-id';
+import { FetchLawyerDocumentsController } from '../http/controllers/documents/fetch-by-lawyer';
+import { UpdateDocumentController } from '../http/controllers/documents/update';
 
 export const documentsRoutes = Router();
 

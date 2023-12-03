@@ -6,8 +6,8 @@ import { AuthLawyersRepository } from '@/domain/auth/repositories/auth-lawyers';
 import { CreateNormalRoleLawyerUseCase } from '@/domain/auth/use-cases/create-normal-role-lawyer';
 import { LoginLawyerUseCase } from '@/domain/auth/use-cases/login-lawyer';
 import { PrismaAuthLawyersRepository } from '@/infra/database/repositories/prisma-lawyers-repository';
-import { CreateNormalRoleLawyerController } from '@/infra/http/controllers/create-normal-role-lawyer';
-import { LoginLawyerController } from '@/infra/http/controllers/login-lawyer';
+import { CreateLawyerController } from '@/infra/http/controllers/auth/create-lawyer';
+import { LoginLawyerController } from '@/infra/http/controllers/auth/login-lawyer';
 import { BcryptPasswordComparatorProvider } from '@/infra/providers/bcrypt-password-comparator';
 import { BcryptPasswordHasherProvider } from '@/infra/providers/bcrypt-password-hasher';
 import { JwtTokenGeneratorProvider } from '@/infra/providers/jwt-token-generator';
@@ -46,8 +46,5 @@ container.registerSingleton(
 container.registerSingleton('LoginLawyerUseCase', LoginLawyerUseCase);
 
 // Controllers
-container.registerSingleton(
-  'CreateNormalRoleLawyerController',
-  CreateNormalRoleLawyerController
-);
+container.registerSingleton('CreateLawyerController', CreateLawyerController);
 container.registerSingleton('LoginLawyerController', LoginLawyerController);

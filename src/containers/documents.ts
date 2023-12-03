@@ -7,11 +7,11 @@ import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-
 import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-document';
 import { PrismaDocumentsRepository } from '@/infra/database/repositories/prisma-documents-repository';
 import { PrismaDocumentLawyersRepository } from '@/infra/database/repositories/prisma-document-lawyers-repository';
-import { CreateDocumentController } from '@/infra/http/controllers/create-document';
-import { DeleteDocumentController } from '@/infra/http/controllers/delete-document';
-import { FetchDocumentByIdController } from '@/infra/http/controllers/fetch-document-by-id';
-import { FetchLawyerDocumentsController } from '@/infra/http/controllers/fetch-lawyer-documents';
-import { UpdateDocumentController } from '@/infra/http/controllers/update-document';
+import { CreateDocumentController } from '@/infra/http/controllers/documents/create';
+import { DeleteDocumentController } from '@/infra/http/controllers/documents/delete';
+import { FetchDocumentByIdController } from '@/infra/http/controllers/documents/fetch-by-id';
+import { FetchLawyerDocumentsController } from '@/infra/http/controllers/documents/fetch-by-lawyer';
+import { UpdateDocumentController } from '@/infra/http/controllers/documents/update';
 import { container } from 'tsyringe';
 
 // Repositories
