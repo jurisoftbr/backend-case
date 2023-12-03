@@ -28,6 +28,7 @@ model Document {
   title String
   description String
   fileUrl String
+  keywords String[]
 
   lawyer Lawyer @relation(fields: [lawyerId], references: [id])
   lawyerId String @db.ObjectId

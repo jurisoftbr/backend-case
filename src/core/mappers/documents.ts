@@ -6,6 +6,7 @@ interface DocumentObject {
   title: string;
   description: string;
   fileUrl: string;
+  keywords: string[];
   lawyerId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -17,6 +18,7 @@ export class DocumentsMapper {
     title,
     description,
     fileUrl,
+    keywords,
     lawyerId,
     createdAt,
     updatedAt,
@@ -26,6 +28,7 @@ export class DocumentsMapper {
         title,
         description,
         fileUrl,
+        keywords,
         lawyerId: new UniqueId(lawyerId),
         createdAt,
         updatedAt,
@@ -40,6 +43,7 @@ export class DocumentsMapper {
       title: document.title,
       description: document.description,
       fileUrl: document.fileUrl,
+      keywords: document.keywords,
       lawyerId: document.lawyerId.value,
       createdAt: document.createdAt,
       updatedAt: document.updatedAt,

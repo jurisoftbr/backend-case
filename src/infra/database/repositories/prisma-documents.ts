@@ -37,6 +37,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
         title: document.title,
         description: document.description,
         fileUrl: document.fileUrl,
+        keywords: document.keywords,
         lawyerId: document.lawyerId.value,
       },
     });
@@ -51,6 +52,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
         title: document.title,
         description: document.description,
         fileUrl: document.fileUrl,
+        keywords: document.keywords,
         lawyerId: document.lawyerId.value,
       },
     });
