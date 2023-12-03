@@ -58,6 +58,17 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
     });
   }
 
+  async updateFileUrl(id: string, fileUrl: string): Promise<void> {
+    await this.prisma.document.update({
+      where: {
+        id,
+      },
+      data: {
+        fileUrl,
+      },
+    });
+  }
+
   async delete(id: string): Promise<void> {
     await this.prisma.document.delete({
       where: {

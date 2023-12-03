@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { DocumentNotFoundError } from '../errors/document-not-found';
 import { DocumentsRepository } from '../repositories/documents';
 
@@ -10,8 +11,12 @@ interface UpdateDocumentFileUrlUseCaseResponse {
   fileUrl: string;
 }
 
+@injectable()
 export class UpdateDocumentFileUrlUseCase {
-  constructor(private documentsRepository: DocumentsRepository) {}
+  constructor(
+    @inject('DocumentsRepository')
+    private documentsRepository: DocumentsRepository
+  ) {}
 
   async execute({
     documentId,

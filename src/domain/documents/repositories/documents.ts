@@ -5,6 +5,6 @@ export abstract class DocumentsRepository {
   abstract findById(id: string): Promise<Document | null>;
   abstract create(document: Document): Promise<void>;
   abstract update(document: Document): Promise<void>;
-  abstract updateFileUrl(documentId: string, fileUrl: string): Promise<void>;
+  abstract updateFileUrl(id: string, fileUrl: string): Promise<void>;
   abstract delete(id: string): Promise<void>;
 }

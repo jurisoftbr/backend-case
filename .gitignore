@@ -2,6 +2,7 @@
 node_modules/
 data/
 coverage/
+/uploads
 
 # Files
 .env
