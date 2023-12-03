@@ -28,8 +28,6 @@ export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
       },
     });
 
-    if (!prismaLawyer) return null;
-
-    return AuthLawyersMapper.toDomain(prismaLawyer);
+    return prismaLawyer ? AuthLawyersMapper.toDomain(prismaLawyer) : null;
   }
 }

@@ -18,8 +18,8 @@ export class PrismaDocumentLawyersRepository
       },
     });
 
-    if (!prismaLawyer) return null;
-
-    return Lawyer.create({}, new UniqueId(prismaLawyer.id));
+    return prismaLawyer
+      ? Lawyer.create({}, new UniqueId(prismaLawyer.id))
+      : null;
   }
 }

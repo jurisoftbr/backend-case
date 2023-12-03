@@ -15,8 +15,6 @@ export class PrismaLawyersRepository implements LawyersRepository {
       },
     });
 
-    if (!prismaLawyer) return null;
-
-    return LawyersMapper.toDomain(prismaLawyer);
+    return prismaLawyer ? LawyersMapper.toDomain(prismaLawyer) : null;
   }
 }
