@@ -2,7 +2,7 @@ import { UniqueId } from '@/core/entities/unique-id';
 import { Document } from '../entities/document';
 import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
-import { LawyerNotFoundError } from '../errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { inject, injectable } from 'tsyringe';
 
 interface UpdateDocumentUseCaseRequest {

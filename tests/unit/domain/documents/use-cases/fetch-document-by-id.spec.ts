@@ -1,6 +1,6 @@
 import { DocumentNotFoundError } from '@/domain/documents/errors/document-not-found';
 import { DocumentOwnerError } from '@/domain/documents/errors/document-owner';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { FetchDocumentByIdUseCase } from '@/domain/documents/use-cases/fetch-document-by-id';
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';

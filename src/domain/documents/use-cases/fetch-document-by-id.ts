@@ -3,7 +3,7 @@ import { Document } from '../entities/document';
 import { Lawyer } from '../entities/lawyer';
 import { DocumentNotFoundError } from '../errors/document-not-found';
 import { DocumentOwnerError } from '../errors/document-owner';
-import { LawyerNotFoundError } from '../errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
 

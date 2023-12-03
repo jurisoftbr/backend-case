@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { Document } from '../entities/document';
-import { LawyerNotFoundError } from '../errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
 

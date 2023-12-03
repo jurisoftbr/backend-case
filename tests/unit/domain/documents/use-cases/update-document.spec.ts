@@ -1,5 +1,5 @@
 import { Document } from '@/domain/documents/entities/document';
-import { LawyerNotFoundError } from '@/domain/documents/errors/lawyer-not-found';
+import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-document';
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
