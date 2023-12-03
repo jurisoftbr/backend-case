@@ -7,7 +7,7 @@ interface RequestUser {
 }
 
 declare module 'express' {
-  interface Request extends Request {
+  interface Request {
     user?: RequestUser;
   }
 }
