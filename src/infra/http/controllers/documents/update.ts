@@ -3,7 +3,7 @@ import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-docum
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { z } from 'zod';
-import { userRequestSchema } from '../../utils/user-request-schema';
+import { requestUserSchema } from '../../schemas/request-user';
 
 const updateDocumentsParamsSchema = z.object({
   documentId: z.string(),
@@ -25,7 +25,7 @@ export class UpdateDocumentController {
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
       const { documentId } = updateDocumentsParamsSchema.parse(request.params);
-      const { id: lawyerId } = userRequestSchema.parse(request.user);
+      const { id: lawyerId } = requestUserSchema.parse(request.user);
       const { title, description, fileUrl } = updateDocumentsBodySchema.parse(
         request.body
       );

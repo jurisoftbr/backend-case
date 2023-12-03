@@ -3,7 +3,7 @@ import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-
 import { Request, Response } from 'express';
 import { NextFunction } from 'express-serve-static-core';
 import { inject, injectable } from 'tsyringe';
-import { userRequestSchema } from '../../utils/user-request-schema';
+import { requestUserSchema } from '../../schemas/request-user';
 
 @injectable()
 export class FetchLawyerDocumentsController {
@@ -14,7 +14,7 @@ export class FetchLawyerDocumentsController {
 
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
-      const { id: lawyerId } = userRequestSchema.parse(request.user);
+      const { id: lawyerId } = requestUserSchema.parse(request.user);
 
       const { documents } = await this.fetchLawyerDocumentsUseCase.execute({
         lawyerId,

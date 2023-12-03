@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const userRequestSchema = z.object({
+export const requestUserSchema = z.object({
   id: z.string(),
   role: z.string(),
 });

@@ -1,6 +1,6 @@
 import { FetchLawyerByIdUseCase } from '@/domain/lawyers/use-cases/fetch-lawyer-by-id';
 import { inject, injectable } from 'tsyringe';
-import { userRequestSchema } from '../../utils/user-request-schema';
+import { requestUserSchema } from '../../schemas/request-user';
 import { NextFunction, Request, Response } from 'express';
 import { LawyersMapper } from '@/core/mappers/lawyers';
 
@@ -13,7 +13,7 @@ export class FetchLawyerByIdController {
 
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
-      const { id: lawyerId } = userRequestSchema.parse(request.user);
+      const { id: lawyerId } = requestUserSchema.parse(request.user);
 
       const { lawyer } = await this.fetchLawyerByIdUseCase.execute({
         lawyerId,
