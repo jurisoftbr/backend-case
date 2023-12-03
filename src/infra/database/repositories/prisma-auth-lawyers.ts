@@ -2,14 +2,14 @@
 import { AuthLawyersRepository } from '@/domain/auth/repositories/auth-lawyers';
 import { PrismaService } from '../prisma-service';
 import { injectable, inject } from 'tsyringe';
-import { Lawyer } from '@/domain/auth/entities/lawyer';
+import { AuthLawyer } from '@/domain/auth/entities/auth-lawyer';
 import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
 
 @injectable()
 export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
   constructor(@inject(PrismaService) private prisma: PrismaService) {}
 
-  async create(lawyer: Lawyer): Promise<void> {
+  async create(lawyer: AuthLawyer): Promise<void> {
     await this.prisma.lawyer.create({
       data: {
         id: lawyer.id.value,
@@ -21,7 +21,7 @@ export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<Lawyer | null> {
+  async findByEmail(email: string): Promise<AuthLawyer | null> {
     const prismaLawyer = await this.prisma.lawyer.findUnique({
       where: {
         email,
