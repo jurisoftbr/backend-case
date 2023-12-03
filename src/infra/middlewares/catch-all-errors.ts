@@ -7,6 +7,7 @@ import { DocumentNotFoundError } from '@/domain/documents/errors/document-not-fo
 import { DocumentOwnerError } from '@/domain/documents/errors/document-owner';
 import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { NextFunction, Request, Response } from 'express';
+import { InvalidDocumentExtension } from '@/domain/documents/errors/invalid-document-extension';
 
 export function catchAllErrors(
   error: any,
@@ -35,6 +36,12 @@ export function catchAllErrors(
   ) {
     return response
       .status(HTTP_STATUS.NOT_FOUND)
+      .json({ message: error.message });
+  }
+
+  if (error instanceof InvalidDocumentExtension) {
+    return response
+      .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
       .json({ message: error.message });
   }
 
