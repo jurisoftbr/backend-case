@@ -12,7 +12,7 @@ const deleteDocumentParamsSchema = z.object({
 @injectable()
 export class DeleteDocumentController {
   constructor(
-    @inject('DeleteDocumentUseCase')
+    @inject(DeleteDocumentUseCase)
     private deleteDocumentUseCase: DeleteDocumentUseCase
   ) {}
 

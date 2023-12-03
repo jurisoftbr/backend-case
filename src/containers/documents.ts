@@ -25,36 +25,15 @@ container.registerSingleton<DocumentLawyersRepository>(
 );
 
 // Use cases
-container.registerSingleton(
-  'FetchLawyerDocumentsUseCase',
-  FetchLawyerDocumentsUseCase
-);
-container.registerSingleton(
-  'FetchDocumentByIdUseCase',
-  FetchDocumentByIdUseCase
-);
-container.registerSingleton('CreateDocumentUseCase', CreateDocumentUseCase);
-container.registerSingleton('UpdateDocumentUseCase', UpdateDocumentUseCase);
-container.registerSingleton('DeleteDocumentUseCase', DeleteDocumentUseCase);
+container.registerSingleton(FetchLawyerDocumentsUseCase);
+container.registerSingleton(FetchDocumentByIdUseCase);
+container.registerSingleton(CreateDocumentUseCase);
+container.registerSingleton(UpdateDocumentUseCase);
+container.registerSingleton(DeleteDocumentUseCase);
 
 // Controllers
-container.registerSingleton(
-  'FetchLawyerDocumentsController',
-  FetchLawyerDocumentsController
-);
-container.registerSingleton(
-  'FetchDocumentByIdController',
-  FetchDocumentByIdController
-);
-container.registerSingleton(
-  'CreateDocumentController',
-  CreateDocumentController
-);
-container.registerSingleton(
-  'UpdateDocumentController',
-  UpdateDocumentController
-);
-container.registerSingleton(
-  'DeleteDocumentController',
-  DeleteDocumentController
-);
+container.registerSingleton(FetchLawyerDocumentsController);
+container.registerSingleton(FetchDocumentByIdController);
+container.registerSingleton(CreateDocumentController);
+container.registerSingleton(UpdateDocumentController);
+container.registerSingleton(DeleteDocumentController);

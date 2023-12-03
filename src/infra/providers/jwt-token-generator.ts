@@ -5,7 +5,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class JwtTokenGeneratorProvider implements TokenGeneratorProvider {
-  constructor(@inject('EnvService') private envService: EnvService) {}
+  constructor(@inject(EnvService) private envService: EnvService) {}
 
   execute(id: string, role: string) {
     const token = jwt.sign(

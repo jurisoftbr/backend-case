@@ -7,7 +7,7 @@ import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
 
 @injectable()
 export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
-  constructor(@inject('PrismaService') private prisma: PrismaService) {}
+  constructor(@inject(PrismaService) private prisma: PrismaService) {}
 
   async create(lawyer: Lawyer): Promise<void> {
     await this.prisma.lawyer.create({

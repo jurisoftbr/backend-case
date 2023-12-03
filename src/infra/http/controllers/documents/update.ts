@@ -18,7 +18,7 @@ const updateDocumentsBodySchema = z.object({
 @injectable()
 export class UpdateDocumentController {
   constructor(
-    @inject('UpdateDocumentUseCase')
+    @inject(UpdateDocumentUseCase)
     private updateDocumentUseCase: UpdateDocumentUseCase
   ) {}
 

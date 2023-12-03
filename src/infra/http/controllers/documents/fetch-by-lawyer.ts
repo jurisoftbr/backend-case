@@ -8,7 +8,7 @@ import { userRequestSchema } from '../../utils/user-request-schema';
 @injectable()
 export class FetchLawyerDocumentsController {
   constructor(
-    @inject('FetchLawyerDocumentsUseCase')
+    @inject(FetchLawyerDocumentsUseCase)
     private fetchLawyerDocumentsUseCase: FetchLawyerDocumentsUseCase
   ) {}
 

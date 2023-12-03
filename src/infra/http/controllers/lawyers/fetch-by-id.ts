@@ -7,7 +7,7 @@ import { LawyersMapper } from '@/core/mappers/lawyers';
 @injectable()
 export class FetchLawyerByIdController {
   constructor(
-    @inject('FetchLawyerByIdUseCase')
+    @inject(FetchLawyerByIdUseCase)
     private fetchLawyerByIdUseCase: FetchLawyerByIdUseCase
   ) {}
 

@@ -46,5 +46,5 @@ container.registerSingleton(
 container.registerSingleton('LoginLawyerUseCase', LoginLawyerUseCase);
 
 // Controllers
-container.registerSingleton('CreateLawyerController', CreateLawyerController);
-container.registerSingleton('LoginLawyerController', LoginLawyerController);
+container.registerSingleton(CreateLawyerController);
+container.registerSingleton(LoginLawyerController);

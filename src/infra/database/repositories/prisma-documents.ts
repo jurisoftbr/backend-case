@@ -6,7 +6,7 @@ import { injectable, inject } from 'tsyringe';
 
 @injectable()
 export class PrismaDocumentsRepository implements DocumentsRepository {
-  constructor(@inject('PrismaService') private prisma: PrismaService) {}
+  constructor(@inject(PrismaService) private prisma: PrismaService) {}
 
   async findByLawyerId(lawyerId: string): Promise<Document[]> {
     const prismaDocuments = await this.prisma.document.findMany({

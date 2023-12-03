@@ -11,7 +11,7 @@ container.registerSingleton<LawyersRepository>(
 );
 
 // Use cases
-container.registerSingleton('FetchLawyerByIdUseCase', FetchLawyerByIdUseCase);
+container.registerSingleton(FetchLawyerByIdUseCase);
 
 // Controllers
 container.registerSingleton(FetchLawyerByIdController);

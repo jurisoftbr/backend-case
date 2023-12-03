@@ -12,7 +12,7 @@ const loginLawyerBodySchema = z.object({
 @injectable()
 export class LoginLawyerController {
   constructor(
-    @inject('LoginLawyerUseCase') private loginLawyerUseCase: LoginLawyerUseCase
+    @inject(LoginLawyerUseCase) private loginLawyerUseCase: LoginLawyerUseCase
   ) {}
 
   async handle(request: Request, response: Response, next: NextFunction) {

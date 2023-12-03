@@ -12,7 +12,7 @@ const fetchDocumentByIdParamsSchema = z.object({
 @injectable()
 export class FetchDocumentByIdController {
   constructor(
-    @inject('FetchDocumentByIdUseCase')
+    @inject(FetchDocumentByIdUseCase)
     private fetchDocumentByIdUseCase: FetchDocumentByIdUseCase
   ) {}
 

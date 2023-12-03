@@ -11,7 +11,7 @@ interface JwtPayload {
 
 @injectable()
 export class JwtValidTokenVerifier implements ValidTokenVerifier {
-  constructor(@inject('EnvService') private envService: EnvService) {}
+  constructor(@inject(EnvService) private envService: EnvService) {}
 
   execute(token: string) {
     const payload = jwt.verify(

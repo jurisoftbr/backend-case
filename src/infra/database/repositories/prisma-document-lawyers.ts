@@ -9,7 +9,7 @@ import { injectable, inject } from 'tsyringe';
 export class PrismaDocumentLawyersRepository
   implements DocumentLawyersRepository
 {
-  constructor(@inject('PrismaService') private prisma: PrismaService) {}
+  constructor(@inject(PrismaService) private prisma: PrismaService) {}
 
   async findById(id: string): Promise<Lawyer> {
     const prismaLawyer = await this.prisma.lawyer.findUnique({

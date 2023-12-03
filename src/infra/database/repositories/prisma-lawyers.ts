@@ -6,7 +6,7 @@ import { LawyersMapper } from '@/core/mappers/lawyers';
 
 @injectable()
 export class PrismaLawyersRepository implements LawyersRepository {
-  constructor(@inject('PrismaService') private prisma: PrismaService) {}
+  constructor(@inject(PrismaService) private prisma: PrismaService) {}
 
   async findById(id: string): Promise<Lawyer | null> {
     const prismaLawyer = await this.prisma.lawyer.findUnique({
