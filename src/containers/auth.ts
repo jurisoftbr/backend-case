@@ -5,7 +5,7 @@ import { ValidTokenVerifier } from '@/domain/auth/providers/valid-token-verifier
 import { AuthLawyersRepository } from '@/domain/auth/repositories/auth-lawyers';
 import { CreateNormalRoleLawyerUseCase } from '@/domain/auth/use-cases/create-normal-role-lawyer';
 import { LoginLawyerUseCase } from '@/domain/auth/use-cases/login-lawyer';
-import { PrismaAuthLawyersRepository } from '@/infra/database/repositories/prisma-lawyers-repository';
+import { PrismaAuthLawyersRepository } from '@/infra/database/repositories/prisma-auth-lawyers-repository';
 import { CreateLawyerController } from '@/infra/http/controllers/auth/create-lawyer';
 import { LoginLawyerController } from '@/infra/http/controllers/auth/login-lawyer';
 import { BcryptPasswordComparatorProvider } from '@/infra/providers/bcrypt-password-comparator';
