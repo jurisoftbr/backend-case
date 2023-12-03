@@ -1,6 +1,3 @@
 export interface PasswordComparatorProvider {
-  execute(
-    passwordHash: string,
-    realPassword: string
-  ): boolean | Promise<boolean>;
+  execute(passwordHash: string, realPassword: string): Promise<boolean>;
 }
