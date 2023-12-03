@@ -12,7 +12,7 @@ export function authorization(
   next: NextFunction
 ) {
   if (
-    request.path === '/login' ||
+    request.path === '/auth/login' ||
     (request.path === '/lawyers' && request.method === 'POST')
   ) {
     next();
