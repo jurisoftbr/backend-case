@@ -6,6 +6,6 @@ export class BcryptPasswordComparatorProvider
   implements PasswordComparatorProvider
 {
   async execute(passwordHash: string, realPassword: string) {
-    return bcrypt.compare(passwordHash, realPassword);
+    return bcrypt.compare(realPassword, passwordHash);
   }
 }
