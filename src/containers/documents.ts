@@ -5,8 +5,8 @@ import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-docum
 import { FetchDocumentByIdUseCase } from '@/domain/documents/use-cases/fetch-document-by-id';
 import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-lawyer-documents';
 import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-document';
-import { PrismaDocumentsRepository } from '@/infra/database/repositories/prisma-documents-repository';
-import { PrismaDocumentLawyersRepository } from '@/infra/database/repositories/prisma-document-lawyers-repository';
+import { PrismaDocumentsRepository } from '@/infra/database/repositories/prisma-documents';
+import { PrismaDocumentLawyersRepository } from '@/infra/database/repositories/prisma-document-lawyers';
 import { CreateDocumentController } from '@/infra/http/controllers/documents/create';
 import { DeleteDocumentController } from '@/infra/http/controllers/documents/delete';
 import { FetchDocumentByIdController } from '@/infra/http/controllers/documents/fetch-by-id';
