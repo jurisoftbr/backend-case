@@ -8,6 +8,7 @@ export function makeDocument(override?: Partial<DocumentProps>, id?: UniqueId) {
       title: faker.lorem.words(),
       description: faker.lorem.sentences(),
       fileUrl: faker.internet.url(),
+      keywords: [faker.lorem.word(), faker.lorem.word()],
       lawyerId: new UniqueId(),
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),

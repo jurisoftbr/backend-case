@@ -33,6 +33,7 @@ describe('CreateDocumentUseCase', () => {
         title: documentMock.title,
         description: documentMock.description,
         fileUrl: documentMock.fileUrl,
+        keywords: documentMock.keywords,
         lawyerId: documentMock.lawyerId.value,
       });
 
@@ -52,6 +53,7 @@ describe('CreateDocumentUseCase', () => {
             title: documentMock.title,
             description: documentMock.description,
             fileUrl: documentMock.fileUrl,
+            keywords: documentMock.keywords,
             lawyerId: documentMock.lawyerId.value,
           })
       ).rejects.toThrowError(LawyerNotFoundError);
