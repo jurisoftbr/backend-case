@@ -3,7 +3,7 @@ import { AuthLawyersRepository } from '@/domain/auth/repositories/auth-lawyers';
 import { PrismaService } from '../prisma-service';
 import { injectable, inject } from 'tsyringe';
 import { Lawyer } from '@/domain/auth/entities/lawyer';
-import { LawyersMapper } from '@/core/mappers/lawyers';
+import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
 
 @injectable()
 export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
@@ -30,6 +30,6 @@ export class PrismaAuthLawyersRepository implements AuthLawyersRepository {
 
     if (!prismaLawyer) return null;
 
-    return LawyersMapper.toDomain(prismaLawyer);
+    return AuthLawyersMapper.toDomain(prismaLawyer);
   }
 }

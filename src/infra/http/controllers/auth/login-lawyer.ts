@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
 import { LoginLawyerUseCase } from '@/domain/auth/use-cases/login-lawyer';
-import { LawyersMapper } from '@/core/mappers/lawyers';
+import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
 
 const loginLawyerBodySchema = z.object({
   email: z.string().email(),
@@ -24,7 +24,7 @@ export class LoginLawyerController {
         password,
       });
 
-      const parsedLawyer = LawyersMapper.toObject(lawyer);
+      const parsedLawyer = AuthLawyersMapper.toObject(lawyer);
 
       return response.json({ lawyer: parsedLawyer, token });
     } catch (error) {

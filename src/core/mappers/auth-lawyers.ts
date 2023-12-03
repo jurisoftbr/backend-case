@@ -1,7 +1,7 @@
 import { UniqueId } from '@/core/entities/unique-id';
 import { Lawyer } from '@/domain/auth/entities/lawyer';
 
-interface LawyerObject {
+interface AuthLawyerObject {
   id: string;
   name: string;
   email: string;
@@ -11,7 +11,7 @@ interface LawyerObject {
   updatedAt: Date;
 }
 
-export class LawyersMapper {
+export class AuthLawyersMapper {
   static toDomain({
     id,
     name,
@@ -20,7 +20,7 @@ export class LawyersMapper {
     role,
     createdAt,
     updatedAt,
-  }: LawyerObject): Lawyer {
+  }: AuthLawyerObject): Lawyer {
     return Lawyer.create(
       {
         name,
@@ -34,7 +34,7 @@ export class LawyersMapper {
     );
   }
 
-  static toObject(lawyer: Lawyer): LawyerObject {
+  static toObject(lawyer: Lawyer): AuthLawyerObject {
     return {
       id: lawyer.id.value,
       name: lawyer.name,

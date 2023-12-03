@@ -2,7 +2,7 @@ import { CreateNormalRoleLawyerUseCase } from '@/domain/auth/use-cases/create-no
 import { inject, injectable } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
-import { LawyersMapper } from '@/core/mappers/lawyers';
+import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
 import { HTTP_STATUS } from '@/core/utils/http-status';
 
 const createNormalRoleLawyerBodySchema = z.object({
@@ -31,7 +31,7 @@ export class CreateLawyerController {
           password,
         });
 
-      const parsedLawyer = LawyersMapper.toObject(lawyer);
+      const parsedLawyer = AuthLawyersMapper.toObject(lawyer);
 
       return response
         .status(HTTP_STATUS.CREATED)
