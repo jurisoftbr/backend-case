@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@/core/utils/http-status';
+import { HTTP_STATUS } from '../../statuses';
 import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-document';
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';

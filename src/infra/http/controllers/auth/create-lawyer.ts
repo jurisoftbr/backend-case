@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
 import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
-import { HTTP_STATUS } from '@/core/utils/http-status';
+import { HTTP_STATUS } from '../../statuses';
 
 const createNormalRoleLawyerBodySchema = z.object({
   name: z.string(),

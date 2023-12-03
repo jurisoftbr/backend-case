@@ -1,5 +1,5 @@
 import { DocumentsMapper } from '@/core/mappers/documents';
-import { HTTP_STATUS } from '@/core/utils/http-status';
+import { HTTP_STATUS } from '../../statuses';
 import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-document';
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';

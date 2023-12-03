@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { HTTP_STATUS } from '@/core/utils/http-status';
+import { HTTP_STATUS } from '../http/statuses';
 import { BadCredentialsError } from '@/domain/auth/errors/bad-credentials';
 import { LawyerAlreadyExistsError } from '@/domain/auth/errors/lawyer-already-exists';
 import { DocumentNotFoundError } from '@/domain/documents/errors/document-not-found';
