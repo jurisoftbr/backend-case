@@ -13,6 +13,7 @@ const updateDocumentsBodySchema = z.object({
   title: z.string(),
   description: z.string(),
   fileUrl: z.string().url(),
+  keywords: z.array(z.string()),
 });
 
 @injectable()
@@ -26,15 +27,15 @@ export class UpdateDocumentController {
     try {
       const { documentId } = updateDocumentsParamsSchema.parse(request.params);
       const { id: lawyerId } = requestUserSchema.parse(request.user);
-      const { title, description, fileUrl } = updateDocumentsBodySchema.parse(
-        request.body
-      );
+      const { title, description, fileUrl, keywords } =
+        updateDocumentsBodySchema.parse(request.body);
 
       const { document } = await this.updateDocumentUseCase.execute({
         id: documentId,
         title,
         description,
         fileUrl,
+        keywords,
         lawyerId,
       });
 
