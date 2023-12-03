@@ -1,4 +1,4 @@
-import { Lawyer } from '../entities/lawyer';
+import { Lawyer } from '../entities/auth-lawyer';
 
 export abstract class AuthLawyersRepository {
   abstract create(lawyer: Lawyer): Promise<void>;

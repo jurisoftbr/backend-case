@@ -1,5 +1,5 @@
 import { UniqueId } from '@/core/entities/unique-id';
-import { Lawyer } from '@/domain/auth/entities/lawyer';
+import { AuthLawyer } from '@/domain/auth/entities/auth-lawyer';
 
 interface AuthLawyerObject {
   id: string;
@@ -20,8 +20,8 @@ export class AuthLawyersMapper {
     role,
     createdAt,
     updatedAt,
-  }: AuthLawyerObject): Lawyer {
-    return Lawyer.create(
+  }: AuthLawyerObject): AuthLawyer {
+    return AuthLawyer.create(
       {
         name,
         email,
@@ -34,7 +34,7 @@ export class AuthLawyersMapper {
     );
   }
 
-  static toObject(lawyer: Lawyer): AuthLawyerObject {
+  static toObject(lawyer: AuthLawyer): AuthLawyerObject {
     return {
       id: lawyer.id.value,
       name: lawyer.name,

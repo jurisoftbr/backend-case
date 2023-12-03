@@ -2,7 +2,7 @@ import { ValidTokenVerifier } from '@/domain/auth/providers/valid-token-verifier
 import { inject, injectable } from 'tsyringe';
 import { EnvService } from '../env/env-service';
 import * as jwt from 'jsonwebtoken';
-import { AuthorizationData } from '@/domain/auth/entities/object-values/authorization-data';
+import { AuthorizationData } from '@/domain/auth/entities/value-objects/authorization-data';
 
 interface JwtPayload {
   id: string;

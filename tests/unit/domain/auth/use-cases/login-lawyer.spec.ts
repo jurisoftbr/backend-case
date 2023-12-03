@@ -1,17 +1,17 @@
-import { Lawyer } from '@/domain/auth/entities/lawyer';
+import { AuthLawyer } from '@/domain/auth/entities/auth-lawyer';
 import { BadCredentialsError } from '@/domain/auth/errors/bad-credentials';
 import { PasswordComparatorProvider } from '@/domain/auth/providers/password-comparator';
 import { TokenGeneratorProvider } from '@/domain/auth/providers/token-generator';
 import { LoginLawyerUseCase } from '@/domain/auth/use-cases/login-lawyer';
-import { makeLawyer } from 'tests/factories/auth/entities/make-lawyer';
-import { makeLawyersRepository } from 'tests/factories/auth/repositories/make-lawyers-repository';
+import { makeAuthLawyer } from 'tests/factories/auth/entities/make-auth-lawyer';
+import { makeAuthLawyersRepository } from 'tests/factories/auth/repositories/make-auth-lawyers-repository';
 import { Mock } from 'vitest';
 
 describe('LoginLawyerUseCase', () => {
   let sut: LoginLawyerUseCase;
 
-  const lawyerMock = makeLawyer();
-  const lawyersRepositoryMock = makeLawyersRepository();
+  const authLawyerMock = makeAuthLawyer();
+  const authLawyersRepositoryMock = makeAuthLawyersRepository();
   const passwordComparatorProviderMock = {
     execute: vi.fn(),
   } as PasswordComparatorProvider;
@@ -21,7 +21,7 @@ describe('LoginLawyerUseCase', () => {
 
   beforeEach(() => {
     sut = new LoginLawyerUseCase(
-      lawyersRepositoryMock,
+      authLawyersRepositoryMock,
       passwordComparatorProviderMock,
       tokenGeneratorProviderMock
     );
@@ -31,8 +31,8 @@ describe('LoginLawyerUseCase', () => {
 
   describe('execute', () => {
     it('should return the lawyer and token when login successfully', async () => {
-      (lawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(
-        lawyerMock
+      (authLawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(
+        authLawyerMock
       );
       (passwordComparatorProviderMock.execute as Mock).mockReturnValueOnce(
         true
@@ -40,32 +40,34 @@ describe('LoginLawyerUseCase', () => {
       (tokenGeneratorProviderMock.execute as Mock).mockReturnValue('token');
 
       const result = await sut.execute({
-        email: lawyerMock.email,
-        password: lawyerMock.password,
+        email: authLawyerMock.email,
+        password: authLawyerMock.password,
       });
 
-      expect(lawyersRepositoryMock.findByEmail).toHaveBeenCalledWith(
-        lawyerMock.email
+      expect(authLawyersRepositoryMock.findByEmail).toHaveBeenCalledWith(
+        authLawyerMock.email
       );
-      expect(result.lawyer).toBeInstanceOf(Lawyer);
+      expect(result.lawyer).toBeInstanceOf(AuthLawyer);
       expect(result.token).toBe('token');
     });
 
     it('should throws error when lawyer is not found by email', async () => {
-      (lawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(null);
+      (authLawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(
+        null
+      );
 
       expect(
         async () =>
           await sut.execute({
-            email: lawyerMock.email,
-            password: lawyerMock.password,
+            email: authLawyerMock.email,
+            password: authLawyerMock.password,
           })
       ).rejects.toThrowError(BadCredentialsError);
     });
 
     it('should throws error when password is incorrect', async () => {
-      (lawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(
-        lawyerMock
+      (authLawyersRepositoryMock.findByEmail as Mock).mockResolvedValueOnce(
+        authLawyerMock
       );
       (passwordComparatorProviderMock.execute as Mock).mockReturnValueOnce(
         false
@@ -74,7 +76,7 @@ describe('LoginLawyerUseCase', () => {
       expect(
         async () =>
           await sut.execute({
-            email: lawyerMock.email,
+            email: authLawyerMock.email,
             password: 'password to compare',
           })
       ).rejects.toThrowError(BadCredentialsError);

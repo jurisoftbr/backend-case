@@ -1,9 +1,9 @@
 import { UniqueId } from '@/core/entities/unique-id';
-import { Lawyer } from '@/domain/auth/entities/lawyer';
+import { AuthLawyer } from '@/domain/auth/entities/auth-lawyer';
 import { faker } from '@faker-js/faker';
 
-export function makeLawyer(override?: Partial<Lawyer>, id?: UniqueId) {
-  return Lawyer.create(
+export function makeAuthLawyer(override?: Partial<AuthLawyer>, id?: UniqueId) {
+  return AuthLawyer.create(
     {
       name: faker.person.fullName(),
       email: faker.internet.email(),

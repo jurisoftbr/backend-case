@@ -1,5 +1,5 @@
 import { AuthLawyersRepository } from '../repositories/auth-lawyers';
-import { Lawyer } from '../entities/lawyer';
+import { AuthLawyer } from '../entities/auth-lawyer';
 import { LawyerAlreadyExistsError } from '../errors/lawyer-already-exists';
 import { inject, injectable } from 'tsyringe';
 import { PasswordHasherProvider } from '../providers/password-hasher';
@@ -12,7 +12,7 @@ interface CreateNormalRoleLawyerUseCaseRequest {
 }
 
 interface CreateNormalRoleLawyerUseCaseResponse {
-  lawyer: Lawyer;
+  lawyer: AuthLawyer;
   token;
 }
 
@@ -20,7 +20,7 @@ interface CreateNormalRoleLawyerUseCaseResponse {
 export class CreateNormalRoleLawyerUseCase {
   constructor(
     @inject('AuthLawyersRepository')
-    private lawyersRepository: AuthLawyersRepository,
+    private authLawyersRepository: AuthLawyersRepository,
     @inject('PasswordHasherProvider')
     private passwordHasherProvider: PasswordHasherProvider,
     @inject('TokenGeneratorProvider')
@@ -32,20 +32,21 @@ export class CreateNormalRoleLawyerUseCase {
     email,
     password,
   }: CreateNormalRoleLawyerUseCaseRequest): Promise<CreateNormalRoleLawyerUseCaseResponse> {
-    const lawyerWithSameEmail = await this.lawyersRepository.findByEmail(email);
+    const lawyerWithSameEmail =
+      await this.authLawyersRepository.findByEmail(email);
 
     if (lawyerWithSameEmail) throw new LawyerAlreadyExistsError(email);
 
     const passwordHash = await this.passwordHasherProvider.execute(password);
 
-    const lawyer = Lawyer.create({
+    const lawyer = AuthLawyer.create({
       name,
       email,
       password: passwordHash,
       role: 'normal',
     });
 
-    await this.lawyersRepository.create(lawyer);
+    await this.authLawyersRepository.create(lawyer);
 
     const token = await this.tokenGeneratorProvider.execute(
       lawyer.id.value,

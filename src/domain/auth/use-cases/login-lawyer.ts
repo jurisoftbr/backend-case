@@ -1,4 +1,4 @@
-import { Lawyer } from '../entities/lawyer';
+import { AuthLawyer } from '../entities/auth-lawyer';
 import { BadCredentialsError } from '../errors/bad-credentials';
 import { PasswordComparatorProvider } from '../providers/password-comparator';
 import { TokenGeneratorProvider } from '../providers/token-generator';
@@ -11,7 +11,7 @@ interface LoginLawyerUseCaseRequest {
 }
 
 interface LoginLawyerUseCaseResponse {
-  lawyer: Lawyer;
+  lawyer: AuthLawyer;
   token: string;
 }
 
@@ -19,7 +19,7 @@ interface LoginLawyerUseCaseResponse {
 export class LoginLawyerUseCase {
   constructor(
     @inject('AuthLawyersRepository')
-    private lawyersRepository: AuthLawyersRepository,
+    private authLawyersRepository: AuthLawyersRepository,
     @inject('PasswordComparatorProvider')
     private passwordComparatorProvider: PasswordComparatorProvider,
     @inject('TokenGeneratorProvider')
@@ -30,7 +30,7 @@ export class LoginLawyerUseCase {
     email,
     password,
   }: LoginLawyerUseCaseRequest): Promise<LoginLawyerUseCaseResponse> {
-    const lawyer = await this.lawyersRepository.findByEmail(email);
+    const lawyer = await this.authLawyersRepository.findByEmail(email);
 
     if (!lawyer) throw new BadCredentialsError();
 

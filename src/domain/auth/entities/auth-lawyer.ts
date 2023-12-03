@@ -1,18 +1,18 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueId } from '@/core/entities/unique-id';
 
-export type LawyerRole = 'admin' | 'normal';
+export type AuthLawyerRole = 'admin' | 'normal';
 
-export interface LawyerProps {
+export interface AuthLawyerProps {
   name: string;
   email: string;
   password: string;
-  role: LawyerRole;
+  role: AuthLawyerRole;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export class Lawyer extends Entity<LawyerProps> {
+export class AuthLawyer extends Entity<AuthLawyerProps> {
   get name() {
     return this.props.name;
   }
@@ -37,7 +37,7 @@ export class Lawyer extends Entity<LawyerProps> {
     return this.props.updatedAt;
   }
 
-  static create(props: LawyerProps, id?: UniqueId) {
-    return new Lawyer(props, id);
+  static create(props: AuthLawyerProps, id?: UniqueId) {
+    return new AuthLawyer(props, id);
   }
 }
