@@ -1,8 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import { LoginLawyerUseCase } from '@/domain/auth/use-cases/login-lawyer';
 import { AuthLawyersMapper } from '@/core/mappers/auth-lawyers';
+import { ValidationError } from '@/core/errors/validation-error';
 
 const loginLawyerBodySchema = z.object({
   email: z.string().email(),
@@ -28,6 +29,10 @@ export class LoginLawyerController {
 
       return response.json({ lawyer: parsedLawyer, token });
     } catch (error) {
+      if (error instanceof ZodError) {
+        next(new ValidationError(error.errors[0].path[0] as string));
+      }
+
       next(error);
     }
   }

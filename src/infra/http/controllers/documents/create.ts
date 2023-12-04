@@ -3,8 +3,9 @@ import { HTTP_STATUS } from '../../statuses';
 import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-document';
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import { requestUserSchema } from '../../schemas/request-user';
+import { ValidationError } from '@/core/errors/validation-error';
 
 const createDocumentsBodySchema = z.object({
   title: z.string(),
@@ -38,6 +39,10 @@ export class CreateDocumentController {
 
       return response.status(HTTP_STATUS.CREATED).json(parsedDocument);
     } catch (error) {
+      if (error instanceof ZodError) {
+        next(new ValidationError(error.errors[0].path[0] as string));
+      }
+
       next(error);
     }
   }
