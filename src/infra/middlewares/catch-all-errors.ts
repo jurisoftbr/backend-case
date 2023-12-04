@@ -9,6 +9,7 @@ import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { NextFunction, Request, Response } from 'express';
 import { InvalidDocumentExtension } from '@/domain/documents/errors/invalid-document-extension';
 import { DeleteDocumentFileError } from '@/domain/documents/errors/delete-document-file';
+import { InvalidTokenError } from '@/domain/auth/errors/invalid-token';
 
 export function catchAllErrors(
   error: any,
@@ -24,7 +25,8 @@ export function catchAllErrors(
 
   if (
     error instanceof LawyerAlreadyExistsError ||
-    error instanceof BadCredentialsError
+    error instanceof BadCredentialsError ||
+    error instanceof InvalidTokenError
   ) {
     return response
       .status(HTTP_STATUS.UNAUTHORIZED)
