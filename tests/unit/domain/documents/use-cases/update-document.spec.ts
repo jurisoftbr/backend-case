@@ -34,10 +34,9 @@ describe('UpdateDocumentUseCase', () => {
         id: documentMock.id.value,
         title: documentMock.title,
         description: documentMock.description,
-        fileName: documentMock.fileName,
-        fileUrl: documentMock.fileUrl,
         keywords: documentMock.keywords,
         lawyerId: documentMock.lawyerId.value,
+        categoryId: documentMock.categoryId.value,
       });
 
       expect(lawyersRepositoryMock.findById).toHaveBeenCalledWith(
@@ -57,10 +56,9 @@ describe('UpdateDocumentUseCase', () => {
             id: documentMock.id.value,
             title: documentMock.title,
             description: documentMock.description,
-            fileName: documentMock.fileName,
-            fileUrl: documentMock.fileUrl,
             keywords: documentMock.keywords,
             lawyerId: documentMock.lawyerId.value,
+            categoryId: documentMock.categoryId.value,
           })
       ).rejects.toThrowError(LawyerNotFoundError);
     });
