@@ -8,7 +8,6 @@ import { inject, injectable } from 'tsyringe';
 interface CreateDocumentUseCaseRequest {
   title: string;
   description: string;
-  fileUrl: string;
   keywords: string[];
   lawyerId: string;
 }
@@ -29,7 +28,6 @@ export class CreateDocumentUseCase {
   async execute({
     title,
     description,
-    fileUrl,
     keywords,
     lawyerId,
   }: CreateDocumentUseCaseRequest): Promise<CreateDocumentUseCaseResponse> {
@@ -38,7 +36,6 @@ export class CreateDocumentUseCase {
     const document = Document.create({
       title,
       description,
-      fileUrl,
       keywords,
       lawyerId: new UniqueId(lawyerId),
     });

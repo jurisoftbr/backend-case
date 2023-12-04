@@ -36,7 +36,6 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
         id: document.id.value,
         title: document.title,
         description: document.description,
-        fileUrl: document.fileUrl,
         keywords: document.keywords,
         lawyerId: document.lawyerId.value,
       },
@@ -51,9 +50,26 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
       data: {
         title: document.title,
         description: document.description,
+        fileName: document.fileName,
         fileUrl: document.fileUrl,
         keywords: document.keywords,
         lawyerId: document.lawyerId.value,
+      },
+    });
+  }
+
+  async updateFile(
+    id: string,
+    fileName: string,
+    fileUrl: string
+  ): Promise<void> {
+    await this.prisma.document.update({
+      where: {
+        id,
+      },
+      data: {
+        fileName,
+        fileUrl,
       },
     });
   }

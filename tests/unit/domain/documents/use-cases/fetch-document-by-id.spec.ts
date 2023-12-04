@@ -5,7 +5,7 @@ import { FetchDocumentByIdUseCase } from '@/domain/documents/use-cases/fetch-doc
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
-import { makeLawyersRepository } from 'tests/factories/documents/repositories/make-lawyers-repository';
+import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
 
 describe('FetchDocumentByIdUseCase', () => {
@@ -14,7 +14,7 @@ describe('FetchDocumentByIdUseCase', () => {
   const lawyerMock = makeLawyer();
   const documentMock = makeDocument({ lawyerId: lawyerMock.id });
   const documentsRepositoryMock = makeDocumentsRepository();
-  const lawyersRepositoryMock = makeLawyersRepository();
+  const lawyersRepositoryMock = makeDocumentLawyersRepository();
 
   beforeEach(() => {
     sut = new FetchDocumentByIdUseCase(

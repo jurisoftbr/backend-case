@@ -4,7 +4,7 @@ import { UpdateDocumentUseCase } from '@/domain/documents/use-cases/update-docum
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
-import { makeLawyersRepository } from 'tests/factories/documents/repositories/make-lawyers-repository';
+import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
 
 describe('UpdateDocumentUseCase', () => {
@@ -13,7 +13,7 @@ describe('UpdateDocumentUseCase', () => {
   const lawyerMock = makeLawyer();
   const documentMock = makeDocument({ lawyerId: lawyerMock.id });
   const documentsRepositoryMock = makeDocumentsRepository();
-  const lawyersRepositoryMock = makeLawyersRepository();
+  const lawyersRepositoryMock = makeDocumentLawyersRepository();
 
   beforeEach(() => {
     sut = new UpdateDocumentUseCase(
@@ -34,7 +34,9 @@ describe('UpdateDocumentUseCase', () => {
         id: documentMock.id.value,
         title: documentMock.title,
         description: documentMock.description,
+        fileName: documentMock.fileName,
         fileUrl: documentMock.fileUrl,
+        keywords: documentMock.keywords,
         lawyerId: documentMock.lawyerId.value,
       });
 
@@ -55,7 +57,9 @@ describe('UpdateDocumentUseCase', () => {
             id: documentMock.id.value,
             title: documentMock.title,
             description: documentMock.description,
+            fileName: documentMock.fileName,
             fileUrl: documentMock.fileUrl,
+            keywords: documentMock.keywords,
             lawyerId: documentMock.lawyerId.value,
           })
       ).rejects.toThrowError(LawyerNotFoundError);

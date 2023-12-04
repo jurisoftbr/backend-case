@@ -5,8 +5,9 @@ import { DeleteDocumentUseCase } from '@/domain/documents/use-cases/delete-docum
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
-import { makeLawyersRepository } from 'tests/factories/documents/repositories/make-lawyers-repository';
+import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
+import { DeleteDocumentFileProvider } from '@/domain/documents/providers/delete-document-file';
 
 describe('DeleteDocumentUseCase', () => {
   let sut: DeleteDocumentUseCase;
@@ -14,12 +15,16 @@ describe('DeleteDocumentUseCase', () => {
   const lawyerMock = makeLawyer();
   const documentMock = makeDocument({ lawyerId: lawyerMock.id });
   const documentsRepositoryMock = makeDocumentsRepository();
-  const lawyersRepositoryMock = makeLawyersRepository();
+  const lawyersRepositoryMock = makeDocumentLawyersRepository();
+  const deleteDocumentFileProviderMock = {
+    execute: vi.fn(),
+  } as DeleteDocumentFileProvider;
 
   beforeEach(() => {
     sut = new DeleteDocumentUseCase(
       documentsRepositoryMock,
-      lawyersRepositoryMock
+      lawyersRepositoryMock,
+      deleteDocumentFileProviderMock
     );
 
     vi.resetAllMocks();
@@ -44,6 +49,9 @@ describe('DeleteDocumentUseCase', () => {
       );
       expect(documentsRepositoryMock.delete).toHaveBeenCalledWith(
         documentMock.id.value
+      );
+      expect(deleteDocumentFileProviderMock.execute).toHaveBeenCalledWith(
+        documentMock.fileName
       );
     });
   });

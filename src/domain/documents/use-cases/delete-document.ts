@@ -6,6 +6,7 @@ import { DocumentOwnerError } from '../errors/document-owner';
 import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
+import { DeleteDocumentFileProvider } from '../providers/delete-document-file';
 
 interface DeleteDocumentUseCaseRequest {
   lawyerId: string;
@@ -18,7 +19,9 @@ export class DeleteDocumentUseCase {
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
-    private lawyersRepository: DocumentLawyersRepository
+    private lawyersRepository: DocumentLawyersRepository,
+    @inject('DeleteDocumentFileProvider')
+    private deleteDocumentFileProvider: DeleteDocumentFileProvider
   ) {}
 
   async execute({
@@ -31,10 +34,13 @@ export class DeleteDocumentUseCase {
 
     this.validateDocumentOwner(document, lawyer);
 
+    if (document.fileName) {
+      this.deleteDocumentFileProvider.execute(document.fileName);
+    }
     await this.documentsRepository.delete(document.id.value);
   }
 
-  private async findLawyer(lawyerId): Promise<Lawyer> {
+  private async findLawyer(lawyerId: string): Promise<Lawyer> {
     const lawyer = await this.lawyersRepository.findById(lawyerId);
 
     if (!lawyer) throw new LawyerNotFoundError(lawyerId);
@@ -42,7 +48,7 @@ export class DeleteDocumentUseCase {
     return lawyer;
   }
 
-  private async findDocument(documentId): Promise<Document> {
+  private async findDocument(documentId: string): Promise<Document> {
     const document = await this.documentsRepository.findById(documentId);
 
     if (!document) throw new DocumentNotFoundError(documentId);

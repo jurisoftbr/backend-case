@@ -4,7 +4,8 @@ import { Entity } from '@/core/entities/entity';
 export interface DocumentProps {
   title: string;
   description: string;
-  fileUrl: string;
+  fileName?: string;
+  fileUrl?: string;
   keywords: string[];
   lawyerId: UniqueId;
   createdAt?: Date;
@@ -22,6 +23,10 @@ export class Document extends Entity<DocumentProps> {
 
   get fileUrl() {
     return this.props.fileUrl;
+  }
+
+  get fileName() {
+    return this.props.fileName;
   }
 
   get keywords() {

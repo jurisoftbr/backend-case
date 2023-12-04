@@ -8,6 +8,7 @@ describe('DocumentsMapper', () => {
     id: documentMock.id.value,
     title: documentMock.title,
     description: documentMock.description,
+    fileName: documentMock.fileName,
     fileUrl: documentMock.fileUrl,
     keywords: documentMock.keywords,
     lawyerId: documentMock.lawyerId.value,

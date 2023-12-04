@@ -4,7 +4,7 @@ import { CreateDocumentUseCase } from '@/domain/documents/use-cases/create-docum
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
-import { makeLawyersRepository } from 'tests/factories/documents/repositories/make-lawyers-repository';
+import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
 
 describe('CreateDocumentUseCase', () => {
@@ -13,7 +13,7 @@ describe('CreateDocumentUseCase', () => {
   const lawyerMock = makeLawyer();
   const documentMock = makeDocument({ lawyerId: lawyerMock.id });
   const documentsRepositoryMock = makeDocumentsRepository();
-  const lawyersRepositoryMock = makeLawyersRepository();
+  const lawyersRepositoryMock = makeDocumentLawyersRepository();
 
   beforeEach(() => {
     sut = new CreateDocumentUseCase(
@@ -32,7 +32,6 @@ describe('CreateDocumentUseCase', () => {
       const result = await sut.execute({
         title: documentMock.title,
         description: documentMock.description,
-        fileUrl: documentMock.fileUrl,
         keywords: documentMock.keywords,
         lawyerId: documentMock.lawyerId.value,
       });
@@ -52,7 +51,6 @@ describe('CreateDocumentUseCase', () => {
           await sut.execute({
             title: documentMock.title,
             description: documentMock.description,
-            fileUrl: documentMock.fileUrl,
             keywords: documentMock.keywords,
             lawyerId: documentMock.lawyerId.value,
           })
