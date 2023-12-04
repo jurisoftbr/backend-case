@@ -10,6 +10,7 @@ interface CreateDocumentUseCaseRequest {
   description: string;
   keywords: string[];
   lawyerId: string;
+  categoryId: string;
 }
 
 interface CreateDocumentUseCaseResponse {
@@ -30,6 +31,7 @@ export class CreateDocumentUseCase {
     description,
     keywords,
     lawyerId,
+    categoryId,
   }: CreateDocumentUseCaseRequest): Promise<CreateDocumentUseCaseResponse> {
     await this.checkLawyerExistence(lawyerId);
 
@@ -38,6 +40,7 @@ export class CreateDocumentUseCase {
       description,
       keywords,
       lawyerId: new UniqueId(lawyerId),
+      categoryId: new UniqueId(categoryId),
     });
 
     await this.documentsRepository.create(document);
