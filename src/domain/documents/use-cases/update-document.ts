@@ -9,10 +9,9 @@ interface UpdateDocumentUseCaseRequest {
   id: string;
   title: string;
   description: string;
-  fileName: string;
-  fileUrl: string;
   keywords: string[];
   lawyerId: string;
+  categoryId: string;
 }
 
 interface UpdateDocumentUseCaseResponse {
@@ -32,10 +31,9 @@ export class UpdateDocumentUseCase {
     id,
     title,
     description,
-    fileName,
-    fileUrl,
     keywords,
     lawyerId,
+    categoryId,
   }: UpdateDocumentUseCaseRequest): Promise<UpdateDocumentUseCaseResponse> {
     await this.checkLawyerExistence(lawyerId);
 
@@ -43,10 +41,9 @@ export class UpdateDocumentUseCase {
       {
         title,
         description,
-        fileUrl,
-        fileName,
         keywords,
         lawyerId: new UniqueId(lawyerId),
+        categoryId: new UniqueId(categoryId),
       },
       new UniqueId(id)
     );
