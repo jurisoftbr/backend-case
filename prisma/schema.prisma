@@ -27,8 +27,8 @@ model Document {
   id String @id @map("_id") @db.ObjectId
   title String
   description String
-  fileName String
-  fileUrl String
+  fileName String?
+  fileUrl String?
   keywords String[]
 
   lawyer Lawyer @relation(fields: [lawyerId], references: [id])
