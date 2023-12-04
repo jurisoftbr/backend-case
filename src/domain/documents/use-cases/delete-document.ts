@@ -6,6 +6,7 @@ import { DocumentOwnerError } from '../errors/document-owner';
 import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
+import { DeleteDocumentFileProvider } from '../providers/delete-document-file';
 
 interface DeleteDocumentUseCaseRequest {
   lawyerId: string;
@@ -19,6 +20,8 @@ export class DeleteDocumentUseCase {
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
     private lawyersRepository: DocumentLawyersRepository
+    // @inject('DeleteDocumentFileProvider')
+    // private deleteDocumentFileProvider: DeleteDocumentFileProvider
   ) {}
 
   async execute({
@@ -54,4 +57,6 @@ export class DeleteDocumentUseCase {
     if (document.lawyerId.value !== lawyer.id.value)
       throw new DocumentOwnerError(document.id.value, lawyer.id.value);
   }
+
+  private getFileNameFromFileUrl() {}
 }

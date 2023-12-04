@@ -26,12 +26,12 @@ export class UpdateDocumentFileUrlUseCase {
 
     const fileUrl = `http://localhost:3333/documents/${documentId}/${fileName}`;
 
-    await this.documentsRepository.updateFileUrl(documentId, fileUrl);
+    await this.documentsRepository.updateFile(documentId, fileName, fileUrl);
 
     return { fileUrl };
   }
 
-  private async checkDocumentExistence(documentId): Promise<void> {
+  private async checkDocumentExistence(documentId: string): Promise<void> {
     const document = await this.documentsRepository.findById(documentId);
 
     if (!document) throw new DocumentNotFoundError(documentId);

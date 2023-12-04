@@ -28,8 +28,9 @@ describe('UpdateDocumentFileUrlUseCase', () => {
         fileName: fileNameMock,
       });
 
-      expect(documentsRepositoryMock.updateFileUrl).toHaveBeenCalledWith(
+      expect(documentsRepositoryMock.updateFile).toHaveBeenCalledWith(
         documentIdMock.value,
+        fileNameMock,
         `http://localhost:3333/documents/${documentIdMock}/${fileNameMock}`
       );
       expect(result.fileUrl).toBe(

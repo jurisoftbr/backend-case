@@ -9,6 +9,7 @@ interface UpdateDocumentUseCaseRequest {
   id: string;
   title: string;
   description: string;
+  fileName: string;
   fileUrl: string;
   keywords: string[];
   lawyerId: string;
@@ -31,6 +32,7 @@ export class UpdateDocumentUseCase {
     id,
     title,
     description,
+    fileName,
     fileUrl,
     keywords,
     lawyerId,
@@ -42,6 +44,7 @@ export class UpdateDocumentUseCase {
         title,
         description,
         fileUrl,
+        fileName,
         keywords,
         lawyerId: new UniqueId(lawyerId),
       },

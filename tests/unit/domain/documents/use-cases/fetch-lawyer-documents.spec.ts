@@ -4,14 +4,14 @@ import { FetchLawyerDocumentsUseCase } from '@/domain/documents/use-cases/fetch-
 import { makeDocument } from 'tests/factories/documents/entities/make-document';
 import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
-import { makeLawyersRepository } from 'tests/factories/documents/repositories/make-lawyers-repository';
+import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
 
 describe('FetchLawyerDocumentsUseCase', () => {
   let sut: FetchLawyerDocumentsUseCase;
 
   const documentsRepositoryMock = makeDocumentsRepository();
-  const lawyersRepositoryMock = makeLawyersRepository();
+  const lawyersRepositoryMock = makeDocumentLawyersRepository();
 
   beforeEach(() => {
     sut = new FetchLawyerDocumentsUseCase(
