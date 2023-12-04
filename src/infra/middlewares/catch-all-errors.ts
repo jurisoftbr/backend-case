@@ -1,15 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { HTTP_STATUS } from '../http/statuses';
-import { BadCredentialsError } from '@/domain/auth/errors/bad-credentials';
-import { LawyerAlreadyExistsError } from '@/domain/auth/errors/lawyer-already-exists';
-import { DocumentNotFoundError } from '@/domain/documents/errors/document-not-found';
-import { DocumentOwnerError } from '@/domain/documents/errors/document-owner';
-import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { NextFunction, Request, Response } from 'express';
-import { InvalidDocumentExtension } from '@/domain/documents/errors/invalid-document-extension';
-import { DeleteDocumentFileError } from '@/domain/documents/errors/delete-document-file';
-import { InvalidTokenError } from '@/domain/auth/errors/invalid-token';
+import { UnauthorizedError } from '@/core/errors/unauthorized';
+import { NotFoundError } from '@/core/errors/not-found';
+import { BadRequestError } from '@/core/errors/bad-request';
+import { UnprocessableEntityError } from '@/core/errors/unprocessable-entity';
 
 export function catchAllErrors(
   error: any,
@@ -17,35 +13,25 @@ export function catchAllErrors(
   response: Response,
   next: NextFunction
 ) {
-  if (error instanceof DocumentOwnerError) {
+  if (error instanceof BadRequestError) {
     return response
       .status(HTTP_STATUS.BAD_REQUEST)
       .json({ message: error.message });
   }
 
-  if (
-    error instanceof LawyerAlreadyExistsError ||
-    error instanceof BadCredentialsError ||
-    error instanceof InvalidTokenError
-  ) {
+  if (error instanceof UnauthorizedError) {
     return response
       .status(HTTP_STATUS.UNAUTHORIZED)
       .json({ message: error.message });
   }
 
-  if (
-    error instanceof LawyerNotFoundError ||
-    error instanceof DocumentNotFoundError
-  ) {
+  if (error instanceof NotFoundError) {
     return response
       .status(HTTP_STATUS.NOT_FOUND)
       .json({ message: error.message });
   }
 
-  if (
-    error instanceof InvalidDocumentExtension ||
-    error instanceof DeleteDocumentFileError
-  ) {
+  if (error instanceof UnprocessableEntityError) {
     return response
       .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
       .json({ message: error.message });
