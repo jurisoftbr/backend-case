@@ -9,8 +9,8 @@ import { requestUserSchema } from '../../schemas/request-user';
 const createDocumentsBodySchema = z.object({
   title: z.string(),
   description: z.string(),
-  fileUrl: z.string().url(),
   keywords: z.array(z.string()),
+  categoryId: z.string(),
 });
 
 @injectable()
@@ -23,15 +23,15 @@ export class CreateDocumentController {
   async handle(request: Request, response: Response, next: NextFunction) {
     try {
       const { id: lawyerId } = requestUserSchema.parse(request.user);
-      const { title, description, fileUrl, keywords } =
+      const { title, description, keywords, categoryId } =
         createDocumentsBodySchema.parse(request.body);
 
       const { document } = await this.createDocumentUseCase.execute({
         title,
         description,
-        fileUrl,
         keywords,
         lawyerId,
+        categoryId,
       });
 
       const parsedDocument = DocumentsMapper.toObject(document);

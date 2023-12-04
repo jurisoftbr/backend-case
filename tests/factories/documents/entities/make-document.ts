@@ -11,6 +11,7 @@ export function makeDocument(override?: Partial<DocumentProps>, id?: UniqueId) {
       fileUrl: faker.internet.url(),
       keywords: [faker.lorem.word(), faker.lorem.word()],
       lawyerId: new UniqueId(),
+      categoryId: new UniqueId(),
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),
       ...override,

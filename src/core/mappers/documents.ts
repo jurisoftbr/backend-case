@@ -9,6 +9,7 @@ interface DocumentObject {
   fileUrl: string;
   keywords: string[];
   lawyerId: string;
+  categoryId: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,6 +23,7 @@ export class DocumentsMapper {
     fileUrl,
     keywords,
     lawyerId,
+    categoryId,
     createdAt,
     updatedAt,
   }: DocumentObject): Document {
@@ -33,6 +35,7 @@ export class DocumentsMapper {
         fileUrl,
         keywords,
         lawyerId: new UniqueId(lawyerId),
+        categoryId: new UniqueId(categoryId),
         createdAt,
         updatedAt,
       },
@@ -49,6 +52,7 @@ export class DocumentsMapper {
       fileUrl: document.fileUrl,
       keywords: document.keywords,
       lawyerId: document.lawyerId.value,
+      categoryId: document.categoryId.value,
       createdAt: document.createdAt,
       updatedAt: document.updatedAt,
     };

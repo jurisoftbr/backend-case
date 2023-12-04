@@ -12,6 +12,7 @@ describe('DocumentsMapper', () => {
     fileUrl: documentMock.fileUrl,
     keywords: documentMock.keywords,
     lawyerId: documentMock.lawyerId.value,
+    categoryId: documentMock.categoryId.value,
     createdAt: documentMock.createdAt,
     updatedAt: documentMock.updatedAt,
   };

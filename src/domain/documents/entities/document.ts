@@ -8,6 +8,7 @@ export interface DocumentProps {
   fileUrl?: string;
   keywords: string[];
   lawyerId: UniqueId;
+  categoryId: UniqueId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -35,6 +36,10 @@ export class Document extends Entity<DocumentProps> {
 
   get lawyerId() {
     return this.props.lawyerId;
+  }
+
+  get categoryId() {
+    return this.props.categoryId;
   }
 
   get createdAt() {
