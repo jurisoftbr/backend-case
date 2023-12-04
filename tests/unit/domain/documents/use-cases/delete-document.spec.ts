@@ -7,6 +7,7 @@ import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
 import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
+import { DeleteDocumentFileProvider } from '@/domain/documents/providers/delete-document-file';
 
 describe('DeleteDocumentUseCase', () => {
   let sut: DeleteDocumentUseCase;
@@ -15,11 +16,15 @@ describe('DeleteDocumentUseCase', () => {
   const documentMock = makeDocument({ lawyerId: lawyerMock.id });
   const documentsRepositoryMock = makeDocumentsRepository();
   const lawyersRepositoryMock = makeDocumentLawyersRepository();
+  const deleteDocumentFileProviderMock = {
+    execute: vi.fn(),
+  } as DeleteDocumentFileProvider;
 
   beforeEach(() => {
     sut = new DeleteDocumentUseCase(
       documentsRepositoryMock,
-      lawyersRepositoryMock
+      lawyersRepositoryMock,
+      deleteDocumentFileProviderMock
     );
 
     vi.resetAllMocks();
@@ -44,6 +49,9 @@ describe('DeleteDocumentUseCase', () => {
       );
       expect(documentsRepositoryMock.delete).toHaveBeenCalledWith(
         documentMock.id.value
+      );
+      expect(deleteDocumentFileProviderMock.execute).toHaveBeenCalledWith(
+        documentMock.fileName
       );
     });
   });

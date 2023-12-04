@@ -19,9 +19,9 @@ export class DeleteDocumentUseCase {
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
-    private lawyersRepository: DocumentLawyersRepository
-    // @inject('DeleteDocumentFileProvider')
-    // private deleteDocumentFileProvider: DeleteDocumentFileProvider
+    private lawyersRepository: DocumentLawyersRepository,
+    @inject('DeleteDocumentFileProvider')
+    private deleteDocumentFileProvider: DeleteDocumentFileProvider
   ) {}
 
   async execute({
@@ -34,10 +34,13 @@ export class DeleteDocumentUseCase {
 
     this.validateDocumentOwner(document, lawyer);
 
+    if (document.fileName) {
+      this.deleteDocumentFileProvider.execute(document.fileName);
+    }
     await this.documentsRepository.delete(document.id.value);
   }
 
-  private async findLawyer(lawyerId): Promise<Lawyer> {
+  private async findLawyer(lawyerId: string): Promise<Lawyer> {
     const lawyer = await this.lawyersRepository.findById(lawyerId);
 
     if (!lawyer) throw new LawyerNotFoundError(lawyerId);
@@ -45,7 +48,7 @@ export class DeleteDocumentUseCase {
     return lawyer;
   }
 
-  private async findDocument(documentId): Promise<Document> {
+  private async findDocument(documentId: string): Promise<Document> {
     const document = await this.documentsRepository.findById(documentId);
 
     if (!document) throw new DocumentNotFoundError(documentId);
@@ -57,6 +60,4 @@ export class DeleteDocumentUseCase {
     if (document.lawyerId.value !== lawyer.id.value)
       throw new DocumentOwnerError(document.id.value, lawyer.id.value);
   }
-
-  private getFileNameFromFileUrl() {}
 }

@@ -15,6 +15,8 @@ import { UpdateDocumentController } from '@/infra/http/controllers/documents/upd
 import { container } from 'tsyringe';
 import { UpdateDocumentFileUrlUseCase } from '@/domain/documents/use-cases/update-document-file-url';
 import { UploadDocumentController } from '@/infra/http/controllers/documents/upload';
+import { DeleteDocumentFileProvider } from '@/domain/documents/providers/delete-document-file';
+import { FsDeleteDocumentFileProvider } from '@/infra/providers/fs-delete-document-file';
 
 // Repositories
 container.registerSingleton<DocumentsRepository>(
@@ -24,6 +26,12 @@ container.registerSingleton<DocumentsRepository>(
 container.registerSingleton<DocumentLawyersRepository>(
   'DocumentLawyersRepository',
   PrismaDocumentLawyersRepository
+);
+
+// Providers
+container.registerSingleton<DeleteDocumentFileProvider>(
+  'DeleteDocumentFileProvider',
+  FsDeleteDocumentFileProvider
 );
 
 // Use cases

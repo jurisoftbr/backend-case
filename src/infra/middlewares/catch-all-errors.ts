@@ -8,6 +8,7 @@ import { DocumentOwnerError } from '@/domain/documents/errors/document-owner';
 import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { NextFunction, Request, Response } from 'express';
 import { InvalidDocumentExtension } from '@/domain/documents/errors/invalid-document-extension';
+import { DeleteDocumentFileError } from '@/domain/documents/errors/delete-document-file';
 
 export function catchAllErrors(
   error: any,
@@ -39,7 +40,10 @@ export function catchAllErrors(
       .json({ message: error.message });
   }
 
-  if (error instanceof InvalidDocumentExtension) {
+  if (
+    error instanceof InvalidDocumentExtension ||
+    error instanceof DeleteDocumentFileError
+  ) {
     return response
       .status(HTTP_STATUS.UNPROCESSABLE_ENTITY)
       .json({ message: error.message });

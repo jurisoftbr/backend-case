@@ -1,3 +1,3 @@
 export interface DeleteDocumentFileProvider {
-  execute(fileName: string): Promise<void>;
+  execute(fileName: string): void;
 }
