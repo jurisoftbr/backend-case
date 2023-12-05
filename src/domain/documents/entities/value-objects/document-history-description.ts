@@ -23,9 +23,12 @@ export class DocumentHistoryDescription {
       update: 'updated',
     };
 
+    const dateToFormat =
+      type === 'create' ? document.createdAt : new Date(Date.now());
+
     const documentTitle = document.title;
     const typeInPastWord = wordsMappedByType[type];
-    const dateString = document.createdAt.toLocaleString('pt-BR', {
+    const dateString = dateToFormat.toLocaleString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
