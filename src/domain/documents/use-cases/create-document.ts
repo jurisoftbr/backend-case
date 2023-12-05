@@ -52,7 +52,10 @@ export class CreateDocumentUseCase {
     );
 
     const documentHistory = DocumentHistory.create({
-      description: new DocumentHistoryDescription({ type: 'create', document }),
+      description: DocumentHistoryDescription.createFromType({
+        type: 'create',
+        document,
+      }),
       type: 'create',
       documentId: document.id,
     });
