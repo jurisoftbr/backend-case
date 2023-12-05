@@ -30,38 +30,45 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
     return prismaDocument ? DocumentsMapper.toDomain(prismaDocument) : null;
   }
 
-  async create(document: Document): Promise<void> {
-    await this.prisma.document.create({
+  async create(document: Document): Promise<Document> {
+    const prismaCreatedDocument = await this.prisma.document.create({
       data: {
         id: document.id.value,
         title: document.title,
         description: document.description,
+        version: document.version,
         keywords: document.keywords,
         lawyerId: document.lawyerId.value,
         categoryId: document.categoryId.value,
       },
     });
+
+    return DocumentsMapper.toDomain(prismaCreatedDocument);
   }
 
-  async update(document: Document): Promise<void> {
-    await this.prisma.document.update({
+  async update(document: Document): Promise<Document> {
+    const prismaUpdatedDocument = await this.prisma.document.update({
       where: {
         id: document.id.value,
       },
       data: {
         title: document.title,
         description: document.description,
+        version: document.version,
         fileName: document.fileName,
         fileUrl: document.fileUrl,
         keywords: document.keywords,
       },
     });
+
+    return DocumentsMapper.toDomain(prismaUpdatedDocument);
   }
 
   async updateFile(
     id: string,
     fileName: string,
-    fileUrl: string
+    fileUrl: string,
+    currentVersion: number
   ): Promise<void> {
     await this.prisma.document.update({
       where: {
@@ -70,6 +77,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
       data: {
         fileName,
         fileUrl,
+        version: currentVersion + 1,
       },
     });
   }

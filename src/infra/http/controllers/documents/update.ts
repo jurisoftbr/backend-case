@@ -12,6 +12,7 @@ const updateDocumentsParamsSchema = z.object({
 const updateDocumentsBodySchema = z.object({
   title: z.string(),
   description: z.string(),
+  version: z.number(),
   keywords: z.array(z.string()),
   categoryId: z.string(),
 });
@@ -27,13 +28,14 @@ export class UpdateDocumentController {
     try {
       const { documentId } = updateDocumentsParamsSchema.parse(request.params);
       const { id: lawyerId } = requestUserSchema.parse(request.user);
-      const { title, description, keywords, categoryId } =
+      const { title, description, version, keywords, categoryId } =
         updateDocumentsBodySchema.parse(request.body);
 
       const { document } = await this.updateDocumentUseCase.execute({
         id: documentId,
         title,
         description,
+        version,
         keywords,
         lawyerId,
         categoryId,

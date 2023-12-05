@@ -5,6 +5,7 @@ interface DocumentObject {
   id: string;
   title: string;
   description: string;
+  version: number;
   fileName: string;
   fileUrl: string;
   keywords: string[];
@@ -19,6 +20,7 @@ export class DocumentsMapper {
     id,
     title,
     description,
+    version,
     fileName,
     fileUrl,
     keywords,
@@ -31,6 +33,7 @@ export class DocumentsMapper {
       {
         title,
         description,
+        version,
         fileName,
         fileUrl,
         keywords,
@@ -48,6 +51,7 @@ export class DocumentsMapper {
       id: document.id.value,
       title: document.title,
       description: document.description,
+      version: document.version,
       fileName: document.fileName,
       fileUrl: document.fileUrl,
       keywords: document.keywords,
