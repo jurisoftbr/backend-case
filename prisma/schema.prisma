@@ -18,7 +18,7 @@ model Lawyer {
   role LawyerRole @default(normal)
 
   documents Document[]
-  documentHistories DocumentHistory[]
+  documentHistories DocumentModificationHistory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -33,7 +33,7 @@ model Document {
   fileUrl String?
   keywords String[]
 
-  documentHistories DocumentHistory[]
+  documentHistories DocumentModificationHistory[]
 
   lawyer Lawyer @relation(fields: [lawyerId], references: [id])
   lawyerId String @db.ObjectId
@@ -55,7 +55,7 @@ model Category {
   updatedAt DateTime @updatedAt
 }
 
-model DocumentHistory {
+model DocumentModificationHistory {
   id String @id @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
 
