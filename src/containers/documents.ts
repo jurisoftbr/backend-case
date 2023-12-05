@@ -17,6 +17,8 @@ import { UpdateDocumentFileUrlUseCase } from '@/domain/documents/use-cases/updat
 import { UploadDocumentController } from '@/infra/http/controllers/documents/upload';
 import { DeleteDocumentFileProvider } from '@/domain/documents/providers/delete-document-file';
 import { FsDeleteDocumentFileProvider } from '@/infra/providers/fs-delete-document-file';
+import { DocumentHistoriesRepository } from '@/domain/documents/repositories/document-histories';
+import { PrismaDocumentHistoriesRepository } from '@/infra/database/repositories/prisma-document-histories';
 
 // Repositories
 container.registerSingleton<DocumentsRepository>(
@@ -26,6 +28,10 @@ container.registerSingleton<DocumentsRepository>(
 container.registerSingleton<DocumentLawyersRepository>(
   'DocumentLawyersRepository',
   PrismaDocumentLawyersRepository
+);
+container.registerSingleton<DocumentHistoriesRepository>(
+  'DocumentHistoriesRepository',
+  PrismaDocumentHistoriesRepository
 );
 
 // Providers

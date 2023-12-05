@@ -27,6 +27,7 @@ export class CreateDocumentUseCase {
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
     private lawyersRepository: DocumentLawyersRepository,
+    @inject('DocumentHistoriesRepository')
     private documentHistoriesRepository: DocumentHistoriesRepository
   ) {}
 
@@ -51,7 +52,7 @@ export class CreateDocumentUseCase {
     );
 
     const documentHistory = DocumentHistory.create({
-      description: new DocumentHistoryDescription('create', document),
+      description: new DocumentHistoryDescription({ type: 'create', document }),
       type: 'create',
       documentId: document.id,
     });

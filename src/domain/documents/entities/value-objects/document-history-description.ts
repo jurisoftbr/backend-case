@@ -1,17 +1,24 @@
 import { Document } from '../document';
 import { DocumentHistoryType } from '../document-history';
 
+interface DocumentHistoryDescriptionProps {
+  type: DocumentHistoryType;
+  document?: Document;
+  text?: string;
+}
+
 export class DocumentHistoryDescription {
-  constructor(
-    private type: DocumentHistoryType,
-    private document: Document
-  ) {}
+  constructor(private props: DocumentHistoryDescriptionProps) {}
 
   get text() {
-    const documentTitle = this.document.title;
+    return this.props.text || this.createText();
+  }
+
+  private createText() {
+    const documentTitle = this.props.document.title;
     const typeInPastWord = this.getTypeInPastWord();
-    const dateString = this.getDateString(this.document.createdAt);
-    const hourString = this.getHourString(this.document.createdAt);
+    const dateString = this.getDateString(this.props.document.createdAt);
+    const hourString = this.getHourString(this.props.document.createdAt);
 
     return `The document ${documentTitle} was ${typeInPastWord} on ${dateString} at ${hourString}`;
   }
@@ -22,7 +29,7 @@ export class DocumentHistoryDescription {
       update: 'updated',
     };
 
-    return wordsMappedByType[this.type];
+    return wordsMappedByType[this.props.type];
   }
 
   private getDateString(date: Date) {

@@ -1,6 +1,6 @@
 import { DocumentHistory } from '../entities/document-history';
 
 export abstract class DocumentHistoriesRepository {
-  abstract create(modificationHistory: DocumentHistory): Promise<void>;
-  abstract findByDocument(documentId: string): Promise<DocumentHistory[]>;
+  abstract create(documentHistory: DocumentHistory): Promise<void>;
+  abstract findByDocumentId(documentId: string): Promise<DocumentHistory[]>;
 }
