@@ -23,7 +23,10 @@ export class JwtValidTokenVerifier implements ValidTokenVerifier {
 
       return new AuthorizationData(payload.id, payload.role);
     } catch (error) {
-      if (error instanceof jwt.TokenExpiredError) {
+      if (
+        error instanceof jwt.TokenExpiredError ||
+        error instanceof jwt.JsonWebTokenError
+      ) {
         throw new InvalidTokenError();
       }
 
