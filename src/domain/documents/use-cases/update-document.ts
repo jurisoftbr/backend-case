@@ -4,6 +4,9 @@ import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
 import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { inject, injectable } from 'tsyringe';
+import { DocumentHistoriesRepository } from '../repositories/document-histories';
+import { DocumentHistory } from '../entities/document-history';
+import { DocumentHistoryDescription } from '../entities/value-objects/document-history-description';
 
 interface UpdateDocumentUseCaseRequest {
   id: string;
@@ -25,7 +28,9 @@ export class UpdateDocumentUseCase {
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
-    private lawyersRepository: DocumentLawyersRepository
+    private lawyersRepository: DocumentLawyersRepository,
+    @inject('DocumentHistoriesRepository')
+    private documentHistoriesRepository: DocumentHistoriesRepository
   ) {}
 
   async execute({
@@ -39,19 +44,21 @@ export class UpdateDocumentUseCase {
   }: UpdateDocumentUseCaseRequest): Promise<UpdateDocumentUseCaseResponse> {
     await this.checkLawyerExistence(lawyerId);
 
-    const document = Document.create(
-      {
-        title,
-        description,
-        version: version + 1,
-        keywords,
-        lawyerId: new UniqueId(lawyerId),
-        categoryId: new UniqueId(categoryId),
-      },
-      new UniqueId(id)
+    const document = await this.documentsRepository.update(
+      Document.create(
+        {
+          title,
+          description,
+          version: version + 1,
+          keywords,
+          lawyerId: new UniqueId(lawyerId),
+          categoryId: new UniqueId(categoryId),
+        },
+        new UniqueId(id)
+      )
     );
 
-    await this.documentsRepository.update(document);
+    await this.createDocumentUpdateHistory(document);
 
     return { document };
   }
@@ -60,5 +67,18 @@ export class UpdateDocumentUseCase {
     const lawyer = await this.lawyersRepository.findById(lawyerId);
 
     if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+  }
+
+  private async createDocumentUpdateHistory(document: Document) {
+    const documentHistory = DocumentHistory.create({
+      description: DocumentHistoryDescription.createFromType({
+        type: 'update',
+        document,
+      }),
+      type: 'update',
+      documentId: document.id,
+    });
+
+    return this.documentHistoriesRepository.create(documentHistory);
   }
 }

@@ -17,15 +17,30 @@ describe('DocumentHistoryDescription', () => {
       createdAt: new Date('2023-12-05T10:31:00-03:00'),
     });
 
-    it('should create from type create', () => {
-      const description = DocumentHistoryDescription.createFromType({
-        type: 'create',
-        document: documentMock,
-      });
+    describe('type: create', () => {
+      it('should create from type create', () => {
+        const description = DocumentHistoryDescription.createFromType({
+          type: 'create',
+          document: documentMock,
+        });
 
-      expect(description.text).toBe(
-        `The document ${documentMock.title} was created on 05/12/2023, 10:31`
-      );
+        expect(description.text).toBe(
+          `The document ${documentMock.title} was created on 05/12/2023, 10:31`
+        );
+      });
+    });
+
+    describe('type: update', () => {
+      it('should create from type update', () => {
+        const description = DocumentHistoryDescription.createFromType({
+          type: 'update',
+          document: documentMock,
+        });
+
+        expect(description.text).toBe(
+          `The document ${documentMock.title} was updated on 05/12/2023, 10:31`
+        );
+      });
     });
   });
 });
