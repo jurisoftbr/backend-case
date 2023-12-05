@@ -95,6 +95,9 @@ describe('CreateDocumentUseCase', () => {
       expect(documentHistoriesRepositoryMock.create).toHaveBeenCalledWith(
         expect.any(DocumentHistory)
       );
+      expect(documentHistoriesRepositoryMock.create).toHaveBeenCalledWith(
+        expect.objectContaining({ type: 'create' })
+      );
     });
 
     it('should throws error when the lawyer does not exists', () => {
