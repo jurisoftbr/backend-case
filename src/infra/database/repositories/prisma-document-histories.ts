@@ -34,7 +34,6 @@ export class PrismaDocumentHistoriesRepository
       DocumentHistory.create(
         {
           description: new DocumentHistoryDescription({
-            type: documentHistory.type,
             text: documentHistory.description,
           }),
           type: documentHistory.type,

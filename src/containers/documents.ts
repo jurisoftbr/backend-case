@@ -19,6 +19,8 @@ import { DeleteDocumentFileProvider } from '@/domain/documents/providers/delete-
 import { FsDeleteDocumentFileProvider } from '@/infra/providers/fs-delete-document-file';
 import { DocumentHistoriesRepository } from '@/domain/documents/repositories/document-histories';
 import { PrismaDocumentHistoriesRepository } from '@/infra/database/repositories/prisma-document-histories';
+import { FetchDocumentHistoryUseCase } from '@/domain/documents/use-cases/fetch-document-history';
+import { FetchDocumentHistoryController } from '@/infra/http/controllers/documents/fetch-history';
 
 // Repositories
 container.registerSingleton<DocumentsRepository>(
@@ -47,6 +49,7 @@ container.registerSingleton(CreateDocumentUseCase);
 container.registerSingleton(UpdateDocumentUseCase);
 container.registerSingleton(DeleteDocumentUseCase);
 container.registerSingleton(UpdateDocumentFileUrlUseCase);
+container.registerSingleton(FetchDocumentHistoryUseCase);
 
 // Controllers
 container.registerSingleton(FetchLawyerDocumentsController);
@@ -55,3 +58,4 @@ container.registerSingleton(CreateDocumentController);
 container.registerSingleton(UpdateDocumentController);
 container.registerSingleton(DeleteDocumentController);
 container.registerSingleton(UploadDocumentController);
+container.registerSingleton(FetchDocumentHistoryController);

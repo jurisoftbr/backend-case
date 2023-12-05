@@ -8,6 +8,7 @@ import { UpdateDocumentController } from '../http/controllers/documents/update';
 import { UploadDocumentController } from '../http/controllers/documents/upload';
 import { fileUpload } from '../middlewares/file-upload';
 import path from 'path';
+import { FetchDocumentHistoryController } from '../http/controllers/documents/fetch-history';
 
 export const documentsRoutes = Router();
 
@@ -21,12 +22,18 @@ const createDocumentController = container.resolve(CreateDocumentController);
 const updateDocumentController = container.resolve(UpdateDocumentController);
 const deleteDocumentController = container.resolve(DeleteDocumentController);
 const uploadDocumentController = container.resolve(UploadDocumentController);
+const fetchDocumentHistoryController = container.resolve(
+  FetchDocumentHistoryController
+);
 
 documentsRoutes.get('/', (request, response, next) =>
   fetchLawyerDocumentsController.handle(request, response, next)
 );
 documentsRoutes.get('/:documentId', (request, response, next) =>
   fetchDocumentByIdController.handle(request, response, next)
+);
+documentsRoutes.get('/:documentId/history', (request, response, next) =>
+  fetchDocumentHistoryController.handle(request, response, next)
 );
 documentsRoutes.post('/', (request, response, next) =>
   createDocumentController.handle(request, response, next)
