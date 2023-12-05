@@ -60,7 +60,7 @@ export class CreateDocumentUseCase {
       documentId: document.id,
     });
 
-    this.documentHistoriesRepository.create(documentHistory);
+    await this.documentHistoriesRepository.create(documentHistory);
 
     return { document };
   }
