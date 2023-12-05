@@ -6,7 +6,7 @@ import { InvalidDocumentExtension } from '@/domain/documents/errors/invalid-docu
 
 const storage = multer.diskStorage({
   destination: (request, file, callback) => {
-    const uploadPath = path.join(__dirname, '../../../uploads');
+    const uploadPath = path.join(__dirname, '../../../../uploads');
     fs.mkdirSync(uploadPath, { recursive: true });
     callback(null, uploadPath);
   },

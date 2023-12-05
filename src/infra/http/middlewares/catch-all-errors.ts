@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { HTTP_STATUS } from '../http/statuses';
+import { HTTP_STATUS } from '../statuses';
 import { NextFunction, Request, Response } from 'express';
 import { UnauthorizedError } from '@/core/errors/unauthorized';
 import { NotFoundError } from '@/core/errors/not-found';

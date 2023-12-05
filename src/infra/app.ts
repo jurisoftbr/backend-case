@@ -4,8 +4,8 @@ import express from 'express';
 import { AddressInfo } from 'net';
 import { envSchema } from './env/schema';
 import { routes } from './routes';
-import { catchAllErrors } from './middlewares/catch-all-errors';
-import { authorization } from './middlewares/authorization';
+import { catchAllErrors } from './http/middlewares/catch-all-errors';
+import { authorization } from './http/middlewares/authorization';
 
 export const app = express();
 

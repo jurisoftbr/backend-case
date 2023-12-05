@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../http/statuses';
+import { HTTP_STATUS } from '../statuses';
 import { ValidTokenVerifier } from '@/domain/auth/providers/valid-token-verifier';
 import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';

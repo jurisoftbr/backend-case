@@ -6,7 +6,7 @@ import { FetchDocumentByIdController } from '../http/controllers/documents/fetch
 import { FetchLawyerDocumentsController } from '../http/controllers/documents/fetch-by-lawyer';
 import { UpdateDocumentController } from '../http/controllers/documents/update';
 import { UploadDocumentController } from '../http/controllers/documents/upload';
-import { fileUpload } from '../middlewares/file-upload';
+import { fileUpload } from '../http/middlewares/file-upload';
 import path from 'path';
 import { FetchDocumentHistoryController } from '../http/controllers/documents/fetch-history';
 
