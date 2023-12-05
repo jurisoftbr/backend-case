@@ -57,13 +57,15 @@ model Category {
 
 model DocumentModificationHistory {
   id String @id @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
+  description String
 
   lawyer Lawyer @relation(fields: [lawyerId], references: [id])
   lawyerId String @db.ObjectId
 
   document Document @relation(fields: [documentId], references: [id])
   documentId String @db.ObjectId
+
+  createdAt DateTime @default(now())
 }
 
 enum LawyerRole {
