@@ -2,52 +2,39 @@ import { Document } from '../document';
 import { DocumentHistoryType } from '../document-history';
 
 interface DocumentHistoryDescriptionProps {
+  text: string;
+}
+
+interface CreateFromTypeProps {
   type: DocumentHistoryType;
-  document?: Document;
-  text?: string;
+  document: Document;
 }
 
 export class DocumentHistoryDescription {
   constructor(private props: DocumentHistoryDescriptionProps) {}
 
   get text() {
-    return this.props.text || this.createText();
+    return this.props.text;
   }
 
-  private createText() {
-    const documentTitle = this.props.document.title;
-    const typeInPastWord = this.getTypeInPastWord();
-    const dateString = this.getDateString(this.props.document.createdAt);
-    const hourString = this.getHourString(this.props.document.createdAt);
-
-    return `The document ${documentTitle} was ${typeInPastWord} on ${dateString} at ${hourString}`;
-  }
-
-  private getTypeInPastWord(): string {
+  static createFromType({ type, document }: CreateFromTypeProps) {
     const wordsMappedByType = {
       create: 'created',
       update: 'updated',
     };
 
-    return wordsMappedByType[this.props.type];
-  }
+    const documentTitle = document.title;
+    const typeInPastWord = wordsMappedByType[type];
+    const dateString = document.createdAt.toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
 
-  private getDateString(date: Date) {
-    const day = this.formatDateNumber(date.getDate());
-    const month = this.formatDateNumber(date.getMonth() + 1);
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  }
-
-  private getHourString(date: Date) {
-    const hour = this.formatDateNumber(date.getHours());
-    const minutes = this.formatDateNumber(date.getMinutes());
-
-    return `${hour}:${minutes}`;
-  }
-
-  private formatDateNumber(dateNumber: number): string {
-    return dateNumber.toString().padStart(2, '0');
+    return new DocumentHistoryDescription({
+      text: `The document ${documentTitle} was ${typeInPastWord} on ${dateString}`,
+    });
   }
 }

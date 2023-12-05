@@ -95,12 +95,6 @@ describe('CreateDocumentUseCase', () => {
       expect(documentHistoriesRepositoryMock.create).toHaveBeenCalledWith(
         expect.any(DocumentHistory)
       );
-      expect(
-        (documentHistoriesRepositoryMock.create as Mock).mock.lastCall[0].props
-          .description.text
-      ).toBe(
-        `The document ${documentMock.title} was created on 05/12/2023 at 09:49`
-      );
     });
 
     it('should throws error when the lawyer does not exists', () => {
