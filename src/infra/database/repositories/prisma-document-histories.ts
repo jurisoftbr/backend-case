@@ -3,8 +3,7 @@ import { DocumentHistoriesRepository } from '@/domain/documents/repositories/doc
 import { injectable, inject } from 'tsyringe';
 import { PrismaService } from '../prisma-service';
 import { DocumentHistory } from '@/domain/documents/entities/document-history';
-import { UniqueId } from '@/core/entities/unique-id';
-import { DocumentHistoryDescription } from '@/domain/documents/entities/value-objects/document-history-description';
+import { DocumentHistoriesMapper } from '@/core/mappers/document-histories';
 
 @injectable()
 export class PrismaDocumentHistoriesRepository
@@ -31,17 +30,7 @@ export class PrismaDocumentHistoriesRepository
     });
 
     return prismaDocumentHistories.map((documentHistory) =>
-      DocumentHistory.create(
-        {
-          description: new DocumentHistoryDescription({
-            text: documentHistory.description,
-          }),
-          type: documentHistory.type,
-          documentId: new UniqueId(documentHistory.documentId),
-          createdAt: documentHistory.createdAt,
-        },
-        new UniqueId(documentHistory.id)
-      )
+      DocumentHistoriesMapper.toDomain(documentHistory)
     );
   }
 }
