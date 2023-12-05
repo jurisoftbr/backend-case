@@ -3,7 +3,7 @@ import { DocumentHistoriesRepository } from '@/domain/documents/repositories/doc
 export function makeDocumentHistoriesRepository() {
   const documentHistoriesRepositoryMock = {
     create: vi.fn(),
-    findByDocument: vi.fn(),
+    findByDocumentId: vi.fn(),
   } as DocumentHistoriesRepository;
 
   return documentHistoriesRepositoryMock;
