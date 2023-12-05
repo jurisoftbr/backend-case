@@ -32,7 +32,7 @@ model Document {
   fileUrl String?
   keywords String[]
 
-  documentHistories DocumentModificationHistory[]
+  documentHistories DocumentHistory[]
 
   lawyer Lawyer @relation(fields: [lawyerId], references: [id])
   lawyerId String @db.ObjectId
@@ -54,14 +54,20 @@ model Category {
   updatedAt DateTime @updatedAt
 }
 
-model DocumentModificationHistory {
+model DocumentHistory {
   id String @id @map("_id") @db.ObjectId
   description String
+  type DocumentHistoryType
 
   document Document @relation(fields: [documentId], references: [id])
   documentId String @db.ObjectId
 
   createdAt DateTime @default(now())
+}
+
+enum DocumentHistoryType {
+  create
+  update
 }
 
 enum LawyerRole {
