@@ -7,6 +7,7 @@ export function makeDocument(override?: Partial<DocumentProps>, id?: UniqueId) {
     {
       title: faker.lorem.words(),
       description: faker.lorem.sentences(),
+      version: faker.number.int({ min: 1, max: 15 }),
       fileName: faker.lorem.word(),
       fileUrl: faker.internet.url(),
       keywords: [faker.lorem.word(), faker.lorem.word()],
