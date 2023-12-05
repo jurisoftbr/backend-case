@@ -4,6 +4,9 @@ import { DocumentsRepository } from '../repositories/documents';
 import { DocumentLawyersRepository } from '../repositories/document-lawyers';
 import { LawyerNotFoundError } from '@/core/errors/lawyer-not-found';
 import { inject, injectable } from 'tsyringe';
+import { DocumentHistoriesRepository } from '../repositories/document-histories';
+import { DocumentHistory } from '../entities/document-history';
+import { DocumentHistoryDescription } from '../entities/value-objects/document-history-description';
 
 interface CreateDocumentUseCaseRequest {
   title: string;
@@ -23,7 +26,8 @@ export class CreateDocumentUseCase {
     @inject('DocumentsRepository')
     private documentsRepository: DocumentsRepository,
     @inject('DocumentLawyersRepository')
-    private lawyersRepository: DocumentLawyersRepository
+    private lawyersRepository: DocumentLawyersRepository,
+    private documentHistoriesRepository: DocumentHistoriesRepository
   ) {}
 
   async execute({
@@ -35,16 +39,24 @@ export class CreateDocumentUseCase {
   }: CreateDocumentUseCaseRequest): Promise<CreateDocumentUseCaseResponse> {
     await this.checkLawyerExistence(lawyerId);
 
-    const document = Document.create({
-      title,
-      description,
-      version: 1,
-      keywords,
-      lawyerId: new UniqueId(lawyerId),
-      categoryId: new UniqueId(categoryId),
+    const document = await this.documentsRepository.create(
+      Document.create({
+        title,
+        description,
+        version: 1,
+        keywords,
+        lawyerId: new UniqueId(lawyerId),
+        categoryId: new UniqueId(categoryId),
+      })
+    );
+
+    const documentHistory = DocumentHistory.create({
+      description: new DocumentHistoryDescription('create', document),
+      type: 'create',
+      documentId: document.id,
     });
 
-    await this.documentsRepository.create(document);
+    this.documentHistoriesRepository.create(documentHistory);
 
     return { document };
   }

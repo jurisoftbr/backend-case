@@ -6,19 +6,27 @@ import { makeLawyer } from 'tests/factories/documents/entities/make-lawyer';
 import { makeDocumentsRepository } from 'tests/factories/documents/repositories/make-documents-repository';
 import { makeDocumentLawyersRepository } from 'tests/factories/documents/repositories/make-documents-lawyer-repository';
 import { Mock } from 'vitest';
+import { makeDocumentHistoriesRepository } from 'tests/factories/documents/repositories/make-document-histories-repository';
+import { DocumentHistory } from '@/domain/documents/entities/document-history';
 
 describe('CreateDocumentUseCase', () => {
   let sut: CreateDocumentUseCase;
 
   const lawyerMock = makeLawyer();
-  const documentMock = makeDocument({ lawyerId: lawyerMock.id });
+  const documentMock = makeDocument({
+    lawyerId: lawyerMock.id,
+    version: 1,
+    createdAt: new Date('2023-12-05T09:49:00-03:00'),
+  });
   const documentsRepositoryMock = makeDocumentsRepository();
   const lawyersRepositoryMock = makeDocumentLawyersRepository();
+  const documentHistoriesRepositoryMock = makeDocumentHistoriesRepository();
 
   beforeEach(() => {
     sut = new CreateDocumentUseCase(
       documentsRepositoryMock,
-      lawyersRepositoryMock
+      lawyersRepositoryMock,
+      documentHistoriesRepositoryMock
     );
     vi.resetAllMocks();
   });
@@ -27,6 +35,9 @@ describe('CreateDocumentUseCase', () => {
     it('should create a document', async () => {
       (lawyersRepositoryMock.findById as Mock).mockResolvedValueOnce(
         lawyerMock
+      );
+      (documentsRepositoryMock.create as Mock).mockResolvedValueOnce(
+        documentMock
       );
 
       const result = await sut.execute({
@@ -48,6 +59,9 @@ describe('CreateDocumentUseCase', () => {
       (lawyersRepositoryMock.findById as Mock).mockResolvedValueOnce(
         lawyerMock
       );
+      (documentsRepositoryMock.create as Mock).mockResolvedValueOnce(
+        documentMock
+      );
 
       const result = await sut.execute({
         title: documentMock.title,
@@ -59,6 +73,34 @@ describe('CreateDocumentUseCase', () => {
 
       expect(documentsRepositoryMock.create).toHaveBeenCalledOnce();
       expect(result.document.version).toBe(1);
+    });
+
+    it('should create a history when create a document', async () => {
+      (lawyersRepositoryMock.findById as Mock).mockResolvedValueOnce(
+        lawyerMock
+      );
+      (documentsRepositoryMock.create as Mock).mockResolvedValueOnce(
+        documentMock
+      );
+
+      await sut.execute({
+        title: documentMock.title,
+        description: documentMock.description,
+        keywords: documentMock.keywords,
+        lawyerId: documentMock.lawyerId.value,
+        categoryId: documentMock.categoryId.value,
+      });
+
+      expect(documentsRepositoryMock.create).toHaveBeenCalledOnce();
+      expect(documentHistoriesRepositoryMock.create).toHaveBeenCalledWith(
+        expect.any(DocumentHistory)
+      );
+      expect(
+        (documentHistoriesRepositoryMock.create as Mock).mock.lastCall[0].props
+          .description.text
+      ).toBe(
+        `The document ${documentMock.title} was created on 05/12/2023 at 09:49`
+      );
     });
 
     it('should throws error when the lawyer does not exists', () => {
