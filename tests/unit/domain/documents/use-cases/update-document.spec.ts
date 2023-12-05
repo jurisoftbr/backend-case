@@ -33,7 +33,8 @@ describe('UpdateDocumentUseCase', () => {
       const result = await sut.execute({
         id: documentMock.id.value,
         title: documentMock.title,
-        description: documentMock.description,
+        description: 'Updated description',
+        version: 1,
         keywords: documentMock.keywords,
         lawyerId: documentMock.lawyerId.value,
         categoryId: documentMock.categoryId.value,
@@ -45,6 +46,26 @@ describe('UpdateDocumentUseCase', () => {
       expect(documentsRepositoryMock.update).toHaveBeenCalledOnce();
       expect(result.document).toBeInstanceOf(Document);
       expect(result.document.id).toStrictEqual(documentMock.id);
+      expect(result.document.description).toBe('Updated description');
+    });
+
+    it('should increment 1 to document version when update', async () => {
+      (lawyersRepositoryMock.findById as Mock).mockResolvedValueOnce(
+        lawyerMock
+      );
+
+      const result = await sut.execute({
+        id: documentMock.id.value,
+        title: documentMock.title,
+        description: 'Updated description',
+        version: 1,
+        keywords: documentMock.keywords,
+        lawyerId: documentMock.lawyerId.value,
+        categoryId: documentMock.categoryId.value,
+      });
+
+      expect(documentsRepositoryMock.update).toHaveBeenCalledOnce();
+      expect(result.document.version).toBe(2);
     });
 
     it('should throws error when the lawyer does not exists', () => {
@@ -55,7 +76,8 @@ describe('UpdateDocumentUseCase', () => {
           await sut.execute({
             id: documentMock.id.value,
             title: documentMock.title,
-            description: documentMock.description,
+            description: 'Updated description',
+            version: 1,
             keywords: documentMock.keywords,
             lawyerId: documentMock.lawyerId.value,
             categoryId: documentMock.categoryId.value,

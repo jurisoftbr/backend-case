@@ -9,6 +9,7 @@ interface UpdateDocumentUseCaseRequest {
   id: string;
   title: string;
   description: string;
+  version: number;
   keywords: string[];
   lawyerId: string;
   categoryId: string;
@@ -31,6 +32,7 @@ export class UpdateDocumentUseCase {
     id,
     title,
     description,
+    version,
     keywords,
     lawyerId,
     categoryId,
@@ -41,6 +43,7 @@ export class UpdateDocumentUseCase {
       {
         title,
         description,
+        version: version + 1,
         keywords,
         lawyerId: new UniqueId(lawyerId),
         categoryId: new UniqueId(categoryId),
@@ -53,7 +56,7 @@ export class UpdateDocumentUseCase {
     return { document };
   }
 
-  private async checkLawyerExistence(lawyerId): Promise<void> {
+  private async checkLawyerExistence(lawyerId: string): Promise<void> {
     const lawyer = await this.lawyersRepository.findById(lawyerId);
 
     if (!lawyer) throw new LawyerNotFoundError(lawyerId);

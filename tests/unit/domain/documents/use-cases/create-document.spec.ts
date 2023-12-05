@@ -34,6 +34,7 @@ describe('CreateDocumentUseCase', () => {
         description: documentMock.description,
         keywords: documentMock.keywords,
         lawyerId: documentMock.lawyerId.value,
+        categoryId: documentMock.categoryId.value,
       });
 
       expect(lawyersRepositoryMock.findById).toHaveBeenCalledWith(
@@ -41,6 +42,23 @@ describe('CreateDocumentUseCase', () => {
       );
       expect(documentsRepositoryMock.create).toHaveBeenCalledOnce();
       expect(result.document).toBeInstanceOf(Document);
+    });
+
+    it('should version be 1 when create a document', async () => {
+      (lawyersRepositoryMock.findById as Mock).mockResolvedValueOnce(
+        lawyerMock
+      );
+
+      const result = await sut.execute({
+        title: documentMock.title,
+        description: documentMock.description,
+        keywords: documentMock.keywords,
+        lawyerId: documentMock.lawyerId.value,
+        categoryId: documentMock.categoryId.value,
+      });
+
+      expect(documentsRepositoryMock.create).toHaveBeenCalledOnce();
+      expect(result.document.version).toBe(1);
     });
 
     it('should throws error when the lawyer does not exists', () => {
@@ -53,6 +71,7 @@ describe('CreateDocumentUseCase', () => {
             description: documentMock.description,
             keywords: documentMock.keywords,
             lawyerId: documentMock.lawyerId.value,
+            categoryId: documentMock.categoryId.value,
           })
       ).rejects.toThrowError(LawyerNotFoundError);
     });

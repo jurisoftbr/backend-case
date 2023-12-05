@@ -36,6 +36,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
         id: document.id.value,
         title: document.title,
         description: document.description,
+        version: document.version,
         keywords: document.keywords,
         lawyerId: document.lawyerId.value,
         categoryId: document.categoryId.value,
@@ -51,6 +52,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
       data: {
         title: document.title,
         description: document.description,
+        version: document.version,
         fileName: document.fileName,
         fileUrl: document.fileUrl,
         keywords: document.keywords,

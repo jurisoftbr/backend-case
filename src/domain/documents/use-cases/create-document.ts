@@ -38,6 +38,7 @@ export class CreateDocumentUseCase {
     const document = Document.create({
       title,
       description,
+      version: 1,
       keywords,
       lawyerId: new UniqueId(lawyerId),
       categoryId: new UniqueId(categoryId),
