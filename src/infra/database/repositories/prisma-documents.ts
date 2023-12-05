@@ -67,7 +67,8 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
   async updateFile(
     id: string,
     fileName: string,
-    fileUrl: string
+    fileUrl: string,
+    currentVersion: number
   ): Promise<void> {
     await this.prisma.document.update({
       where: {
@@ -76,6 +77,7 @@ export class PrismaDocumentsRepository implements DocumentsRepository {
       data: {
         fileName,
         fileUrl,
+        version: currentVersion + 1,
       },
     });
   }

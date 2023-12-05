@@ -32,7 +32,12 @@ export class UpdateDocumentFileUrlUseCase {
 
     const fileUrl = `http://localhost:3333/documents/${documentId}/${fileName}`;
 
-    await this.documentsRepository.updateFile(documentId, fileName, fileUrl);
+    await this.documentsRepository.updateFile(
+      documentId,
+      fileName,
+      fileUrl,
+      document.version
+    );
     await this.createDocumentUpdateHistory(document);
 
     return { fileUrl };

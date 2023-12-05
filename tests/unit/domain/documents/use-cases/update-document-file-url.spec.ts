@@ -23,12 +23,13 @@ describe('UpdateDocumentFileUrlUseCase', () => {
   });
 
   describe('execute', () => {
+    const documentMock = makeDocument({ version: 1 });
     const documentIdMock = new UniqueId();
     const fileNameMock = 'document.pdf';
 
     it('should update the document file url', async () => {
       (documentsRepositoryMock.findById as Mock).mockResolvedValueOnce(
-        makeDocument()
+        documentMock
       );
 
       const result = await sut.execute({
@@ -39,7 +40,8 @@ describe('UpdateDocumentFileUrlUseCase', () => {
       expect(documentsRepositoryMock.updateFile).toHaveBeenCalledWith(
         documentIdMock.value,
         fileNameMock,
-        `http://localhost:3333/documents/${documentIdMock}/${fileNameMock}`
+        `http://localhost:3333/documents/${documentIdMock}/${fileNameMock}`,
+        documentMock.version
       );
       expect(result.fileUrl).toBe(
         `http://localhost:3333/documents/${documentIdMock}/${fileNameMock}`
@@ -48,7 +50,7 @@ describe('UpdateDocumentFileUrlUseCase', () => {
 
     it('should create a document history when update', async () => {
       (documentsRepositoryMock.findById as Mock).mockResolvedValueOnce(
-        makeDocument()
+        documentMock
       );
 
       await sut.execute({

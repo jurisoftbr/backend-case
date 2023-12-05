@@ -8,7 +8,8 @@ export abstract class DocumentsRepository {
   abstract updateFile(
     id: string,
     fileName: string,
-    fileUrl: string
+    fileUrl: string,
+    currentVersion: number
   ): Promise<void>;
   abstract delete(id: string): Promise<void>;
 }
