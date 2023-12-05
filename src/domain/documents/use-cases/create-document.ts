@@ -51,6 +51,18 @@ export class CreateDocumentUseCase {
       })
     );
 
+    this.createDocumentHistory(document);
+
+    return { document };
+  }
+
+  private async checkLawyerExistence(lawyerId: string): Promise<void> {
+    const lawyer = await this.lawyersRepository.findById(lawyerId);
+
+    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+  }
+
+  private async createDocumentHistory(document: Document) {
     const documentHistory = DocumentHistory.create({
       description: DocumentHistoryDescription.createFromType({
         type: 'create',
@@ -60,14 +72,6 @@ export class CreateDocumentUseCase {
       documentId: document.id,
     });
 
-    await this.documentHistoriesRepository.create(documentHistory);
-
-    return { document };
-  }
-
-  private async checkLawyerExistence(lawyerId: string): Promise<void> {
-    const lawyer = await this.lawyersRepository.findById(lawyerId);
-
-    if (!lawyer) throw new LawyerNotFoundError(lawyerId);
+    return this.documentHistoriesRepository.create(documentHistory);
   }
 }
