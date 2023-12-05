@@ -68,6 +68,7 @@ model DocumentHistory {
 enum DocumentHistoryType {
   create
   update
+  updateFile
 }
 
 enum LawyerRole {

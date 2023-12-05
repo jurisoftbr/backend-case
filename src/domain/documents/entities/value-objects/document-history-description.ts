@@ -21,6 +21,7 @@ export class DocumentHistoryDescription {
     const wordsMappedByType = {
       create: 'created',
       update: 'updated',
+      updateFile: 'updated file',
     };
 
     const dateToFormat =

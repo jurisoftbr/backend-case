@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity';
 import { DocumentHistoryDescription } from './value-objects/document-history-description';
 import { UniqueId } from '@/core/entities/unique-id';
 
-export type DocumentHistoryType = 'create' | 'update';
+export type DocumentHistoryType = 'create' | 'update' | 'updateFile';
 
 export interface DocumentHistoryProps {
   description: DocumentHistoryDescription;
