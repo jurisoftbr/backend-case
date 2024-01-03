@@ -31,6 +31,10 @@ Desenvolver uma API RESTful usando Node.js e Express.js para gerenciar documento
 
 ## Requisitos Específicos
 
+### Linguagem e Paradigma
+- Utilizar JavaScript (não TypeScript ou variantes similares).
+- Seguir o padrão de programação procedural ou funcional.
+
 ### API RESTful e Frameworks
 - Desenvolver endpoints para CRUD de documentos.
 - Utilizar Express.js para estruturar a aplicação.
