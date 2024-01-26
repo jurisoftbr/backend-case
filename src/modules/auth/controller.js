@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { LoginBodySchema, RegisterBodySchema } from './validators/user.js';
-import { login, register } from './services/auth';
+import { login, register } from './services/auth.js';
 
 export const AuthController = Router();
 
