@@ -38,6 +38,9 @@ UserSchema.methods = {
 	comparePassword(plainTextPassword) {
 		return bcrypt.compareSync(plainTextPassword, this.password);
 	},
+	encryptPassword(password) {
+		return bcrypt.hashSync(password, 8);
+	},
 };
 
 export const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);

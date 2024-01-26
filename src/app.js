@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import express, { json } from 'express';
 import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routes.js';
@@ -10,7 +11,7 @@ app.get('/', (_req, res) => {
 	res.status(200).send('It works!');
 });
 
-app.use('/api', router);
+app.use('/', router);
 
 app.use(errorHandler);
 
