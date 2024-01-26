@@ -1,0 +1,27 @@
+{
+  "name": "backend-case",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "## Olá, Caro Desenvolvedor!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "biome": "npx @biomejs/biome format src/** --write",
+    "dev": "dotenv -- node --watch src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "dotenv-cli": "^7.3.0",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1"
+  },
+  "engines": {
+    "node": "20.10.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.5.3"
+  }
+}
