@@ -2,6 +2,9 @@ import { Router } from 'express';
 import multer from 'multer';
 import { upload } from './services/upload.js';
 import { keywordsExtractor } from './utils/keywordsExtractor.js';
+import { GetDocumentsQuerySchema } from './validators/document.js';
+import { getDocuments } from './services/getDocuments.js';
+import { badRequest } from '@hapi/boom';
 
 export const DocumentController = new Router();
 
@@ -10,7 +13,7 @@ const uploadMulter = multer({ storage: storage });
 
 DocumentController.post('/upload', uploadMulter.single('file'), async (req, res) => {
 	if (!req.file) {
-		return res.status(400).send('No files were uploaded.');
+		throw badRequest('File is required.');
 	}
 
 	const { buffer, mimetype, originalname } = req.file;
@@ -21,4 +24,16 @@ DocumentController.post('/upload', uploadMulter.single('file'), async (req, res)
 	keywordsExtractor(uploadedFile);
 
 	return res.status(201).send('File uploaded successfully.');
+});
+
+DocumentController.get('/', async (req, res) => {
+	const validateQuery = GetDocumentsQuerySchema.safeParse(req.query);
+
+	if (!validateQuery.success) {
+		throw badRequest('Invalid query parameters.');
+	}
+
+	const documents = await getDocuments(validateQuery.data);
+
+	return res.status(200).send(documents);
 });
