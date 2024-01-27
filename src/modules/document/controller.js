@@ -9,6 +9,7 @@ import { updateDocument } from './services/updateDocument.js';
 import { softDeleteDocument } from './services/softDeleteDocument.js';
 
 export const DocumentController = new Router();
+export const DocumentAdminController = new Router();
 
 const storage = multer.memoryStorage();
 const uploadMulter = multer({ storage: storage });
@@ -40,7 +41,7 @@ DocumentController.get('/', async (req, res) => {
 	return res.status(200).send(documents);
 });
 
-DocumentController.put('/:documentId', uploadMulter.single('file'), async (req, res) => {
+DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (req, res) => {
 	if (!req.file) {
 		throw badRequest('File is required.');
 	}
@@ -53,12 +54,18 @@ DocumentController.put('/:documentId', uploadMulter.single('file'), async (req, 
 		throw badRequest('Invalid query parameters.');
 	}
 
-	await updateDocument({ buffer, mimetype, originalname, userId: req.user.id, documentId: validateParams.data.documentId });
+	await updateDocument({
+		buffer,
+		mimetype,
+		originalname,
+		userId: req.user.id,
+		documentId: validateParams.data.documentId,
+	});
 
 	return res.status(200).send('File updated successfully.');
 });
 
-DocumentController.delete('/:documentId', async (req, res) => {
+DocumentAdminController.delete('/:documentId', async (req, res) => {
 	const validateParams = DocumentIdParamSchema.safeParse(req.params);
 
 	if (!validateParams.success) {
