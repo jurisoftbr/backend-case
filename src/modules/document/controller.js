@@ -2,10 +2,11 @@ import { Router } from 'express';
 import multer from 'multer';
 import { upload } from './services/upload.js';
 import { keywordsExtractor } from './utils/keywordsExtractor.js';
-import { GetDocumentsQuerySchema, UpdateDocumentParamsSchema } from './validators/document.js';
+import { GetDocumentsQuerySchema, DocumentIdParamSchema } from './validators/document.js';
 import { getDocuments } from './services/getDocuments.js';
 import { badRequest } from '@hapi/boom';
 import { updateDocument } from './services/updateDocument.js';
+import { softDeleteDocument } from './services/softDeleteDocument.js';
 
 export const DocumentController = new Router();
 
@@ -46,7 +47,7 @@ DocumentController.put('/:documentId', uploadMulter.single('file'), async (req, 
 
 	const { buffer, mimetype, originalname } = req.file;
 
-	const validateParams = UpdateDocumentParamsSchema.safeParse(req.params);
+	const validateParams = DocumentIdParamSchema.safeParse(req.params);
 
 	if (!validateParams.success) {
 		throw badRequest('Invalid query parameters.');
@@ -55,4 +56,16 @@ DocumentController.put('/:documentId', uploadMulter.single('file'), async (req, 
 	await updateDocument({ buffer, mimetype, originalname, userId: req.user.id, documentId: validateParams.data.documentId });
 
 	return res.status(200).send('File updated successfully.');
+});
+
+DocumentController.delete('/:documentId', async (req, res) => {
+	const validateParams = DocumentIdParamSchema.safeParse(req.params);
+
+	if (!validateParams.success) {
+		throw badRequest('Invalid query parameters.');
+	}
+
+	await softDeleteDocument(validateParams.data.documentId);
+
+	return res.status(200).send('File deleted successfully.');
 });

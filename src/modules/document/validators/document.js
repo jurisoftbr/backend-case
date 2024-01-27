@@ -7,6 +7,6 @@ export const GetDocumentsQuerySchema = z.object({
 	sortBy: z.enum(['DESC', 'ASC']).optional(),
 });
 
-export const UpdateDocumentParamsSchema = z.object({
+export const DocumentIdParamSchema = z.object({
 	documentId: z.string(),
 })

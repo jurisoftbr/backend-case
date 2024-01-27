@@ -11,13 +11,14 @@ export const getDocuments = async (query) => {
 	const documents = await DocumentModel.find({
 		$or: [{ content: searchRegex }, { keywords: searchRegex }, { 'file.originalName': searchRegex }],
 	})
+		.where({ deletedAt: null })
 		.sort({ createdAt: sort })
 		.skip(skip)
 		.limit(limit);
 
 	const totalDocuments = await DocumentModel.countDocuments({
 		$or: [{ content: searchRegex }, { keywords: searchRegex }, { 'file.originalName': searchRegex }],
-	});
+	}).where({ deletedAt: null });
 
 	return {
 		data: documents,
