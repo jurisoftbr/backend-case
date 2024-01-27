@@ -1,22 +1,22 @@
-import { DocumentModel } from '../../../schemas/document';
-import { textExtractor } from '../utils/textExtractor';
+import { DocumentModel } from '../../../schemas/document.js';
+import { textExtractor } from '../utils/textExtractor.js';
 
-export const upload = async ({ buffer, mimetype, userId }) => {
-	const content = textExtractor(buffer, mimetype);
+export const upload = async ({ buffer, mimetype, userId, originalname }) => {
+  const content = await textExtractor(buffer, mimetype);
 
-	const document = new DocumentModel({
-		content,
-		file: {
-			data: buffer,
-			contentType: mimetype,
-			originalName: title,
-		},
-	});
+  const document = new DocumentModel({
+    content,
+    file: {
+      data: buffer,
+      contentType: mimetype,
+      originalName: originalname,
+    },
+  });
 
-	document.versions.push({
-		content,
-		modifiedBy: userId,
-	});
+  document.versions.push({
+    content,
+    modifiedBy: userId,
+  });
 
-	return await document.save();
+  return await document.save();
 };

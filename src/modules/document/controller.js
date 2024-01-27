@@ -1,24 +1,20 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { upload } from './services/upload.js';
+import { ensureAuth } from '../auth/middlewares/ensureAuth.js';
 
 export const DocumentController = new Router();
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const uploadMulter = multer({ storage: storage });
 
-DocumentController.get('/upload', upload.single('file'), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send('No files were uploaded.');
-    }
+DocumentController.post('/upload', ensureAuth.Authenticated, uploadMulter.single('file'), async (req, res) => {
+	if (!req.file) {
+		return res.status(400).send('No files were uploaded.');
+	}
 
-    const { buffer, mimetype, originalname } = req.file;
-    await upload({ buffer, mimetype, title: originalname, userId: req.user.id });
+	const { buffer, mimetype, originalname } = req.file;
+	await upload({ buffer, mimetype, originalname, userId: req.user.id });
 
-    return res.status(201).send('File uploaded successfully.')
-  } catch (err) {
-    console.log(err);
-    return res.status(500).send('Something went wrong to upload the file.');
-  }
+	return res.status(201).send('File uploaded successfully.');
 });
