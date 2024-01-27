@@ -20,6 +20,7 @@ export const login = async ({ email, password }) => {
 		id: user._id,
 		email: user.email,
 		name: user.name,
+		role: user.role,
 	};
 
 	const token = jwt.sign(payload, JWT_SECRET);
@@ -31,7 +32,12 @@ export const login = async ({ email, password }) => {
 };
 
 export const register = async ({ name, email, password }) => {
-	const user = await UserModel.create({ name, email, password });
+	// there are many ways to determine if a user is an admin
+	// this is just for demonstration purposes
+	const isAdmin = email.split('@')[1] === 'admin.com';
+	const role = isAdmin ? 'admin' : 'user';
+
+	const user = await UserModel.create({ name, email, password, role });
 
 	return {
 		user: {

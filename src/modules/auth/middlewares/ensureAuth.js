@@ -28,6 +28,21 @@ const Authenticated = async (req, res, next) => {
 	}
 };
 
+const Admin = async (req, res, next) => {
+	try {
+		const user = await authenticateUserRequest(req);
+
+		if (!user.role.includes('admin')) {
+			return res.status(401).json(unauthorized('You cannot perform this action'));
+		}
+		req.user = user;
+		next();
+	} catch (err) {
+		return res.status(401).json(unauthorized('Invalid user authentication'));
+	}
+};
+
 export const ensureAuth = {
 	Authenticated,
+	Admin,
 };

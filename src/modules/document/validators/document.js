@@ -9,4 +9,4 @@ export const GetDocumentsQuerySchema = z.object({
 
 export const DocumentIdParamSchema = z.object({
 	documentId: z.string(),
-})
+});

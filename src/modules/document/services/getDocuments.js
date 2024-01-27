@@ -8,17 +8,14 @@ export const getDocuments = async (query) => {
 	const sort = sortBy === 'DESC' ? -1 : 1;
 	const searchRegex = new RegExp(search, 'i');
 
-	const documents = await DocumentModel.find({
+	const queryConditions = {
 		$or: [{ content: searchRegex }, { keywords: searchRegex }, { 'file.originalName': searchRegex }],
-	})
-		.where({ deletedAt: null })
-		.sort({ createdAt: sort })
-		.skip(skip)
-		.limit(limit);
+		deletedAt: null,
+	};
 
-	const totalDocuments = await DocumentModel.countDocuments({
-		$or: [{ content: searchRegex }, { keywords: searchRegex }, { 'file.originalName': searchRegex }],
-	}).where({ deletedAt: null });
+	const documents = await DocumentModel.find(queryConditions).sort({ createdAt: sort }).skip(skip).limit(limit);
+
+	const totalDocuments = await DocumentModel.countDocuments(queryConditions);
 
 	return {
 		data: documents,
