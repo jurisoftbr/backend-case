@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 
 export const getUserFromJwt = async (token) => {
 	const user = jwt.verify(token, JWT_SECRET);
-	console.log('aaaaaaaaaaa');
 
 	const parsedUser = UserSchema.parse(user);
 
