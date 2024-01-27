@@ -10,3 +10,9 @@ export const RegisterBodySchema = z.object({
 	email: z.string().email(),
 	password: z.string().min(8),
 });
+
+export const UserSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	email: z.string().email(),
+})

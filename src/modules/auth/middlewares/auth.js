@@ -1,5 +1,5 @@
 import { unauthorized } from '@hapi/boom';
-import { getUserFromJwt } from '../services/auth';
+import { getUserFromJwt } from '../utils/getUserFromJwt.js';
 
 export async function authenticateUserRequest(req) {
 	const authHeader = req.headers.authorization;
