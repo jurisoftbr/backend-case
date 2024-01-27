@@ -1,7 +1,7 @@
 import { unauthorized } from '@hapi/boom';
-import { getUserFromJwt } from '../services/auth';
+import { getUserFromJwt } from '../utils/getUserFromJwt.js';
 
-export async function authenticateUserRequest(req) {
+const authenticateUserRequest = async (req) => {
 	const authHeader = req.headers.authorization;
 
 	if (!authHeader) {
@@ -16,7 +16,7 @@ export async function authenticateUserRequest(req) {
 	}
 
 	return await getUserFromJwt(token);
-}
+};
 
 const Authenticated = async (req, res, next) => {
 	try {

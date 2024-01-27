@@ -1,4 +1,7 @@
+import { JWT_SECRET } from '../../../config.js';
 import { UserModel } from '../../../schemas/user.js';
+import { UserSchema } from '../validators/user.js';
+import jwt from 'jsonwebtoken';
 
 export const getUserFromJwt = async (token) => {
 	const user = jwt.verify(token, JWT_SECRET);
@@ -9,5 +12,5 @@ export const getUserFromJwt = async (token) => {
 
 	if (!findedUser) throw unauthorized('Invalid token');
 
-	return { user: parsedUser, token: token };
+	return { ...parsedUser, token: token };
 };
