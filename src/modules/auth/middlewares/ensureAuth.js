@@ -16,7 +16,7 @@ const authenticateUserRequest = async (req) => {
 	}
 
 	return await getUserFromJwt(token);
-}
+};
 
 const Authenticated = async (req, res, next) => {
 	try {
