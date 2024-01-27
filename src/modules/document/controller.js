@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { upload } from './services/upload.js';
+import { keywordsExtractor } from './utils/keywordsExtractor.js';
 
 export const DocumentController = new Router();
 
@@ -13,7 +14,11 @@ DocumentController.post('/upload', uploadMulter.single('file'), async (req, res)
 	}
 
 	const { buffer, mimetype, originalname } = req.file;
-	await upload({ buffer, mimetype, originalname, userId: req.user.id });
+	const uploadedFile = await upload({ buffer, mimetype, originalname, userId: req.user.id });
+
+	// extract keywords syncronously, but require a log to guarantee that the keywords will be extracted
+	// for development case, I will not use a log, but in production case will be necessary
+	keywordsExtractor(uploadedFile);
 
 	return res.status(201).send('File uploaded successfully.');
 });

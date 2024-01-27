@@ -1,6 +1,7 @@
 import pdfParse from 'pdf-parse/lib/pdf-parse.js';
 import { extractRawText } from 'mammoth';
 import { recognize } from 'node-tesseract-ocr';
+import { badRequest } from '@hapi/boom';
 
 export const textExtractor = async (buffer, mimetype) => {
 	switch (mimetype) {
@@ -13,7 +14,7 @@ export const textExtractor = async (buffer, mimetype) => {
 		case 'image/jpg':
 			return await imageExtractor(buffer);
 		default:
-			break;
+			throw badRequest('File type not supported. Only support PDF, DOCX, PNG, JPG and JPEG.');
 	}
 };
 

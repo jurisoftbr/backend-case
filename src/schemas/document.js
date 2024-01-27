@@ -10,6 +10,7 @@ const DocumentSchema = new mongoose.Schema(
 	{
 		content: { type: String, required: true },
 		deletedAt: { type: Boolean, default: false },
+		keywords: { type: [String] },
 		file: {
 			data: { type: Buffer, required: true },
 			contentType: { type: String, required: true },

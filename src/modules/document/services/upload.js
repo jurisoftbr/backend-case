@@ -18,5 +18,7 @@ export const upload = async ({ buffer, mimetype, userId, originalname }) => {
 		modifiedBy: userId,
 	});
 
-	return await document.save();
+	const saveDocument = await document.save();
+
+	return saveDocument;
 };
