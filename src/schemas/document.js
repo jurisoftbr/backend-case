@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { v4 } from 'uuid';
 
 const VersionSchema = new mongoose.Schema({
 	content: { type: String, required: true },
@@ -8,6 +9,7 @@ const VersionSchema = new mongoose.Schema({
 
 const DocumentSchema = new mongoose.Schema(
 	{
+		id: { type: String, default: () => v4(), required: true },
 		content: { type: String, required: true },
 		deletedAt: { type: Boolean, default: false },
 		keywords: { type: [String] },

@@ -25,6 +25,7 @@
     "natural": "^6.10.4",
     "node-tesseract-ocr": "^2.2.1",
     "pdf-parse": "^1.1.1",
+    "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
   "engines": {

@@ -2,9 +2,10 @@ import { Router } from 'express';
 import multer from 'multer';
 import { upload } from './services/upload.js';
 import { keywordsExtractor } from './utils/keywordsExtractor.js';
-import { GetDocumentsQuerySchema } from './validators/document.js';
+import { GetDocumentsQuerySchema, UpdateDocumentParamsSchema } from './validators/document.js';
 import { getDocuments } from './services/getDocuments.js';
 import { badRequest } from '@hapi/boom';
+import { updateDocument } from './services/updateDocument.js';
 
 export const DocumentController = new Router();
 
@@ -36,4 +37,22 @@ DocumentController.get('/', async (req, res) => {
 	const documents = await getDocuments(validateQuery.data);
 
 	return res.status(200).send(documents);
+});
+
+DocumentController.put('/:documentId', uploadMulter.single('file'), async (req, res) => {
+	if (!req.file) {
+		throw badRequest('File is required.');
+	}
+
+	const { buffer, mimetype, originalname } = req.file;
+
+	const validateParams = UpdateDocumentParamsSchema.safeParse(req.params);
+
+	if (!validateParams.success) {
+		throw badRequest('Invalid query parameters.');
+	}
+
+	await updateDocument({ buffer, mimetype, originalname, userId: req.user.id, documentId: validateParams.data.documentId });
+
+	return res.status(200).send('File updated successfully.');
 });
