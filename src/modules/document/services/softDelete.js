@@ -1,7 +1,7 @@
 import { badRequest } from '@hapi/boom';
 import { DocumentModel } from '../../../schemas/document.js';
 
-export const softDeleteDocument = async (documentId) => {
+export const softDelete = async (documentId) => {
 	const document = await DocumentModel.findOneAndUpdate({ id: documentId }).set({
 		deletedAt: new Date(),
 	});

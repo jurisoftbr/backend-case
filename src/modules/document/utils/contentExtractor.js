@@ -3,7 +3,7 @@ import { extractRawText } from 'mammoth';
 import { recognize } from 'node-tesseract-ocr';
 import { badRequest } from '@hapi/boom';
 
-export const textExtractor = async (buffer, mimetype) => {
+export const contentExtractor = async (buffer, mimetype) => {
 	switch (mimetype) {
 		case 'application/pdf':
 			return await pdfExtractor(buffer);

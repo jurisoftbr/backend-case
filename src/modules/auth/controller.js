@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { LoginBodySchema, RegisterBodySchema } from './validators/user.js';
-import { login, register } from './services/auth.js';
+import { login } from './services/login.js';
+import { register } from './services/register.js';
 import { badRequest } from '@hapi/boom';
 
 export const AuthController = Router();

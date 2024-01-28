@@ -5,8 +5,8 @@ import { keywordsExtractor } from './utils/keywordsExtractor.js';
 import { GetDocumentsQuerySchema, DocumentIdParamSchema } from './validators/document.js';
 import { getDocuments } from './services/getDocuments.js';
 import { badRequest } from '@hapi/boom';
-import { updateDocument } from './services/updateDocument.js';
-import { softDeleteDocument } from './services/softDeleteDocument.js';
+import { update } from './services/update.js';
+import { softDelete } from './services/softDelete.js';
 
 export const DocumentController = new Router();
 export const DocumentAdminController = new Router();
@@ -26,7 +26,7 @@ DocumentController.post('/upload', uploadMulter.single('file'), async (req, res)
 	// for development case, I will not use a log, but in production case will be necessary
 	keywordsExtractor(uploadedFile);
 
-	return res.status(201).send('File uploaded successfully.');
+	return res.sendStatus(201);
 });
 
 DocumentController.get('/', async (req, res) => {
@@ -38,7 +38,7 @@ DocumentController.get('/', async (req, res) => {
 
 	const documents = await getDocuments(validateQuery.data);
 
-	return res.status(200).send(documents);
+	return res.sendStatus(200);
 });
 
 DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (req, res) => {
@@ -54,7 +54,7 @@ DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (
 		throw badRequest('Invalid query parameters.');
 	}
 
-	await updateDocument({
+	await update({
 		buffer,
 		mimetype,
 		originalname,
@@ -62,7 +62,7 @@ DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (
 		documentId: validateParams.data.documentId,
 	});
 
-	return res.status(200).send('File updated successfully.');
+	return res.sendStatus(200);
 });
 
 DocumentAdminController.delete('/:documentId', async (req, res) => {
@@ -72,7 +72,7 @@ DocumentAdminController.delete('/:documentId', async (req, res) => {
 		throw badRequest('Invalid query parameters.');
 	}
 
-	await softDeleteDocument(validateParams.data.documentId);
+	await softDelete(validateParams.data.documentId);
 
-	return res.status(200).send('File deleted successfully.');
+	return res.sendStatus(200);
 });
