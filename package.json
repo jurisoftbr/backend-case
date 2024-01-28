@@ -5,9 +5,10 @@
   "description": "## Olá, Caro Desenvolvedor!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "biome": "npx @biomejs/biome format src/** --write",
-    "dev": "dotenv -- node --watch src/index.js"
+    "dev": "dotenv -- node --watch src/index.js",
+    "test": "dotenv -- vitest run",
+    "test:watch": "dotenv -- vitest"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,8 @@
     "node": "20.10.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.3"
+    "@biomejs/biome": "1.5.3",
+    "supertest": "^6.3.4",
+    "vitest": "^1.2.2"
   }
 }
