@@ -1,9 +1,9 @@
 import { DocumentModel } from '../../../schemas/document.js';
-import { textExtractor } from '../utils/textExtractor.js';
+import { contentExtractor } from '../utils/contentExtractor.js';
 import { v4 } from 'uuid';
 
 export const upload = async ({ buffer, mimetype, userId, originalname }) => {
-	const content = await textExtractor(buffer, mimetype);
+	const content = await contentExtractor(buffer, mimetype);
 
 	const document = new DocumentModel({
 		content,

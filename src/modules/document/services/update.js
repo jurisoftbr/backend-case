@@ -1,8 +1,8 @@
 import { DocumentModel } from '../../../schemas/document.js';
-import { textExtractor } from '../utils/textExtractor.js';
+import { contentExtractor } from '../utils/contentExtractor.js';
 
-export const updateDocument = async ({ buffer, mimetype, userId, originalname, documentId }) => {
-	const content = await textExtractor(buffer, mimetype);
+export const update = async ({ buffer, mimetype, userId, originalname, documentId }) => {
+	const content = await contentExtractor(buffer, mimetype);
 
 	const document = await DocumentModel.findOneAndUpdate({ id: documentId }).set({
 		content,

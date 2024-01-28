@@ -5,8 +5,8 @@ import { keywordsExtractor } from './utils/keywordsExtractor.js';
 import { GetDocumentsQuerySchema, DocumentIdParamSchema } from './validators/document.js';
 import { getDocuments } from './services/getDocuments.js';
 import { badRequest } from '@hapi/boom';
-import { updateDocument } from './services/updateDocument.js';
-import { softDeleteDocument } from './services/softDeleteDocument.js';
+import { update } from './services/update.js';
+import { softDelete } from './services/softDelete.js';
 
 export const DocumentController = new Router();
 export const DocumentAdminController = new Router();
@@ -54,7 +54,7 @@ DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (
 		throw badRequest('Invalid query parameters.');
 	}
 
-	await updateDocument({
+	await update({
 		buffer,
 		mimetype,
 		originalname,
@@ -72,7 +72,7 @@ DocumentAdminController.delete('/:documentId', async (req, res) => {
 		throw badRequest('Invalid query parameters.');
 	}
 
-	await softDeleteDocument(validateParams.data.documentId);
+	await softDelete(validateParams.data.documentId);
 
 	return res.status(200).send('File deleted successfully.');
 });
