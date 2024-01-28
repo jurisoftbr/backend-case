@@ -26,7 +26,7 @@ DocumentController.post('/upload', uploadMulter.single('file'), async (req, res)
 	// for development case, I will not use a log, but in production case will be necessary
 	keywordsExtractor(uploadedFile);
 
-	return res.status(201).send('File uploaded successfully.');
+	return res.sendStatus(201);
 });
 
 DocumentController.get('/', async (req, res) => {
@@ -38,7 +38,7 @@ DocumentController.get('/', async (req, res) => {
 
 	const documents = await getDocuments(validateQuery.data);
 
-	return res.status(200).send(documents);
+	return res.sendStatus(200);
 });
 
 DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (req, res) => {
@@ -62,7 +62,7 @@ DocumentAdminController.put('/:documentId', uploadMulter.single('file'), async (
 		documentId: validateParams.data.documentId,
 	});
 
-	return res.status(200).send('File updated successfully.');
+	return res.sendStatus(200);
 });
 
 DocumentAdminController.delete('/:documentId', async (req, res) => {
@@ -74,5 +74,5 @@ DocumentAdminController.delete('/:documentId', async (req, res) => {
 
 	await softDelete(validateParams.data.documentId);
 
-	return res.status(200).send('File deleted successfully.');
+	return res.sendStatus(200);
 });
