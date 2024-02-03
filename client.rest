@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/document
+Content-Type: 'application/json'
+
+{
+    "document_name": "file-example"
+}
