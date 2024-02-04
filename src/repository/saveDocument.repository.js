@@ -1,8 +1,8 @@
 const { DocumentModel } = require("../model/document.model");
 
-const saveDocumentRepository = async (document) => {
+const saveDocumentRepository = async (document, doc_path, doc_category) => {
     try {
-        const newDoc = new DocumentModel({ document_name: document.document_name });
+        const newDoc = new DocumentModel({ document_name: document, document_path: doc_path, document_category: doc_category});
         
         const savedDoc = await newDoc.save();
 

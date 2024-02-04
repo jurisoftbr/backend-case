@@ -1,0 +1,433 @@
+{
+  "settings": {
+    "languages": [
+      "pt"
+    ],
+    "forceNER": true,
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "pt"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "pt": {
+        "settings": {
+          "locale": "pt",
+          "trainByDomain": false,
+          "tag": "domain-manager-pt",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "assassinat": {
+            "intent": "greetings.criminal",
+            "domain": "default"
+          },
+          "homicidi": {
+            "intent": "greetings.criminal",
+            "domain": "default"
+          },
+          "roub": {
+            "intent": "greetings.criminal",
+            "domain": "default"
+          },
+          "adquir,direit": {
+            "intent": "greetings.trabalhista",
+            "domain": "default"
+          },
+          "extra,hor": {
+            "intent": "greetings.trabalhista",
+            "domain": "default"
+          },
+          "banc,de,hor": {
+            "intent": "greetings.trabalhista",
+            "domain": "default"
+          },
+          "fog,peg": {
+            "intent": "greetings.ambientalista",
+            "domain": "default"
+          },
+          "esta,queim": {
+            "intent": "greetings.ambientalista",
+            "domain": "default"
+          },
+          "arvor,derrub,ilegal,uma": {
+            "intent": "greetings.ambientalista",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greetings.criminal": "default",
+          "greetings.trabalhista": "default",
+          "greetings.ambientalista": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "assassinato",
+            "intent": "greetings.criminal"
+          },
+          {
+            "domain": "default",
+            "utterance": "homicidio",
+            "intent": "greetings.criminal"
+          },
+          {
+            "domain": "default",
+            "utterance": "roubo",
+            "intent": "greetings.criminal"
+          },
+          {
+            "domain": "default",
+            "utterance": "direito adquirido",
+            "intent": "greetings.trabalhista"
+          },
+          {
+            "domain": "default",
+            "utterance": "hora extra",
+            "intent": "greetings.trabalhista"
+          },
+          {
+            "domain": "default",
+            "utterance": "banco de horas",
+            "intent": "greetings.trabalhista"
+          },
+          {
+            "domain": "default",
+            "utterance": "pegou fogo",
+            "intent": "greetings.ambientalista"
+          },
+          {
+            "domain": "default",
+            "utterance": "está queimando",
+            "intent": "greetings.ambientalista"
+          },
+          {
+            "domain": "default",
+            "utterance": "derrubaram uma arvore ilegalmente",
+            "intent": "greetings.ambientalista"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "pt",
+              "tag": "nlu-pt",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "assassinat": 1,
+              "homicidi": 1,
+              "roub": 1,
+              "direit": 1,
+              "adquir": 1,
+              "hor": 1,
+              "extra": 1,
+              "banc": 1,
+              "de": 1,
+              "peg": 1,
+              "fog": 1,
+              "esta": 1,
+              "queim": 1,
+              "derrub": 1,
+              "uma": 1,
+              "arvor": 1,
+              "ilegal": 1
+            },
+            "intents": {
+              "greetings.criminal": 1,
+              "greetings.trabalhista": 1,
+              "greetings.ambientalista": 1
+            },
+            "intentFeatures": {
+              "greetings.criminal": {
+                "assassinat": 1,
+                "homicidi": 1,
+                "roub": 1
+              },
+              "greetings.trabalhista": {
+                "direit": 1,
+                "adquir": 1,
+                "hor": 1,
+                "extra": 1,
+                "banc": 1,
+                "de": 1
+              },
+              "greetings.ambientalista": {
+                "peg": 1,
+                "fog": 1,
+                "esta": 1,
+                "queim": 1,
+                "derrub": 1,
+                "uma": 1,
+                "arvor": 1,
+                "ilegal": 1
+              }
+            },
+            "featuresToIntent": {
+              "assassinat": [
+                "greetings.criminal"
+              ],
+              "homicidi": [
+                "greetings.criminal"
+              ],
+              "roub": [
+                "greetings.criminal"
+              ],
+              "direit": [
+                "greetings.trabalhista"
+              ],
+              "adquir": [
+                "greetings.trabalhista"
+              ],
+              "hor": [
+                "greetings.trabalhista"
+              ],
+              "extra": [
+                "greetings.trabalhista"
+              ],
+              "banc": [
+                "greetings.trabalhista"
+              ],
+              "de": [
+                "greetings.trabalhista"
+              ],
+              "peg": [
+                "greetings.ambientalista"
+              ],
+              "fog": [
+                "greetings.ambientalista"
+              ],
+              "esta": [
+                "greetings.ambientalista"
+              ],
+              "queim": [
+                "greetings.ambientalista"
+              ],
+              "derrub": [
+                "greetings.ambientalista"
+              ],
+              "uma": [
+                "greetings.ambientalista"
+              ],
+              "arvor": [
+                "greetings.ambientalista"
+              ],
+              "ilegal": [
+                "greetings.ambientalista"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "pt",
+                "tag": "nlu-pt",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "assassinat",
+                "homicidi",
+                "roub",
+                "direit",
+                "adquir",
+                "hor",
+                "extra",
+                "banc",
+                "de",
+                "peg",
+                "fog",
+                "esta",
+                "queim",
+                "derrub",
+                "uma",
+                "arvor",
+                "ilegal"
+              ],
+              "intents": [
+                "greetings.criminal",
+                "greetings.trabalhista",
+                "greetings.ambientalista"
+              ],
+              "perceptrons": [
+                [
+                  8.319037437438965,
+                  8.343061447143555,
+                  8.28608512878418,
+                  -2.858185052871704,
+                  -2.858185052871704,
+                  -3.4407761096954346,
+                  -2.2611634731292725,
+                  -1.1790074110031128,
+                  -1.1790074110031128,
+                  -2.8480043411254883,
+                  -2.8480043411254883,
+                  -2.8422536849975586,
+                  -2.8422536849975586,
+                  -1.438457727432251,
+                  -1.438457727432251,
+                  -1.438457727432251,
+                  -1.438457727432251,
+                  5.770814712026404
+                ],
+                [
+                  -2.0463733673095703,
+                  -2.029620885848999,
+                  -2.0124216079711914,
+                  6.083611965179443,
+                  6.083611965179443,
+                  7.297985076904297,
+                  4.832495212554932,
+                  2.460587501525879,
+                  2.460587501525879,
+                  -1.1891582012176514,
+                  -1.1891582012176514,
+                  -1.1718230247497559,
+                  -1.1718230247497559,
+                  -0.6661462187767029,
+                  -0.6661462187767029,
+                  -0.6661462187767029,
+                  -0.6661462187767029,
+                  2.085663207672638
+                ],
+                [
+                  -2.3732261657714844,
+                  -2.3540573120117188,
+                  -2.334362745285034,
+                  -1.2744351625442505,
+                  -1.2744351625442505,
+                  -1.607332468032837,
+                  -0.9619840979576111,
+                  -0.617551326751709,
+                  -0.617551326751709,
+                  5.9171528816223145,
+                  5.9171528816223145,
+                  5.91437292098999,
+                  5.91437292098999,
+                  2.965690851211548,
+                  2.965690851211548,
+                  2.965690851211548,
+                  2.965690851211548,
+                  2.415887096375364
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "pt",
+        "assassinato"
+      ],
+      [
+        "pt",
+        "homicidio"
+      ],
+      [
+        "pt",
+        "roubo"
+      ],
+      [
+        "pt",
+        "direito adquirido"
+      ],
+      [
+        "pt",
+        "hora extra"
+      ],
+      [
+        "pt",
+        "banco de horas"
+      ],
+      [
+        "pt",
+        "pegou fogo"
+      ],
+      [
+        "pt",
+        "está queimando"
+      ],
+      [
+        "pt",
+        "derrubaram uma arvore ilegalmente"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "pt": {
+        "greetings.criminal": [
+          {
+            "answer": "furto seguido de roubo!"
+          },
+          {
+            "answer": "homem foi assassinado no jardim primavera!"
+          }
+        ],
+        "greetings.trabalhista": [
+          {
+            "answer": "não recebi meus diretos após a demissão!"
+          },
+          {
+            "answer": "estou exausto e não consigo tirar uma folga com meu banco de horas!"
+          }
+        ],
+        "greetings.ambientalista": [
+          {
+            "answer": "o desmatamento criminoso está derrubando boa parte da fauna local!"
+          },
+          {
+            "answer": "uma fabrica de carvão ilegal é responsavel pela queimada local!"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
